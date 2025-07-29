@@ -16,37 +16,117 @@
     </style>
 </head>
 <body>
-
     <h1>AI NPC & Scene Generator 🧙‍♂️</h1>
 
-    <div class="container">
-        <button id="import-btn">Import/Refresh Profiles from JSON</button>
+    <div class="panel">
+        <button>Import/Refresh Profiles from JSON</button>
     </div>
 
-    <div class="container">
+    <div class="panel">
         <h2>Characters & Location</h2>
-        <div id="npc-list" class="profile-list">
-            <h3>Select NPCs:</h3>
-            </div>
-        <div id="location-selector" class="profile-list">
-            <h3>Select Location:</h3>
-            <select id="location-dropdown">
-                </select>
-        </div>
+        
+        <label for="npc-select">Select NPCs (Ctrl/Cmd+Click for multiple):</label>
+        <select id="npc-select" multiple size="4"></select>
+
+        <label for="location-select">Select Location:</label>
+        <select id="location-select"></select>
     </div>
 
-    <div class="container">
+    <div class="panel">
         <h2>Prompt</h2>
-        <p>What do the players do or say?</p>
-        <textarea id="user-prompt" rows="4" placeholder="e.g., The players ask the blacksmith about the goblin raids..."></textarea>
+        <label for="user-prompt">What do the players do or say?</label>
+        <textarea id="user-prompt" placeholder="e.g., The players ask the blacksmith about the goblin raids..."></textarea>
+        
+        <button id="generate-btn">Generate Response</button>
+    </div>
+    
+    <div class="panel">
+         <h2>Generated Scene</h2>
+         <div id="generation-result">
+            Your generated scene will appear here...
+         </div>
     </div>
 
-    <button id="generate-btn">Generate Response</button>
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const API_URL = 'http://127.0.0.1:5000';
+        
+        const npcSelect = document.getElementById('npc-select');
+        const locationSelect = document.getElementById('location-select');
+        const userPrompt = document.getElementById('user-prompt');
+        const generateBtn = document.getElementById('generate-btn');
+        const resultDiv = document.getElementById('generation-result');
 
-    <div id="result">
-        Your generated scene will appear here...
-    </div>
+        // This function fetches data and populates the dropdowns
+        async function fetchData() {
+            try {
+                // We're replacing the import button with an automatic fetch on page load
+                const [npcRes, locRes] = await Promise.all([
+                    fetch(`${API_URL}/npcs`),
+                    fetch(`${API_URL}/locations`)
+                ]);
 
-    <script src="/static/script.js"></script>
+                const npcs = await npcRes.json();
+                const locations = await locRes.json();
+                
+                populateSelect(npcSelect, npcs);
+                populateSelect(locationSelect, locations);
+
+            } catch (error) {
+                console.error('Failed to fetch initial data:', error);
+                // More helpful error message for the user
+                resultDiv.innerHTML = `<p style="color:red;">Could not fetch data from the server. Is it running? Have you imported data via curl?</p>`;
+            }
+        }
+        
+        function populateSelect(selectElement, items) {
+            selectElement.innerHTML = ''; // Clear previous options
+            items.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item._id;
+                option.textContent = item.name;
+                selectElement.appendChild(option);
+            });
+        }
+
+        // Event listener for the generate button
+        generateBtn.addEventListener('click', async () => {
+            const selectedNpcIds = Array.from(npcSelect.selectedOptions).map(opt => opt.value);
+            const selectedLocationId = locationSelect.value;
+            
+            if (selectedNpcIds.length === 0 || !selectedLocationId || !userPrompt.value) {
+                alert('Please select NPCs, a location, and enter a prompt.');
+                return;
+            }
+
+            resultDiv.textContent = 'Generating...';
+            
+            try {
+                const response = await fetch(`${API_URL}/generate`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        npc_ids: selectedNpcIds,
+                        location_id: selectedLocationId,
+                        user_prompt: userPrompt.value
+                    })
+                });
+                
+                if (!response.ok) throw new Error(`Server responded with ${response.status}`);
+
+                const data = await response.json();
+                resultDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+                
+            } catch (error) {
+                console.error('Generation failed:', error);
+                resultDiv.textContent = `Error: ${error.message}`;
+            }
+        });
+        
+        // --- Initial Load ---
+        // Call the function to load data as soon as the page is ready
+        fetchData();
+    });
+</script>
 </body>
 </html>
