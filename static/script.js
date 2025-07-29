@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const apiBaseUrl = 'http://127.0.0.1:5000';
 
-    // --- Element Selectors from index.html ---
+    // --- Element Selectors ---
     const locationSelect = document.getElementById('location-select');
     const roomSelect = document.getElementById('room-select');
     const npcSelect = document.getElementById('npc-select');
@@ -10,26 +10,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const generateBtn = document.getElementById('generate-btn');
     const userPrompt = document.getElementById('user-prompt');
     const npcCardContainer = document.getElementById('npc-card-container');
+    const setPartyBtn = document.getElementById('set-party-btn');
+    const clearPartyBtn = document.getElementById('clear-party-btn');
 
     let locationsData = [];
     let npcsData = [];
+    let partyNpcIds = new Set();
+    const placeholderText = 'Your generated scene will appear here...';
 
-    // --- Data Loading and Initialization ---
+    // --- Helper Function to Append to Scene ---
+    const appendToGeneratedScene = (htmlContent) => {
+        if (generationResult.innerHTML.includes(placeholderText)) {
+            generationResult.innerHTML = ''; // Clear placeholder on first addition
+        }
+        generationResult.innerHTML += htmlContent;
+        generationResult.scrollTop = generationResult.scrollHeight; // Auto-scroll to bottom
+    };
+
+    // --- Data Loading ---
     const fetchInitialData = async () => {
         try {
-            // Fetch locations and NPCs at the same time
             const [locationsResponse, npcsResponse] = await Promise.all([
                 fetch(`${apiBaseUrl}/locations`),
                 fetch(`${apiBaseUrl}/npcs`)
             ]);
-
-            if (!locationsResponse.ok || !npcsResponse.ok) {
-                throw new Error('Failed to fetch initial data from the server.');
-            }
-
+            if (!locationsResponse.ok || !npcsResponse.ok) throw new Error('Failed to fetch initial data.');
             locationsData = await locationsResponse.json();
             npcsData = await npcsResponse.json();
-            
             populateLocations();
         } catch (error) {
             console.error("Initialization Error:", error);
@@ -37,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // --- UI Population Functions ---
+    // --- UI Population ---
     const populateLocations = () => {
         locationSelect.innerHTML = '<option value="">-- Select a Location --</option>';
         locationsData.forEach(location => {
@@ -51,10 +58,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const populateRooms = (locationId) => {
         const location = locationsData.find(loc => loc._id === locationId);
         roomSelect.innerHTML = '<option value="">-- Select a Room --</option>';
-        npcSelect.innerHTML = ''; // Clear NPC list
+        npcSelect.innerHTML = '';
         descriptionResult.textContent = 'Select a room to see a description.';
-        generationResult.innerHTML = 'Your generated scene will appear here...'; // Reset scene
-        npcCardContainer.innerHTML = ''; // Clear NPC cards
+        generationResult.innerHTML = placeholderText; // Reset scene on room change
+        npcCardContainer.innerHTML = '';
 
         if (location && location.rooms) {
             location.rooms.forEach(room => {
@@ -71,156 +78,152 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!location) return;
 
         const room = location.rooms.find(r => r.name === roomName);
-        npcSelect.innerHTML = ''; // Clear previous NPCs
-        npcCardContainer.innerHTML = ''; // Clear NPC cards
+        generationResult.innerHTML = placeholderText; // Reset scene on room change
+        npcSelect.innerHTML = '';
+        npcCardContainer.innerHTML = '';
 
         if (room) {
             descriptionResult.textContent = room.description;
-            // No longer fetching a greeting, we are handling it with canned conversations
-            // fetchGreeting(locationId, roomName, room.description);
+            const npcIdsInRoom = new Set();
+            const npcsToDisplay = [];
 
-            if (room.npcs && room.npcs.length > 0) {
+            // Add party members first
+            partyNpcIds.forEach(npcId => {
+                const npc = npcsData.find(n => n._id === npcId);
+                if (npc) {
+                    npcsToDisplay.push(npc);
+                    npcIdsInRoom.add(npcId);
+                }
+            });
+
+            // Add room-specific NPCs if they aren't already in the party
+            if (room.npcs) {
                 room.npcs.forEach(npcName => {
                     const npc = npcsData.find(n => n.name === npcName);
-                    if (npc) {
-                        const option = document.createElement('option');
-                        option.value = npc._id; // Use the database ID as the value
-                        option.textContent = npc.name;
-                        option.selected = true; // Auto-select them by default
-                        npcSelect.appendChild(option);
-
-                        if (npc.canned_conversations) {
-                            // Display introduction in the generation result
-                            generationResult.innerHTML = `<p><em>${npc.canned_conversations.INTRODUCTION}</em></p>`;
-                            
-                            // Create NPC card
-                            const card = document.createElement('div');
-                            card.className = 'npc-card';
-                            
-                            let cardHTML = `<h3>${npc.name}</h3><p>${npc.description}</p><h4>Conversation Starters:</h4>`;
-                            
-                            for (const prompt in npc.canned_conversations) {
-                                if (prompt !== 'INTRODUCTION') {
-                                    cardHTML += `<a class="canned-conversation-prompt" data-dialogue="${npc.canned_conversations[prompt]}">${prompt}</a>`;
-                                }
-                            }
-                            
-                            card.innerHTML = cardHTML;
-                            npcCardContainer.appendChild(card);
-                        }
+                    if (npc && !npcIdsInRoom.has(npc._id)) {
+                        npcsToDisplay.push(npc);
+                        npcIdsInRoom.add(npc._id);
                     }
                 });
-                 // Add event listeners to the new prompts
-                 document.querySelectorAll('.canned-conversation-prompt').forEach(promptElement => {
-                    promptElement.addEventListener('click', () => {
-                        const dialogue = promptElement.getAttribute('data-dialogue');
-                        displayCannedConversation(dialogue);
-                    });
-                });
-
-            } else {
-                npcSelect.innerHTML = '<option disabled>No NPCs in this room</option>';
             }
-        }
-    };
-    
-    const displayCannedConversation = (dialogue) => {
-        generationResult.innerHTML = `<p>${dialogue}</p>`;
-    };
 
-
-    // --- API Interaction Functions ---
-    const fetchGreeting = async (locationId, roomName, baseDescription) => {
-        try {
-            const response = await fetch(`${apiBaseUrl}/greet`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ location_id: locationId, room_name: roomName })
+            // Populate the multi-select and display intros
+            npcsToDisplay.forEach(npc => {
+                const option = document.createElement('option');
+                option.value = npc._id;
+                option.textContent = npc.name + (partyNpcIds.has(npc._id) ? ' (Party)' : '');
+                option.selected = true; // Select all by default
+                npcSelect.appendChild(option);
+                
+                // Display introduction dialogue for each NPC entering the scene
+                if (npc.canned_conversations && npc.canned_conversations.introduction) {
+                    const introDialogue = `<p><strong>${npc.name}:</strong> <em>"${npc.canned_conversations.introduction}"</em></p>`;
+                    appendToGeneratedScene(introDialogue);
+                }
             });
-            if (!response.ok) throw new Error('Greeting request failed.');
-            
-            const data = await response.json();
-            // Display the AI-generated greeting above the static room description
-            descriptionResult.innerHTML = `<p><em>${data.greeting}</em></p><p>${baseDescription}</p>`;
-        } catch (error) {
-            console.error("Greeting Error:", error);
-            descriptionResult.textContent = baseDescription; // Fallback to basic description
+
+            renderNpcCards();
         }
     };
 
+    const renderNpcCards = () => {
+        npcCardContainer.innerHTML = '';
+        const selectedNpcOptions = Array.from(npcSelect.selectedOptions);
+        selectedNpcOptions.forEach(option => {
+            const npc = npcsData.find(n => n._id === option.value);
+            if (npc) {
+                const card = document.createElement('div');
+                card.className = 'npc-card';
+                let cardHTML = `<h3>${npc.name}</h3><p>${npc.description}</p>`;
+                if (npc.canned_conversations) {
+                    cardHTML += `<h4>Conversation Starters:</h4>`;
+                    for (const prompt in npc.canned_conversations) {
+                        if (prompt.toLowerCase() !== 'introduction') {
+                            cardHTML += `<a class="canned-conversation-prompt" data-speaker="${npc.name}" data-dialogue="${npc.canned_conversations[prompt]}">${prompt.replace(/_/g, ' ')}</a>`;
+                        }
+                    }
+                }
+                card.innerHTML = cardHTML;
+                npcCardContainer.appendChild(card);
+            }
+        });
+
+        // Add event listeners to the new prompt links
+        document.querySelectorAll('.canned-conversation-prompt').forEach(promptElement => {
+            promptElement.addEventListener('click', () => {
+                const speaker = promptElement.getAttribute('data-speaker');
+                const dialogue = promptElement.getAttribute('data-dialogue');
+                displayCannedConversation(speaker, dialogue);
+            });
+        });
+    };
+
+    const displayCannedConversation = (speaker, dialogue) => {
+        const dialogueHtml = `<p><strong>${speaker}:</strong> "${dialogue}"</p>`;
+        appendToGeneratedScene(dialogueHtml);
+    };
+
+    // --- API Interaction ---
     const handleGenerate = async () => {
         const locationId = locationSelect.value;
         const roomName = roomSelect.value;
         const promptText = userPrompt.value;
-        const selectedNpcOptions = Array.from(npcSelect.selectedOptions);
-        const npcIds = selectedNpcOptions.map(option => option.value);
+        const npcIds = Array.from(npcSelect.selectedOptions).map(opt => opt.value);
 
         if (!locationId || !roomName || !promptText) {
             alert("Please select a location, room, and enter a prompt.");
             return;
         }
-
-        generationResult.textContent = 'Generating scene, please wait...';
+        
+        const playerActionHtml = `<p><strong>Player:</strong> "${promptText}"</p>`;
+        appendToGeneratedScene(playerActionHtml);
+        userPrompt.value = ''; // Clear prompt box
         generateBtn.disabled = true;
 
         try {
             const response = await fetch(`${apiBaseUrl}/generate`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    location_id: locationId,
-                    room: roomName,
-                    npc_ids: npcIds,
-                    user_prompt: promptText
-                })
+                body: JSON.stringify({ location_id: locationId, room: roomName, npc_ids: npcIds, user_prompt: promptText })
             });
-
-            if (!response.ok) {
-                const errData = await response.json();
-                throw new Error(errData.error || 'The server returned an error.');
-            }
-
+            if (!response.ok) throw new Error((await response.json()).error || 'Server error');
             const data = await response.json();
             
-            // --- THIS IS THE MODIFIED SECTION ---
-            // Handle Scene Changes by overwriting the description div
             if (data.scene_changes) {
                 descriptionResult.innerHTML = `<p>${data.scene_changes}</p>`;
             }
 
-            // Handle Dialogue by populating the generation result div
-            let dialogueHtml = '';
             if (data.dialogue && data.dialogue.length > 0) {
-                dialogueHtml += '<h3>Dialogue</h3>';
                 data.dialogue.forEach(d => {
-                    dialogueHtml += `<p><strong>${d.speaker}:</strong> "${d.line}"</p>`;
+                    const dialogueHtml = `<p><strong>${d.speaker}:</strong> "${d.line}"</p>`;
+                    appendToGeneratedScene(dialogueHtml);
                 });
-            } else {
-                dialogueHtml = 'Your generated scene will appear here...';
             }
-            generationResult.innerHTML = dialogueHtml;
-            // --- END OF MODIFIED SECTION ---
-
         } catch (error) {
             console.error('Generation Error:', error);
-            generationResult.textContent = `Error generating scene: ${error.message}`;
+            appendToGeneratedScene(`<p><em>Error generating scene: ${error.message}</em></p>`);
         } finally {
             generateBtn.disabled = false;
         }
     };
 
     // --- Event Listeners ---
-    locationSelect.addEventListener('change', () => {
-        populateRooms(locationSelect.value);
-    });
-
-    roomSelect.addEventListener('change', () => {
-        if (roomSelect.value) {
-            updateRoomDetails(locationSelect.value, roomSelect.value);
-        }
-    });
-
+    locationSelect.addEventListener('change', () => populateRooms(locationSelect.value));
+    roomSelect.addEventListener('change', () => updateRoomDetails(locationSelect.value, roomSelect.value));
+    npcSelect.addEventListener('change', renderNpcCards);
     generateBtn.addEventListener('click', handleGenerate);
+    
+    setPartyBtn.addEventListener('click', () => {
+        partyNpcIds = new Set(Array.from(npcSelect.selectedOptions).map(opt => opt.value));
+        alert('Persistent party set!');
+        updateRoomDetails(locationSelect.value, roomSelect.value);
+    });
+
+    clearPartyBtn.addEventListener('click', () => {
+        partyNpcIds.clear();
+        alert('Persistent party cleared!');
+        updateRoomDetails(locationSelect.value, roomSelect.value);
+    });
 
     // --- Initial Load ---
     fetchInitialData();

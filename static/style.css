@@ -173,3 +173,14 @@ button:hover {
 .canned-conversation-prompt:hover {
     color: #c678dd;
 }
+
+.party-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.party-controls button {
+    flex: 1;
+    font-size: 0.9em;
+}
