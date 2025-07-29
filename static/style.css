@@ -49,15 +49,17 @@ body {
 
 .container {
     background-color: #21252b;
-    padding: 15px;
+    padding: 12px;
     border-radius: 8px;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
 h1, h2 {
     color: #61afef;
     border-bottom: 1px solid #61afef;
-    padding-bottom: 10px;
+    padding-bottom: 8px;
+    margin-top: 0;
+    margin-bottom: 10px;
 }
 
 label {

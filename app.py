@@ -19,7 +19,10 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 # --- Flask App Initialization ---
 # Add template_folder to tell Flask where to find HTML files
 app = Flask(__name__, template_folder='templates', static_folder='static')
-CORS(app) 
+
+# --- CORS Configuration ---
+# Explicitly allow the frontend origin for robust CORS handling
+CORS(app, resources={r"/*": {"origins": "http://127.0.0.1:3000"}})
 
 # --- Database Setup ---
 client = MongoClient('mongodb://localhost:27017/')
