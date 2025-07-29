@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const generationResult = document.getElementById('generation-result');
     const generateBtn = document.getElementById('generate-btn');
     const userPrompt = document.getElementById('user-prompt');
+    const npcCardContainer = document.getElementById('npc-card-container');
 
     let locationsData = [];
     let npcsData = [];
@@ -53,6 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
         npcSelect.innerHTML = ''; // Clear NPC list
         descriptionResult.textContent = 'Select a room to see a description.';
         generationResult.innerHTML = 'Your generated scene will appear here...'; // Reset scene
+        npcCardContainer.innerHTML = ''; // Clear NPC cards
 
         if (location && location.rooms) {
             location.rooms.forEach(room => {
@@ -70,16 +72,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const room = location.rooms.find(r => r.name === roomName);
         npcSelect.innerHTML = ''; // Clear previous NPCs
+        npcCardContainer.innerHTML = ''; // Clear NPC cards
 
         if (room) {
-            // Set room description and fetch a greeting from the AI
             descriptionResult.textContent = room.description;
-            fetchGreeting(locationId, roomName, room.description);
+            // No longer fetching a greeting, we are handling it with canned conversations
+            // fetchGreeting(locationId, roomName, room.description);
 
-            // Populate the multi-select with NPCs in the room
             if (room.npcs && room.npcs.length > 0) {
                 room.npcs.forEach(npcName => {
-                    // Find the full NPC object to get its ID
                     const npc = npcsData.find(n => n.name === npcName);
                     if (npc) {
                         const option = document.createElement('option');
@@ -87,13 +88,46 @@ document.addEventListener('DOMContentLoaded', () => {
                         option.textContent = npc.name;
                         option.selected = true; // Auto-select them by default
                         npcSelect.appendChild(option);
+
+                        if (npc.canned_conversations) {
+                            // Display introduction in the generation result
+                            generationResult.innerHTML = `<p><em>${npc.canned_conversations.INTRODUCTION}</em></p>`;
+                            
+                            // Create NPC card
+                            const card = document.createElement('div');
+                            card.className = 'npc-card';
+                            
+                            let cardHTML = `<h3>${npc.name}</h3><p>${npc.description}</p><h4>Conversation Starters:</h4>`;
+                            
+                            for (const prompt in npc.canned_conversations) {
+                                if (prompt !== 'INTRODUCTION') {
+                                    cardHTML += `<a class="canned-conversation-prompt" data-dialogue="${npc.canned_conversations[prompt]}">${prompt}</a>`;
+                                }
+                            }
+                            
+                            card.innerHTML = cardHTML;
+                            npcCardContainer.appendChild(card);
+                        }
                     }
                 });
+                 // Add event listeners to the new prompts
+                 document.querySelectorAll('.canned-conversation-prompt').forEach(promptElement => {
+                    promptElement.addEventListener('click', () => {
+                        const dialogue = promptElement.getAttribute('data-dialogue');
+                        displayCannedConversation(dialogue);
+                    });
+                });
+
             } else {
                 npcSelect.innerHTML = '<option disabled>No NPCs in this room</option>';
             }
         }
     };
+    
+    const displayCannedConversation = (dialogue) => {
+        generationResult.innerHTML = `<p>${dialogue}</p>`;
+    };
+
 
     // --- API Interaction Functions ---
     const fetchGreeting = async (locationId, roomName, baseDescription) => {

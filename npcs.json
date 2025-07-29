@@ -8,12 +8,18 @@
         "about_the_reward": "AINT SENT YA ON A QUEST YET",
         "reaction": "<spits>",
         "persuasion": "Fuck off with your brain games."
-    },
+    }
   },
   {
     "name": "Elara Nightwind",
     "description": "An enigmatic elven scout who moves silently and speaks in riddles. She is wary of outsiders.",
-    "motivation": "To protect the ancient woods from a creeping corruption she has discovered."
+    "motivation": "To protect the ancient woods from a creeping corruption she has discovered.",
+    "canned_conversations": {
+        "introduction": "Whaddya want?",
+        "about_the_reward": "AINT SENT YA ON A QUEST YET",
+        "reaction": "<spits>",
+        "persuasion": "Fuck off with your brain games."
+    }
   },
   {
     "name": "Volothamp Geddarm",
