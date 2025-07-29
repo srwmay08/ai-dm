@@ -28,19 +28,12 @@
 
     <div id="right-column" class="column">
         <h1>AI Dungeon Master 🧙‍♂️</h1>
+
         <div class="container">
             <h2>Description</h2>
             <div id="description-result">
                 Select a location and room to see a description.
             </div>
-            <div id="npc-card-container"></div>
-        </div>
-
-        <div class="container">
-            <h2>Prompt</h2>
-            <label for="user-prompt">What do the players do or say?</label>
-            <textarea id="user-prompt" rows="4" placeholder="e.g., The players ask the blacksmith about the goblin raids..."></textarea>
-            <button id="generate-btn">Generate Response</button>
         </div>
         
         <div class="container">
@@ -48,6 +41,16 @@
              <div id="generation-result">
                 Your generated scene will appear here...
              </div>
+        </div>
+
+        <div class="container" id="npc-card-container">
+            </div>
+
+        <div class="container">
+            <h2>Prompt</h2>
+            <label for="user-prompt">What do the players do or say?</label>
+            <textarea id="user-prompt" rows="4" placeholder="e.g., The players ask the blacksmith about the goblin raids..."></textarea>
+            <button id="generate-btn">Generate Response</button>
         </div>
     </div>
 

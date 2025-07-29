@@ -7,6 +7,7 @@ body {
     height: 100vh;
     background-color: #f4f4f4;
     overflow: hidden;
+    font-size: 14px; /* Reduced base font size */
 }
 
 .column {
@@ -17,12 +18,12 @@ body {
 
 #left-column {
     width: 25%;
-    min-width: 300px;
+    min-width: 250px; /* Reduced min-width */
     max-width: 60%;
     background-color: #282c34;
     color: #abb2bf;
     border-right: 1px solid #ccc;
-    padding: 20px;
+    padding: 15px; /* Reduced padding */
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
@@ -43,39 +44,45 @@ body {
     flex-grow: 1;
     background-color: #3b4048;
     color: #abb2bf;
-    padding: 20px;
+    padding: 15px; /* Reduced padding */
     min-width: 0;
 }
 
 .container {
     background-color: #21252b;
-    padding: 12px;
+    padding: 10px; /* Reduced padding */
     border-radius: 8px;
-    margin-bottom: 15px;
+    margin-bottom: 10px; /* Reduced margin */
 }
 
-h1, h2 {
+h1 {
+    font-size: 1.5em;
+}
+
+h2 {
     color: #61afef;
     border-bottom: 1px solid #61afef;
-    padding-bottom: 8px;
+    padding-bottom: 5px; /* Reduced padding */
     margin-top: 0;
-    margin-bottom: 10px;
+    margin-bottom: 8px; /* Reduced margin */
+    font-size: 1.2em; /* Reduced font size */
 }
 
 label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
+    font-size: 0.9em;
 }
 
 textarea, select {
     width: 100%;
-    padding: 10px;
+    padding: 8px; /* Reduced padding */
     background-color: #282c34;
     color: #abb2bf;
     border: 1px solid #61afef;
     border-radius: 4px;
-    margin-bottom: 15px;
+    margin-bottom: 10px; /* Reduced margin */
     box-sizing: border-box;
 }
 
@@ -83,7 +90,7 @@ button {
     background-color: #61afef;
     color: #282c34;
     border: none;
-    padding: 10px 15px;
+    padding: 8px 12px; /* Reduced padding */
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
@@ -94,34 +101,61 @@ button:hover {
     background-color: #98c379;
 }
 
+#description-result p, #generation-result p {
+    font-size: 0.9em; /* Reduced font size for main text areas */
+    line-height: 1.5;
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+
 #generation-result {
     white-space: pre-wrap;
-    line-height: 1.6;
     background-color: #282c34;
-    padding: 15px;
+    padding: 10px; /* Reduced padding */
     border-radius: 4px;
-    margin-top: 10px;
+    margin-top: 8px; /* Reduced margin */
 }
 
 #description-result {
-    line-height: 1.6;
+    line-height: 1.5;
 }
 
 #npc-card-container {
-    margin-top: 15px;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap; /* Prevents cards from wrapping */
+    gap: 10px; /* Reduced space between cards */
+    overflow-x: auto; /* Allows horizontal scrolling if needed */
+    padding-bottom: 10px; /* Space for the scrollbar */
 }
 
 .npc-card {
     background-color: #282c34;
     border: 1px solid #61afef;
     border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 15px;
+    padding: 8px; /* Reduced padding */
+    flex: 0 1 240px; /* Cards will shrink but not grow, with a base width */
+    min-width: 200px; /* Prevents cards from becoming too small */
 }
 
 .npc-card h3 {
-    margin-top: 0;
+    margin: 0 0 5px 0; /* Reduced margin */
     color: #98c379;
+    font-size: 1em; /* Reduced font size */
+}
+
+.npc-card h4 {
+    margin: 8px 0 4px 0; /* Reduced margin */
+    font-size: 0.8em; /* Reduced font size */
+    font-weight: normal;
+    color: #abb2bf;
+}
+
+.npc-card p {
+    font-size: 0.8em; /* Reduced font size */
+    margin: 0 0 5px 0; /* Reduced margin */
+    line-height: 1.4;
 }
 
 .canned-conversation-prompt {
@@ -129,7 +163,11 @@ button:hover {
     color: #61afef;
     text-decoration: underline;
     cursor: pointer;
-    margin-bottom: 8px;
+    margin-bottom: 4px; /* Reduced margin */
+    font-size: 0.8em; /* Reduced font size */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .canned-conversation-prompt:hover {

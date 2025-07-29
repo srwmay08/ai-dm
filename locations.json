@@ -6,7 +6,7 @@
       {
         "name": "Main Hall",
         "description": "The main drinking hall of the tavern. It is filled with rickety tables and chairs. A large, cracked mirror hangs behind the bar.",
-        "npcs": ["Brak the Orc","Elara Nightwind","Volothamp Geddarm"],
+        "npcs": ["Brak the Orc","Elara Nightwind","Volothamp Geddarm","Renaer Neverember"],
         "dialogue": [],
         "traps": [],
         "treasure": []

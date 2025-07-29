@@ -51,7 +51,7 @@
       "His 'facts' are often embellished to the point of falsehood.",
       "Utterly clueless about his own safety."
     ],
-    "motivations": [
+    "motivation": [
         "To ensure the safe return of his friend, Floon Blagmaar.",
         "To maintain his celebrity status in Waterdeep.",
         "To gather material for his next best-selling guide."
@@ -62,8 +62,49 @@
         "about_the_reward": "Yes, yes, ten gold pieces—dragons, as we call them in the city—for each of you now, for expenses. And one hundred more each upon Floon's safe return! A small price to pay for a friend's life, wouldn't you agree?",
         "reaction": "Good heavens, a long rest? Do you have any idea what could be happening to my dear Floon right now? Every moment we delay is another moment he's in the clutches of those fiends! I haven't seen such a lack of urgency since I was chased out of a dragon's lair in the Serpent Hills!",
         "persuasion": "Well... I suppose a weary rescuer is of little use. Very well! But you must promise me you will be ready at the crack of dawn. Volothamp Geddarm's friends do not languish in dungeons for long! This will be a tale for the ages, and its heroes must be properly prepared!"
-    },
-    "associated_history_files": ["Volo_and_Floon.txt"],
-    "linked_lore_by_name": ["The Founding of the Yawning Portal", "The Yawning Portal"]
+    }
+},
+{
+    "name": "Renaer Neverember",
+    "character_type": "NPC",
+    "description": "A charismatic and fashionable human noble, often seen in the company of his friend Floon. He is the estranged son of Dagult Neverember, the former Open Lord of Waterdeep. He carries a rapier with a silver-and-red-leather hilt. Beneath his foppish exterior lies a brave and cunning agent of the Harpers.",
+    "race": "Human",
+    "class": "Noble / Spy (Rogue)",
+    "alignment": "Chaotic Good",
+    "age": "Late 20s",
+    "personality_traits": [
+      "Suave and charismatic",
+      "Witty and enjoys banter",
+      "Acts frivolous, but is secretly very sharp and observant",
+      "Loyal to his friends and to the city of Waterdeep"
+    ],
+    "ideals": [
+      "Freedom: 'My father's legacy is his own. I will make my own name, and live by my own code.'",
+      "Justice: 'The powerful have a duty to protect the powerless, not exploit them.' (A Harper tenet)",
+      "Friendship: 'I won't abandon my friends, no matter the danger.'"
+    ],
+    "bonds": [
+      "His close friend Floon Blagmaar, for whom he feels responsible.",
+      "His membership in the Harpers, a secret he guards closely.",
+      "His complicated relationship with his father's name and the fortune he inherited.",
+      "The city of Waterdeep, which he works to protect from the shadows."
+    ],
+    "flaws": [
+      "His disdain for his father can sometimes cloud his judgment.",
+      "Can be quick to jump into a fight to defend his honor or a friend.",
+      "He sometimes underestimates the ruthlessness of his enemies."
+    ],
+    "motivation": [
+        "To rescue his friend Floon at any cost.",
+        "To thwart the Zhentarim and Xanathar Guild's plans within Waterdeep.",
+        "To live a life that is the antithesis of his father's corruption and greed."
+    ],
+    "canned_conversations": {
+        "introduction": "'A pleasure to make your acquaintance! Apologies for the... uncivilized circumstances. It seems my father's reputation has a rather long shadow.'",
+        "about_his_father": "'Dagult Neverember. A name that opens many doors and brings much trouble. He and I... do not see eye to eye. He is a man who values gold above all else. I value other things.'",
+        "about_the_stone_of_golorr": "'My father has squandered and hidden away so much wealth. It is said he embezzled a great deal of gold before he was exiled. The Stone of Golorr is supposedly the key to finding it. If he hid it, he did so without my knowledge.'",
+        "reaction": "I understand the need to recover your strength. The Xanathar are not to be trifled with, and rushing in unprepared would be a fatal mistake. However, they are ruthless. The longer they have Floon, the more danger he is in. They mistook him for me, and they will not be pleased when they discover their error.",
+        "justice": "My father's legacy casts a long shadow, and his enemies are now mine. The ones who took us, the Zhentarim, were professionals. The ones who attacked the warehouse, the Xanathar Guild, are far more chaotic and brutal. I heard them mention following yellow signs in the sewers. That will be your path. Be wary; their territory will be trapped and guarded."
+    }
 }
 ]
