@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI DM Scene Generator</title>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #1e1e1e; color: #d4d4d4; display: flex; justify-content: center; padding: 20px; }
+        .container { max-width: 1200px; width: 100%; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto 1fr; gap: 20px; }
+        .panel { background-color: #2a2a2a; border-radius: 8px; padding: 20px; box-shadow: 0 4px 6px rgba(0,0,0,0.2); }
+        .generator { grid-column: 1 / -1; } /* Spans both columns */
+        h2 { border-bottom: 2px solid #444; padding-bottom: 10px; margin-top: 0; }
+        textarea, select, button { width: 100%; padding: 10px; border-radius: 4px; border: 1px solid #444; background-color: #333; color: #d4d4d4; margin-bottom: 10px; box-sizing: border-box; }
+        textarea { min-height: 80px; resize: vertical; }
+        button { background-color: #007acc; color: white; font-weight: bold; cursor: pointer; border: none; }
+        button:hover { background-color: #005f99; }
+        .profile { border: 1px solid #444; padding: 15px; border-radius: 6px; margin-bottom: 15px; }
+        #generation-result { background-color: #111; padding: 15px; border-radius: 4px; white-space: pre-wrap; font-family: "Courier New", Courier, monospace; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="panel">
+        <h2>NPC Profiles</h2>
+        <div id="npc-list"></div>
+    </div>
+
+    <div class="panel">
+        <h2>Location Profiles</h2>
+        <div id="location-list"></div>
+    </div>
+
+    <div class="panel generator">
+        <h2>Scene Generator</h2>
+        <label for="npc-select">Select NPCs in Scene (Ctrl/Cmd+Click for multiple):</label>
+        <select id="npc-select" multiple size="3"></select>
+
+        <label for="location-select">Select Location:</label>
+        <select id="location-select"></select>
+
+        <label for="user-prompt">What do the players do or say?</label>
+        <textarea id="user-prompt" placeholder="e.g., The rogue tries to pickpocket the orc."></textarea>
+        
+        <button id="generate-btn">Generate Scene</button>
+
+        <h3>Result:</h3>
+        <div id="generation-result">The AI's response will appear here...</div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const API_URL = 'http://127.0.0.1:5000';
+        
+        const npcList = document.getElementById('npc-list');
+        const locationList = document.getElementById('location-list');
+        const npcSelect = document.getElementById('npc-select');
+        const locationSelect = document.getElementById('location-select');
+        const userPrompt = document.getElementById('user-prompt');
+        const generateBtn = document.getElementById('generate-btn');
+        const resultDiv = document.getElementById('generation-result');
+
+        // --- Fetch and Display Data ---
+        async function fetchData() {
+            try {
+                const [npcRes, locRes] = await Promise.all([
+                    fetch(`${API_URL}/npcs`),
+                    fetch(`${API_URL}/locations`)
+                ]);
+
+                const npcs = await npcRes.json();
+                const locations = await locRes.json();
+                
+                populateProfiles(npcList, npcs, 'npc');
+                populateProfiles(locationList, locations, 'location');
+                
+                populateSelect(npcSelect, npcs);
+                populateSelect(locationSelect, locations);
+
+            } catch (error) {
+                console.error('Failed to fetch initial data:', error);
+                npcList.innerHTML = `<p style="color:red;">Could not connect to backend. Is it running?</p>`;
+            }
+        }
+        
+        function populateProfiles(element, items, type) {
+            element.innerHTML = '';
+            items.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'profile';
+                div.innerHTML = `
+                    <h3>${item.name}</h3>
+                    <textarea data-id="${item._id}" data-type="${type}">${item.description}</textarea>
+                    <button class="update-btn" data-id="${item._id}" data-type="${type}">Update</button>
+                `;
+                element.appendChild(div);
+            });
+        }
+        
+        function populateSelect(selectElement, items) {
+            selectElement.innerHTML = '';
+            items.forEach(item => {
+                const option = document.createElement('option');
+                option.value = item._id;
+                option.textContent = item.name;
+                selectElement.appendChild(option);
+            });
+        }
+
+        // --- Event Handlers ---
+        document.body.addEventListener('click', async (e) => {
+            if (e.target.classList.contains('update-btn')) {
+                const id = e.target.dataset.id;
+                const type = e.target.dataset.type;
+                const textarea = document.querySelector(`textarea[data-id='${id}']`);
+                
+                try {
+                    await fetch(`${API_URL}/${type}s/${id}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ description: textarea.value })
+                    });
+                    alert(`${type.charAt(0).toUpperCase() + type.slice(1)} updated!`);
+                } catch (error) {
+                    console.error(`Failed to update ${type}:`, error);
+                }
+            }
+        });
+
+        generateBtn.addEventListener('click', async () => {
+            const selectedNpcIds = Array.from(npcSelect.selectedOptions).map(opt => opt.value);
+            const selectedLocationId = locationSelect.value;
+            
+            if (selectedNpcIds.length === 0 || !selectedLocationId || !userPrompt.value) {
+                alert('Please select NPCs, a location, and enter a prompt.');
+                return;
+            }
+
+            resultDiv.textContent = 'Generating...';
+            
+            try {
+                const response = await fetch(`${API_URL}/generate`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        npc_ids: selectedNpcIds,
+                        location_id: selectedLocationId,
+                        user_prompt: userPrompt.value
+                    })
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Server responded with ${response.status}`);
+                }
+
+                const data = await response.json();
+                resultDiv.innerHTML = `<strong>Dialogue:</strong>\n${data.dialogue}\n\n<strong>Scene Changes:</strong>\n${data.scene_changes}`;
+                
+            } catch (error) {
+                console.error('Generation failed:', error);
+                resultDiv.textContent = `Error: ${error.message}`;
+            }
+        });
+        
+        // --- Initial Load ---
+        fetchData();
+    });
+</script>
+</body>
+</html>
