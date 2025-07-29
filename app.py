@@ -3,25 +3,22 @@ import json
 import logging
 import configparser
 from bson import ObjectId
-from flask import Flask, jsonify, request, send_from_directory
+# Import render_template from Flask
+from flask import Flask, jsonify, request, render_template
 from flask_cors import CORS
 from pymongo import MongoClient
 import google.generativeai as genai
 
 # --- Configuration & Logging Setup ---
-# Load configuration from config.ini
 config = configparser.ConfigParser()
 config.read('config.ini')
 log_config = config['Logging']
 
-# Set up serious logging
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
-)
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 # --- Flask App Initialization ---
-app = Flask(__name__)
+# Add template_folder to tell Flask where to find HTML files
+app = Flask(__name__, template_folder='templates', static_folder='static')
 CORS(app) 
 
 # --- Database Setup ---
@@ -32,25 +29,96 @@ location_collection = db['locations']
 
 # --- AI Setup ---
 try:
-    genai.configure(api_key=os.environ["GEMINI_API_KEY"])
+    # It's recommended to load the API key safely, e.g., from environment variables
+    api_key = os.environ.get("GEMINI_API_KEY")
+    if not api_key:
+        raise KeyError("GEMINI_API_KEY environment variable not set.")
+    genai.configure(api_key=api_key)
     ai_model = genai.GenerativeModel('gemini-1.5-flash')
-except KeyError:
-    logging.fatal("FATAL: GEMINI_API_KEY environment variable not set.")
+except KeyError as e:
+    logging.fatal(f"FATAL: {e}")
+    # In a real app, you might want to handle this more gracefully
     exit()
 
 # --- Helper Function ---
 def serialize_doc(doc):
+    """Converts a MongoDB document's ObjectId to a string."""
     if doc and '_id' in doc:
         doc['_id'] = str(doc['_id'])
     return doc
 
+# --- Data Loading Function ---
+def load_json_data(filepath, collection):
+    """Loads data from a JSON file into a MongoDB collection."""
+    try:
+        with open(filepath, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+            collection.delete_many({})
+            if data:
+                # Ensure each item has an ObjectId
+                for item in data:
+                    item.setdefault('_id', ObjectId())
+                collection.insert_many(data)
+        logging.info(f"Successfully loaded and inserted data from {filepath}")
+    except FileNotFoundError:
+        logging.error(f"Error: Data file not found at {filepath}.")
+    except json.JSONDecodeError:
+        logging.error(f"Error: Could not decode JSON from {filepath}.")
+    except Exception as e:
+        logging.error(f"An unexpected error occurred loading {filepath}: {e}")
+
 # --- Frontend & Core Routes ---
 @app.route('/')
 def serve_index():
-    return send_from_directory('.', 'index.html')
+    """Serves the main HTML page using render_template."""
+    return render_template('index.html')
+
+@app.route('/greet', methods=['POST'])
+def greet_player():
+    """Generates an atmospheric greeting when players enter a room."""
+    try:
+        data = request.json
+        location_id = data.get('location_id')
+        room_name = data.get('room_name')
+
+        location = location_collection.find_one({'_id': ObjectId(location_id)})
+        if not location:
+            return jsonify({"greeting": "You enter the room."}), 200
+
+        selected_room = next((room for room in location.get('rooms', []) if room['name'] == room_name), None)
+        if not selected_room or not selected_room.get('npcs'):
+            return jsonify({"greeting": "The room is quiet. You see nothing of note."}), 200
+
+        npc_names = selected_room['npcs']
+        npcs = [serialize_doc(npc) for npc in npc_collection.find({'name': {'$in': npc_names}})]
+
+        if not npcs:
+            return jsonify({"greeting": "You see figures in the room, but they don't seem to notice you."}), 200
+
+        npc_profiles = [f"- {n['name']}: {n['description']}" for n in npcs]
+        prompt = f"""
+        You are a Dungeon Master AI. The players have just entered a room.
+        Describe the scene, focusing on what the characters below are doing.
+        Provide a short, atmospheric description and perhaps a line of dialogue or a key action from one of them as a greeting.
+        Keep the total response to 2-4 sentences.
+
+        **Room:** {selected_room['name']} - {selected_room['description']}
+        **Characters Present:**
+        {chr(10).join(npc_profiles)}
+
+        Generate the greeting now.
+        """
+        response = ai_model.generate_content(prompt)
+        return jsonify({"greeting": response.text})
+
+    except Exception as e:
+        logging.error(f"!!! An error occurred in /greet: {e}", exc_info=True)
+        return jsonify({"error": f"An unexpected error occurred on the server: {e}"}), 500
+
 
 @app.route('/generate', methods=['POST'])
 def generate_scene():
+    """Generates the main NPC dialogue and scene changes based on user prompt."""
     if log_config.getboolean('log_requests'):
         logging.info(f"Received /generate request with data: {request.json}")
 
@@ -58,25 +126,23 @@ def generate_scene():
         data = request.json
         npc_ids = data.get('npc_ids', [])
         location_id = data.get('location_id')
+        room_name = data.get('room')
 
         npcs = [serialize_doc(npc) for npc in npc_collection.find({'_id': {'$in': [ObjectId(id) for id in npc_ids]}})]
-        location = serialize_doc(location_collection.find_one({'_id': ObjectId(location_id)}))
+        location_doc = location_collection.find_one({'_id': ObjectId(location_id)})
+        location = serialize_doc(location_doc)
+        
+        selected_room = next((r for r in location.get('rooms', []) if r['name'] == room_name), None)
 
         if log_config.getboolean('log_database_fetches'):
             logging.info(f"Fetched {len(npcs)} NPCs from DB.")
             logging.info(f"Fetched Location: {location.get('name') if location else 'None'}")
+            logging.info(f"Fetched Room: {selected_room.get('name') if selected_room else 'None'}")
         
-        # ... (The rest of the function for building the prompt)
         location_name = location.get('name', 'Unknown Location')
-        location_desc = location.get('description', 'No description available.')
-        location_atmo = location.get('atmosphere', 'No atmosphere defined.')
-
-        npc_profiles = []
-        for npc in npcs:
-            npc_name = npc.get('name', 'Unknown NPC')
-            npc_desc = npc.get('description', 'No description.')
-            npc_motive = npc.get('motivation', 'No motivation specified.')
-            npc_profiles.append(f"- {npc_name}: {npc_desc} (Motivation: {npc_motive})")
+        room_desc = selected_room.get('description', 'No description available.') if selected_room else 'No room description.'
+        
+        npc_profiles = [f"- {n['name']}: {n['description']} (Motivation: {n['motivation']})" for n in npcs]
         
         prompt = f"""
         You are a Dungeon Master AI. Your task is to generate narrative content based on the provided context.
@@ -84,7 +150,12 @@ def generate_scene():
         The "dialogue" key should contain an array of objects, where each object has a "speaker" and "line".
         The "scene_changes" key should contain a descriptive string.
 
-        **Context:** ...
+        **Context:**
+        The scene is in {location_name}, specifically in the {room_name}.
+        Description: {room_desc}
+        
+        The following characters are present:
+        {chr(10).join(npc_profiles)}
 
         **Player's Action/Prompt:** "{data.get('user_prompt')}"
 
@@ -95,6 +166,7 @@ def generate_scene():
             logging.info(f"--- PROMPT SENT TO AI ---\n{prompt}\n-------------------------")
         
         response = ai_model.generate_content(prompt)
+        # Clean the response to ensure it's valid JSON
         clean_response = response.text.strip().lstrip('```json').rstrip('```')
         
         if log_config.getboolean('log_ai_response'):
@@ -106,16 +178,23 @@ def generate_scene():
         logging.error(f"!!! An error occurred in /generate: {e}", exc_info=True)
         return jsonify({"error": f"An unexpected error occurred on the server: {e}"}), 500
 
-# --- Data Management Routes (unchanged) ---
+# --- Data Management Routes ---
 @app.route('/npcs', methods=['GET'])
 def get_npcs():
+    """Returns a list of all NPCs."""
     npcs = [serialize_doc(npc) for npc in npc_collection.find()]
     return jsonify(npcs)
 
 @app.route('/locations', methods=['GET'])
 def get_locations():
+    """Returns a list of all locations."""
     locations = [serialize_doc(loc) for loc in location_collection.find()]
     return jsonify(locations)
 
 if __name__ == '__main__':
-    app.run(debug=True, port=5000)
+    # Load initial data on startup
+    load_json_data('npcs.json', npc_collection)
+    load_json_data('locations.json', location_collection)
+    
+    # Run the app with auto-reloading for the specified JSON files
+    app.run(debug=True, port=5000, extra_files=['npcs.json', 'locations.json'])

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI NPC & Scene Generator</title>
+    <!-- Link to the external stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- Left Column for Controls -->
+    <div id="left-column" class="column">
+        <h1>Controls ⚙️</h1>
+        <div class="container">
+            <h2>Characters & Location</h2>
+            
+            <label for="location-select">Select Location:</label>
+            <select id="location-select"></select>
+
+            <label for="room-select">Select Room:</label>
+            <select id="room-select"></select>
+            
+            <label for="npc-select">NPCs in Room (Auto-selected):</label>
+            <select id="npc-select" multiple size="6"></select>
+        </div>
+    </div>
+
+    <!-- Resizer Handle -->
+    <div id="resizer"></div>
+
+    <!-- Right Column for Display -->
+    <div id="right-column" class="column">
+        <h1>AI Dungeon Master 🧙‍♂️</h1>
+        <div class="container">
+            <h2>Description</h2>
+            <div id="description-result">
+                Select a location and room to see a description.
+            </div>
+        </div>
+
+        <div class="container">
+            <h2>Prompt</h2>
+            <label for="user-prompt">What do the players do or say?</label>
+            <textarea id="user-prompt" rows="4" placeholder="e.g., The players ask the blacksmith about the goblin raids..."></textarea>
+            <button id="generate-btn">Generate Response</button>
+        </div>
+        
+        <div class="container">
+             <h2>Generated Scene</h2>
+             <div id="generation-result">
+                Your generated scene will appear here...
+             </div>
+        </div>
+    </div>
+
+    <!-- Link to the new external script file -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

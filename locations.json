@@ -2,6 +2,73 @@
   {
     "name": "The Sunken Tavern",
     "description": "A dimly lit tavern in the city's underbelly, built into the foundation of a collapsed temple. The air smells of cheap ale and regret.",
-    "atmosphere": "Tense, secretive, filled with whispers and suspicious glances."
+    "rooms": [
+      {
+        "name": "Main Hall",
+        "description": "The main drinking hall of the tavern. It is filled with rickety tables and chairs. A large, cracked mirror hangs behind the bar.",
+        "npcs": ["Brak the Orc"],
+        "dialogue": [],
+        "traps": [],
+        "treasure": []
+      }
+    ]
+  },
+  {
+    "name": "Trollskull Manor",
+    "description": "A handsome, three-story building with a stone-and-timber construction. It has a slate roof and a turret on one corner. The windows are boarded up, and a sign hangs precariously from one hinge, reading 'Trollskull Manor'.",
+    "rooms": [
+      {
+        "name": "Outside",
+        "description": "You stand before the imposing Trollskull Manor. The air is still, and the only sound is the creaking of the sign in the wind. The front door is large and made of oak, with a heavy iron knocker in the shape of a troll's head.",
+        "npcs": [],
+        "dialogue": [],
+        "traps": [],
+        "treasure": []
+      },
+      {
+        "name": "Basement",
+        "description": "The basement is damp and smells of earth and mildew. Crates and barrels are stacked against the walls, covered in cobwebs. A single, bare bulb hangs from the ceiling, casting long shadows.",
+        "npcs": [],
+        "dialogue": [],
+        "traps": [
+          "A tripwire connected to a set of falling barrels."
+        ],
+        "treasure": [
+          "A small, locked chest hidden behind a loose stone in the wall."
+        ]
+      },
+      {
+        "name": "Private Room",
+        "description": "This small, private room is furnished with a round table and four chairs. A single, shuttered window looks out onto the alley. The room is quiet, offering a respite from the noise of the barroom.",
+        "npcs": ["Elara Nightwind"],
+        "dialogue": [],
+        "traps": [],
+        "treasure": []
+      },
+      {
+        "name": "Barroom",
+        "description": "The barroom is spacious, with a long, wooden bar and a large hearth. The room is in disarray, with overturned tables and chairs. It looks like a brawl took place here recently.",
+        "npcs": [],
+        "dialogue": [],
+        "traps": [],
+        "treasure": []
+      },
+      {
+        "name": "Kitchen",
+        "description": "The kitchen is a mess. Pots and pans are scattered on the floor, and a thick layer of dust covers every surface. A large, cast-iron stove stands against one wall, its door hanging open.",
+        "npcs": [],
+        "dialogue": [],
+        "traps": [],
+        "treasure": []
+      },
+      {
+        "name": "Office",
+        "description": "The office is small and cluttered. A large, wooden desk dominates the room, covered in papers and books. A large, leather-bound chair sits behind the desk, and a bookshelf filled with books lines one wall.",
+        "npcs": [],
+        "dialogue": [],
+        "traps": [],
+        "treasure": []
+      }
+    ]
   }
 ]
