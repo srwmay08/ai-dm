@@ -16,6 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let locationsData = [];
     let npcsData = [];
     let partyNpcIds = new Set();
+    let partyJustSet = false; // Flag to show intros for a newly formed party
     const placeholderText = 'Your generated scene will appear here...';
 
     // --- Helper Function to Append to Scene ---
@@ -117,10 +118,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Display introduction dialogue for each NPC entering the scene
                 if (npc.canned_conversations && npc.canned_conversations.introduction) {
-                    const introDialogue = `<p><strong>${npc.name}:</strong> <em>"${npc.canned_conversations.introduction}"</em></p>`;
-                    appendToGeneratedScene(introDialogue);
+                    // Show intro if the party was just set, or if the NPC is not a party member
+                    if (partyJustSet || !partyNpcIds.has(npc._id)) {
+                        const introDialogue = `<p><strong>${npc.name}:</strong> <em>"${npc.canned_conversations.introduction}"</em></p>`;
+                        appendToGeneratedScene(introDialogue);
+                    }
                 }
             });
+            
+            // Reset the flag after using it
+            if (partyJustSet) {
+                partyJustSet = false;
+            }
 
             renderNpcCards();
         }
@@ -215,12 +224,14 @@ document.addEventListener('DOMContentLoaded', () => {
     
     setPartyBtn.addEventListener('click', () => {
         partyNpcIds = new Set(Array.from(npcSelect.selectedOptions).map(opt => opt.value));
+        partyJustSet = true; // Set flag to show intros for the new party
         alert('Persistent party set!');
         updateRoomDetails(locationSelect.value, roomSelect.value);
     });
 
     clearPartyBtn.addEventListener('click', () => {
         partyNpcIds.clear();
+        partyJustSet = false; // Clear the flag as well
         alert('Persistent party cleared!');
         updateRoomDetails(locationSelect.value, roomSelect.value);
     });

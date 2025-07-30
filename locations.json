@@ -14,61 +14,503 @@
     ]
   },
   {
-  "name": "Trollskull Manor",
-  "description": "A grand manor house that stands silhouetted against the fading light, its gables and chimneys reaching like skeletal fingers toward the sky. It sags with the weight of time and neglect, its facade a patchwork of faded paint and peeling plaster. Many of its windows are dark, shattered panes like vacant eyes staring out into the alley. The heavy oak front door is scarred and weathered, and the very stones seem to hum with a subtle, disquieting energy.",
-  "rooms": [
-    {
-      "name": "Outside",
-      "description": "The crisp air of Waterdeep seems to grow still as you step into Trollskull Alley. The clamor of the main thoroughfares fades, replaced by a peculiar quiet. Before you, the manor stands, undeniably impressive in scale but sagging with the weight of time and neglect. Its once proud facade is now a patchwork of faded paint and peeling plaster. Shattered window panes are like vacant eyes staring out, and the heavy oak front door is scarred and weathered, its polished brass knocker tarnished green with age.",
-      "npcs": ["Volothamp Geddarm"],
-      "dialogue": [],
-      "traps": [],
-      "treasure": []
-    },
-    {
-      "name": "Barroom",
-      "description": "To the left of the grand entry hall, a decaying common room stretches out, dominated by a large stone hearth that yawns like a silent mouth, its cold and soot-stained. Ahead of you stands a long, mahogany bar, its surface dull and scarred. The air here feels heavier, a lingering phantom scent of stale ale and distant merriment. Empty, overturned stools lie scattered like fallen soldiers, and shattered tankards litter the floor, glittering like broken jewels in the gloom. A chill, colder than the rest of the house, seems to emanate from the collapsed remains of a support beam near the bar, which pins the splintered remains of several ale casks.",
-      "npcs": [],
-      "dialogue": [],
-      "traps": [],
-      "treasure": []
-    },
-    {
-      "name": "Private Room",
-      "description": "Once a private dining area, this room is now a desolate shell. The ghosts of forgotten furniture and memories linger in the air, and the wind sighs through gaps in the roof, carrying echoes of past laughter and quiet despair.",
-      "npcs": ["Elara Nightwind"],
-      "dialogue": [],
-      "traps": [],
-      "treasure": []
-    },
-    {
-      "name": "Basement",
-      "description": "The basement is damp and smells of earth and mildew. Crates and barrels are stacked against the walls, covered in cobwebs. A single, bare bulb hangs from the ceiling, casting long shadows.",
-      "npcs": [],
-      "dialogue": [],
-      "traps": [
-        "A tripwire connected to a set of falling barrels."
-      ],
-      "treasure": [
-        "A small, locked chest hidden behind a loose stone in the wall."
-      ]
-    },
-    {
-      "name": "Kitchen",
-      "description": "The kitchen is a mess. Pots and pans are scattered on the floor, and a thick layer of dust covers every surface. A large, cast-iron stove stands against one wall, its door hanging open.",
-      "npcs": [],
-      "dialogue": [],
-      "traps": [],
-      "treasure": []
-    },
-    {
-      "name": "Office",
-      "description": "The office is small and cluttered. A large, wooden desk dominates the room, covered in papers and books. A large, leather-bound chair sits behind the desk, and a bookshelf filled with books lines one wall.",
-      "npcs": [],
-      "dialogue": [],
-      "traps": [],
-      "treasure": []
-    }
-  ]
-}
+    "name": "Trollskull Manor",
+    "description": "A grand manor house that stands silhouetted against the fading light, its gables and chimneys reaching like skeletal fingers toward the sky. It sags with the weight of time and neglect, its facade a patchwork of faded paint and peeling plaster. Many of its windows are dark, shattered panes like vacant eyes staring out into the alley. The heavy oak front door is scarred and weathered, and the very stones seem to hum with a subtle, disquieting energy.",
+    "rooms": [
+      {
+        "name": "Outside",
+        "description": "The crisp air of Waterdeep seems to grow still as you step into Trollskull Alley. The clamor of the main thoroughfares fades, replaced by a peculiar quiet. Before you, the manor stands, undeniably impressive in scale but sagging with the weight of time and neglect. Its once proud facade is now a patchwork of faded paint and peeling plaster. Shattered window panes are like vacant eyes staring out, and the heavy oak front door is scarred and weathered, its polished brass knocker tarnished green with age.",
+        "npcs": ["Volothamp Geddarm"],
+        "dialogue": [],
+        "traps": [],
+        "treasure": []
+      },
+      {
+        "name": "Barroom",
+        "description": "To the left of the grand entry hall, a decaying common room stretches out, dominated by a large stone hearth that yawns like a silent mouth, its cold and soot-stained. Ahead of you stands a long, mahogany bar, its surface dull and scarred. The air here feels heavier, a lingering phantom scent of stale ale and distant merriment. Empty, overturned stools lie scattered like fallen soldiers, and shattered tankards litter the floor, glittering like broken jewels in the gloom. A chill, colder than the rest of the house, seems to emanate from the collapsed remains of a support beam near the bar, which pins the splintered remains of several ale casks.",
+        "npcs": [],
+        "dialogue": [],
+        "traps": [],
+        "treasure": []
+      },
+      {
+        "name": "Private Room",
+        "description": "Once a private dining area, this room is now a desolate shell. The ghosts of forgotten furniture and memories linger in the air, and the wind sighs through gaps in the roof, carrying echoes of past laughter and quiet despair.",
+        "npcs": ["Elara Nightwind"],
+        "dialogue": [],
+        "traps": [],
+        "treasure": []
+      },
+      {
+        "name": "Basement",
+        "description": "The basement is damp and smells of earth and mildew. Crates and barrels are stacked against the walls, covered in cobwebs. A single, bare bulb hangs from the ceiling, casting long shadows.",
+        "npcs": [],
+        "dialogue": [],
+        "traps": [
+          "A tripwire connected to a set of falling barrels."
+        ],
+        "treasure": [
+          "A small, locked chest hidden behind a loose stone in the wall."
+        ]
+      },
+      {
+        "name": "Kitchen",
+        "description": "The kitchen is a mess. Pots and pans are scattered on the floor, and a thick layer of dust covers every surface. A large, cast-iron stove stands against one wall, its door hanging open.",
+        "npcs": [],
+        "dialogue": [],
+        "traps": [],
+        "treasure": []
+      },
+      {
+        "name": "Office",
+        "description": "The office is small and cluttered. A large, wooden desk dominates the room, covered in papers and books. A large, leather-bound chair sits behind the desk, and a bookshelf filled with books lines one wall.",
+        "npcs": [],
+        "dialogue": [],
+        "traps": [],
+        "treasure": []
+      }
+    ]
+  },
+  {
+    "name": "Blue Alley",
+    "description": "The infamous Blue Alley lies hidden in the heart of Waterdeep. Built by a secretive wizard, it is a magic maze full of tricks, traps, strange monsters, and rich treasure. Countless adventurers have ventured inside to test their bravery and skill, yet few have returned.",
+    "rooms": [
+      {
+        "name": "1. Guest Book",
+        "description": {
+          "narrative": "You step from the street into a narrow passage, and the world seems to shift. The cobblestones underfoot are made from a glittering blue sodalite, casting a strange, underwater-like light on the 20-foot-high sandstone walls that rise on either side of you. A simple tin sign on the western wall confirms your location with two words: 'BLUE ALLEY'. A few feet further in, a podium of the same gleaming sodalite stands as a silent sentinel. Resting upon it is a heavy, blue leather-bound book and a simple quill. Just beyond it, the air shimmers and distorts, revealing a transparent, impassable wall of force that blocks the alley completely. The book is filled with hundreds of names, some of which have a neat line drawn through them, a silent testament to past failures.",
+          "dimensions_and_terrain": "The alley is 10 feet wide with cobblestones of blue sodalite and 20-foot sandstone walls.",
+          "other_features": "A tin sign on the western wall has the words 'BLUE ALLEY' painted on it. A podium of gleaming sodalite stands a few feet inside Blue Alley. Atop the podium lies a quill beside a heavy book bound in blue leather. The book is full of hundreds of names, each written in a different hand. About a quarter of the names have a neat line drawn through them."
+        },
+        "npcs": [],
+        "dialogue": [],
+        "traps": [
+          "A permanent 20-foot high wall of force blocks the alley about 10 feet in from the entrance. If anyone writes their name in the book on the podium, they can pass north through the wall and so enter Blue Alley.",
+          "The quill and book are protected by an explosive glyph of warding. Anyone taking either item more than 3’ from the podium triggers the glyph. Another explosive glyph also triggers if the podium is moved."
+        ],
+        "treasure": [
+          "The nib of the quill is always magically full of ink."
+        ]
+      },
+      {
+        "name": "2. Mural of Mutilation",
+        "description": {
+          "narrative": "The alley branches here, presenting a choice between east and west. Your attention, however, is seized by a brightly colored mural painted on the northern wall. It's a chaotic masterpiece of mayhem, depicting countless adventurers falling victim to every conceivable trap in gruesome, vibrant detail. Scything blades, spiked pits, and jets of fire are all immortalized in paint. It’s a gallery of failure, a warning and a mockery all in one. Above this grim display, the word 'SILVER' is painted over an arrow pointing east, while 'GOLD' is painted over an arrow pointing west.",
+          "dimensions_and_terrain": "The alley splits into branches running east and west. A brightly colored mural is painted on the northern wall of the intersection. It depicts numerous adventurers falling victim to every conceivable form of trap. Scything blades, spiked pits, collapsing roofs, jets of fire, poison gas and more are all featured. At the top of the mural, the word “SILVER” is painted above an arrow pointing east, while the word “GOLD” is painted above an arrow pointing west."
+        },
+        "npcs": [],
+        "dialogue": [],
+        "traps": [
+          "Anyone examining the mural and making a successful DC 12 Wisdom (Perception) check finds a depiction of the party members being mutilated by various grisly traps.",
+          "Anyone making a successful DC 17 Wisdom (Perception) check notices the following small sentence hidden in the mural: 'FIFTY FEET SOUTH OF THE BARRED WINDOW IS A SECRET DOOR.'"
+        ],
+        "treasure": []
+      },
+      {
+        "name": "3. Ivory Door",
+        "description": {
+          "narrative": "Before you stands a heavy door of ivory-coated iron, its surface intricately carved with unsettling reliefs of lions, tigers, and wolves feasting upon their prey. The air inside is sterile and cold. The whitewashed stone walls are a canvas for bizarre, painted treasure chests, each one depicted with its lid thrown open to reveal not jewels, but rows of wickedly sharp teeth. Against the far wall, a simple reinforced wooden chest sits, its lid closed, appearing almost mundane in this strange gallery. An odd inscription on the west wall reads, 'THIS TOOL WITH'.",
+          "door": "The door is made of ivory-coated iron and is carved with the figures of carnivorous animals (such as lions, tigers, and wolves) eating their prey. The door is locked and can be opened with the ivory key (see area 4).",
+          "dimensions_and_terrain": "The stone walls of this room have been whitewashed and painted with images of treasure chests of varying sizes. The pictured chests are all open, revealing rows of sharp teeth. Inscribed on the west wall are the words, 'THIS TOOL WITH'.",
+          "furniture": "There is a reinforced wooden chest sitting against the southern wall. The lid is closed but it appears to have no lock."
+        },
+        "npcs": [
+          "The entire ceiling is a mimic."
+        ],
+        "dialogue": [],
+        "traps": [
+          "As soon as someone comes within 2 feet of the chest it drops and attacks everyone in the room."
+        ],
+        "treasure": [
+          "The chest is unlocked and contains 24 gp, 267 sp, a small bronze bell, and a silver key wrapped in a velvet cloth.",
+          "The bell is silent when shaken and then rings five minutes later. It is worth 15 gp. The silver key unlocks the door in area 14."
+        ]
+      },
+      {
+        "name": "4. Grab the Bull by the…",
+        "description": {
+            "narrative": "You enter a space that defies logic. Though the chamber is only ten feet tall, it appears to be a 20-foot square pasture, complete with the illusion of lush grasses, a water trough, and a clear sky overhead. Bordering this impossible field are two small, silo-like rooms. Inside each, mounted like a hunting trophy, is a single silver-plated ox skull with arcane runes covering its horns. The walls of these small rooms are painted ivory and covered in a dizzying, repeating geometric pattern that, upon closer inspection, reveals itself to be the shape of a key, over and over again.",
+            "dimensions_and_terrain": "There are three chambers that comprise this area. The 20 foot by 20 foot square space is filled with illusions that make it appear to be a pasture area of the same size, complete with lush grasses, a water trough, and a clear sky overhead (despite the fact that the chamber is only ten feet tall). Two 'silos' border the pasture, and inside each of them is a single silver-plated ox skull; runes cover the skull’s horns. The interior of both silos has been covered in ivory paint and a crazy geometric pattern; a successful DC 12 Intelligence (Investigation) check reveals that the pattern is simply that of a key, repeated over and over again."
+        },
+        "npcs": ["Minotaur"],
+        "dialogue": [],
+        "traps": [
+            "When the first character grasps the horns of one of the skulls, the southern door shuts, and a faintly echoing moo can be heard. If someone is touching the horns on the other skull while the first is still being touched, the sky over the pasture darkens and a very angry minotaur phases into existence at a random location in the pasture. It is unsettled by the phasing effect and all melee attack rolls against it have advantage. If at any point the characters stop touching either skull, the minotaur fades away with a look of great relief. Should it be phased back in, it returns with full hit points as if it had not been previously summoned."
+        ],
+        "treasure": [
+            "The minotaur wears an ivory key on a chain around its neck. Until the minotaur is slain, the key is bound by the same phasing magic as the minotaur is."
+        ]
+      },
+      {
+        "name": "5. A Sticky Situation",
+        "description": {
+          "narrative": "A short but steep flight of stairs rises before you, leading up ten feet. The steps are draped in an exquisite Calishite rug, a cascade of rich colors and intricate geometric patterns that seems entirely out of place in this deadly alley. The beauty of the rug is hypnotic, drawing the eye along its length up the narrow, 5-foot-wide hallway.",
+          "dimensions_and_terrain": "The stairs are blanketed by an exquisite Calishite rug covered in geometric patterns and rich colors. The stairs rise 10 feet from the bottom level to the top, and the hallway is 5 feet wide and has an 8-foot ceiling."
+        },
+        "npcs": [],
+        "dialogue": [],
+        "traps": [
+          "The center 2-foot space of the rug, from the base of the stairs all the way to the top, is covered in specially-formulated sovereign glue. One round after a creature becomes stuck, a magic mouth opens at the top of stairs and says 'Laughter is the best medicine. MAKE ME LAUGH!' If their comments or antics are humorous the magic mouth looses a stone-shaking uproarious laugh and intones a command word ('sedso') that causes the glue to become inert. The glue activates again one minute later."
+        ],
+        "treasure": []
+      },
+      {
+        "name": "6. Winery",
+        "description": {
+          "narrative": "This 30-foot-long chamber feels like a forgotten wine cellar. Racks of wine bottles, most shattered or empty, line the walls, their contents long since spilled. The air is thick with the smell of dust and sour, ancient wine. A cryptic phrase is inscribed on the west wall, reading, 'STRENGTH CANNOT'. Behind one of the wine racks in the northwest corner, you spot a small, 2-foot high door plated in gold.",
+          "secret_entrance": "The secret door to this room may be found with a successful DC 15 Wisdom (Perception) check.",
+          "dimensions_and_terrain": "Racks of wine bottles line the outer walls of this 10 foot by 30 foot chamber. Inscribed on the west wall are the words, 'STRENGTH CANNOT'.",
+          "door": "There is a 2-foot high gold-plated door in the northwest corner, behind a wine rack. The door is locked and can be opened with the 'golden' coin (see area 18)."
+        },
+        "npcs": [],
+        "dialogue": [],
+        "traps": [],
+        "treasure": [
+          "Though most of the bottles have been broken or are simply empty, there are still five bottles of dark Amnish wine. They are worth 10 gp each or can be used as flasks of alchemist’s fire in a pinch.",
+          "A successful DC 15 Wisdom (Perception) check locates two potions of healing amongst the discarded bottles.",
+          "If the gold door is opened, it reveals a tiny cavity beyond containing a lantern of revealing."
+        ]
+      },
+      {
+        "name": "7. Hovering Blade",
+        "description": {
+          "narrative": "You enter a chamber with a soaring, domed ceiling nearly 40 feet high, covered in brilliant murals of mighty wizards and proud warriors. In the center of the room, a raised dais draws your eye. Atop it rests a single, glittering gem, and hovering directly above it, point-down, is an ornately decorated longsword, rotating slowly and menacingly in the air. Carved around the rim of the dais are the words: 'Power pulses within me, and only a living warmth may move me.'",
+          "dimensions_and_terrain": "There is a raised dais in the center of the room. Atop it lies a glittering gem, and an ornately decorated longsword hovers in the air above it, point-down and slowly rotating in place. The ceiling is domed and nearly 40 feet high, with brilliant murals of wizards and warriors across the plaster-covered stonework. Around the rim of the dais are the words 'Power pulses within me, and only a living warmth may move me.'"
+        },
+        "npcs": ["Animated Sword"],
+        "dialogue": [],
+        "traps": [
+          "The first person to touch the gem is attacked by the sword that hovers above it.",
+          "There are three secret doors in this room. Locating each one requires a separate successful DC 15 Wisdom (Perception) check."
+        ],
+        "treasure": [
+          "The gem can be retained by the characters while they are in Blue Alley. Once removed from the pedestal and upon close inspection, two things become apparent: first, it contains a small set of iron gates inside; and second, it is a low-quality gem and not actually worth any amount of gold. It is the key for activating the teleporter in area 22."
+        ]
+      },
+      {
+        "name": "8. “Broken” Trap",
+        "description": {
+          "narrative": "This small, 10-foot-square room seems to hold a failed trap. In the center, a crossbow is mounted on a tripod, aimed at the door you just came through. However, its string has long since snapped, leaving a single, unfired silver bolt resting in its groove. It seems harmless, a relic of a threat that never was. On the west wall, another enigmatic phrase is inscribed: 'CAN DO'.",
+          "dimensions_and_terrain": "In the center of this small 10 foot by 10 foot room is a crossbow mounted on a tripod. The string on the crossbow has long since snapped, leaving the single silver bolt unfired. Inscribed on the west wall are the words, 'CAN DO'."
+        },
+        "npcs": [],
+        "dialogue": [],
+        "traps": [
+          "With a successful DC 12 Intelligence (Investigation) check, the characters can discern that the silver bolt is actually holding down a very tiny pressure switch. Removing the bolt causes the room to fill with toxic fumes; any living creature that is exposed must succeed on a DC 12 Constitution saving throw or take 3 (1d6) acid damage and be poisoned for 1 minute. The fumes dissipate after 1 minute."
+        ],
+        "treasure": [
+          "The silver bolt is worth 2 gp."
+        ]
+      },
+      {
+        "name": "9. Panic Room",
+        "description": {
+          "narrative": "This 20-foot-square room is a strange oasis of comfort. A fire crackles merrily in the hearth, casting a warm, inviting glow. The couch still feels warm to the touch, as if recently vacated. On a nearby table sits a bowl containing nine plump, red berries and a small, plain-looking wooden box. The walls are reinforced with steel, and a decorative lattice of iron beams crosses the ceiling, giving the room a feeling of security. It feels like the perfect place to catch your breath. The inscription on the west wall reads, 'WHAT MIGHT AND'.",
+          "dimensions_and_terrain": "This room measures 20 foot by 20 foot and was at one time a comfortable study or library. A fire blazes in the hearth, the couch still feels warm, and perched on top of the table are a bowl of 9 goodberries and a small, plain-looking wooden box. The walls are reinforced with steel and there is a lattice of iron beams across the ceiling that is both decorative and sturdy. Inscribed on the west wall are the words, 'WHAT MIGHT AND'."
+        },
+        "npcs": ["Will-o'-wisp"],
+        "dialogue": [],
+        "traps": [
+          "Any character with a passive Perception of 14 immediately notices faint runes carved into the perimeter of the table. An identify spell reveals that they reverse the magic of anything contained inside their space.",
+          "Should a character eat a goodberry from the bowl, they immediately lose 1 hp and must succeed on a DC 10 Constitution saving throw or gain one level of exhaustion as they feel the effects of starvation setting in.",
+          "Should a character remove the plain wooden box from the runed area, it immediately reveals that it was containing something else: a will ‘o wisp. The runes dampened the creature’s electric powers, but once moved from that space it regains full power and attacks immediately, bursting forth from the box with haste."
+        ],
+        "treasure": []
+      },
+      {
+        "name": "10. A Quiet Place",
+        "description": {
+          "narrative": "You open the door to a 30-foot-long chamber that is profoundly unsettling. The walls, ceiling, and floor are all comprised of a perfectly smooth, featureless stone, as if the room was carved from a single, massive block and polished to a mirror shine. When the door closes behind you, an absolute silence descends, so deep and unnerving that you can hear the blood pulsing in your ears. The inscription on the west wall says, 'A SOFT TOUCH'.",
+          "dimensions_and_terrain": "Measuring 10 feet by 30 feet, the walls, ceiling, and floor are all comprised of perfectly smooth, featureless stone—almost as if this place were shaped from a single large rock and then transported here. When the door is shut, no sound escapes back into the main chamber (area 7). Inscribed on the west wall are the words, 'A SOFT TOUCH'."
+        },
+        "npcs": [],
+        "dialogue": [],
+        "traps": [
+          "The door automatically attempts to close after being open for 1 minute, and it can only be held open by a successful DC 16 Strength (Athletics) check. Once it closes and so long as the door remains sealed, the trap becomes apparent: it’s supernaturally quiet in here. Every minute that they remain here they must succeed on a DC 10 Wisdom saving throw or else gain one short-term madness. After ten minutes, the door pops back open."
+        ],
+        "treasure": []
+      },
+      {
+        "name": "11. Skeletal Secret",
+        "description": {
+          "narrative": "Set into the west wall of the alley is a disturbing relief sculpture. It depicts a life-sized humanoid skeleton, its arms outstretched and its mouth open in a silent, eternal scream. The detail is exquisite and unsettling, its empty eyes seeming to stare into your very soul.",
+          "dimensions_and_terrain": "On the west wall of the alley is a relief sculpture of a humanoid skeleton, with outstretched arms and a mouth open as if screaming."
+        },
+        "npcs": [],
+        "dialogue": [],
+        "traps": [
+          "Anyone examining the skeleton and making a successful DC 15 Wisdom (Perception) check notices a small iron button in the skull. Pressing the button causes the secret door in the west wall to swing inwards."
+        ],
+        "treasure": []
+      },
+      {
+        "name": "12. The High Way",
+        "description": {
+          "narrative": "This corridor feels vast and open, thanks to the colorful frescoes of a bright skyscape covering the walls. All manner of flying creatures, from tiny bumblebees to majestic rocs, soar across the painted sky. The ceiling is a full 20 feet high. About 15 feet above the floor, a row of short copper rods protrudes from either wall, and dangerous arcs of lightning crackle between them, running the entire length of the corridor.",
+          "dimensions_and_terrain": "The stone walls are decorated with colorful frescoes depicting a skyscape filled with all manner of flying creatures, from bumblebees to rocs. The ceiling is 20 feet high. About 15 feet above the floor, a row of short copper rods protrudes from either wall. Lightning arcs between these rods the entire length of the corridor."
+        },
+        "npcs": [],
+        "dialogue": [],
+        "traps": [
+          "Exactly halfway down the corridor is a 5-foot wide pressure plate. Applying 30 pounds or more of pressure to this plate causes everything in the corridor to levitate for three rounds, at the rate of 1 foot per second.",
+          "Any creature touching the lightning must make a DC 10 Dexterity saving throw, taking 5 (1d10) lightning damage on a failed save, or half as much damage on a successful one."
+        ],
+        "treasure": []
+      },
+      {
+        "name": "13. The Low Way",
+        "description": {
+          "narrative": "You enter a corridor of dressed stone, but the air is thick with the smell of dust and decay. Thick, ancient cobwebs hang like tattered shrouds over everything. Your path is blocked by a wide, 20-foot-long pit that yawns across the corridor. Its bottom, 10 feet down, is lined with jagged, menacing spikes that promise a painful landing.",
+          "dimensions_and_terrain": "The corridor has walls of dressed stone and thick cobwebs cover everything. There is an open pit blocking the way, 10 feet deep and 20 feet long. The bottom of the pit is lined with jagged and menacing spikes."
+        },
+        "npcs": [],
+        "dialogue": [],
+        "traps": [
+          "There is a 5-foot wide pressure plate along the eastern side of the pit. Applying 30 pounds or more of pressure to this plate causes the pit spikes to shoot upward explosively. Anyone in the pit must make a DC 13 Dexterity saving throw, taking 5 (1d10) piercing damage on a failed save, or half as much damage on a successful one."
+        ],
+        "treasure": []
+      },
+      {
+        "name": "14. Silver Door",
+        "description": {
+          "narrative": "The door to the east is a striking work of silver-plated iron, its entire surface engraved with interlocking circles of various sizes. It gleams softly in the ambient light. Behind the door is a small, dark chamber.",
+          "door": "The east door is made of silver-plated iron and engraved with circles of varying sizes. The door is locked and can be opened with the silver key (see area 3)."
+        },
+        "npcs": [],
+        "dialogue": [],
+        "traps": [
+          "The small chamber behind the door is completely filled with polished steel spheres, ranging in diameter from 6 inches up to 2 feet. If the door is opened the spheres come tumbling out, and everyone in the room must make a successful DC 12 Dexterity saving throw or be knocked prone and take 5 (1d10) bludgeoning damage."
+        ],
+        "treasure": []
+      },
+      {
+        "name": "15. Bear Traps and Bones",
+        "description": {
+          "narrative": "The walls of this chamber are lined with rough, dirty, tan-colored bricks. The floor is a grim tableau of failure, thickly littered with the detritus of past adventurers—trinkets, odd coins, broken equipment, and discarded weapons are strewn amongst dried gore and splintered bones. It seems the alley's cleaning crew avoids this room for a good reason.",
+          "dimensions_and_terrain": "The walls of this chamber are lined with rough and dirty tan-colored bricks. Rubbish litters the floor, including trinkets, coins, equipment, and weapons, alongside bones and dried up gore.",
+          "secret_entrance": "The secret door in the east wall may be found with a successful DC 15 Wisdom (Perception) check."
+        },
+        "npcs": [
+          "Six skeletons."
+        ],
+        "dialogue": [],
+        "traps": [
+          "The whole area is thickly littered with invisible bear traps which are firmly bolted to the floor. For every 10 feet of movement, an adventurer must make a DC 12 Dexterity saving throw. On a failure, the adventurer triggers the trap, taking 5 (1d10) piercing damage and becoming restrained. The first time a bear trap is triggered, the secret door opens and six skeletons emerge and attack."
+        ],
+        "treasure": [
+          "If someone spends a few rounds searching the room, roll on the Bear Trap Treasures table. No more than eight items may be found in this way."
+        ]
+      },
+      {
+        "name": "16. Chamber of Shadows",
+        "description": {
+          "narrative": "You step into a chamber wrapped in a single, continuous mural depicting a desolate wasteland under a setting sun. The landscape is scattered with innumerable humanoid skulls of varying sizes, each casting a long, dark shadow across the mesas. In the center of the room stands a small, grotesque altar constructed entirely from dark, splintered humanoid skulls. The eye sockets of several skulls on the altar have been filled with glittering, semi-precious gemstones.",
+          "dimensions_and_terrain": "A large mural wraps around the walls of this chamber, depicting numerous humanoid skulls of varying sizes scattered across a wasteland. The sun is setting behind a low range of mesas, and the skulls each cast long shadows.",
+          "furniture": "There is a small altar made entirely of dark, splintered humanoid skulls. The eye sockets of three skulls have been filled with semi-precious gemstones."
+        },
+        "npcs": [
+          "There are normally six skeletons in this chamber, who emerge when a trap is triggered in area 15.",
+          "Shadow"
+        ],
+        "dialogue": [],
+        "traps": [
+          "If a gemstone is pried from the altar, a shadow squeezes out of the empty eye socket and attacks."
+        ],
+        "treasure": [
+          "Moonstone (35 gp)",
+          "Jasper (30 gp)",
+          "Carnelian (27 gp)",
+          "Malachite (15 gp)",
+          "Blue quartz (8 gp)",
+          "Azurite (13 gp)"
+        ]
+      },
+      {
+        "name": "17. Bladed Blitz",
+        "description": {
+          "narrative": "As you open the door, a terrifying cacophony of grinding metal erupts. This long corridor is a whirlwind of death. Dozens of whirling blades emerge from deep grooves in the floor, while massive scything blades swing back and forth from the ceiling, creating a deadly, overlapping pattern of destruction. The rough, tan-colored brick walls are spattered with dried gore, a testament to the trap's effectiveness.",
+          "dimensions_and_terrain": "The walls of this long corridor are lined with rough and dirty tan-colored bricks. Dried gore is spattered over the floor, walls, and ceiling."
+        },
+        "npcs": [],
+        "dialogue": [],
+        "traps": [
+          "As soon as the south door is opened, dozens of whirling blades emerge from deep grooves in the floor, while scything blades swing back and forth up the entire corridor. An adventurer moving through the corridor must make a successful DC 15 Dexterity saving throw every round or take 6 (1d10) slashing damage. If an adventurer takes the dash action, this saving throw is made with disadvantage. If an adventurer moves half their speed or less, the saving throw is made with advantage."
+        ],
+        "treasure": []
+      },
+      {
+        "name": "18. Hidden Gold",
+        "description": {
+          "narrative": "You enter a serene, dome-shaped room with walls of polished white marble that gleam in the light. In the exact center of the room is a 3-foot-high marble pedestal with a fluted column. A plush red pillow sits atop it, presenting a single, humble copper piece as if it were a king's ransom.",
+          "dimensions_and_terrain": "This dome-shaped room has walls of polished, white marble.",
+          "furniture": "In the center of the room is a 3-foot high marble pedestal with a fluted column. A plush red pillow sits on top."
+        },
+        "npcs": [],
+        "dialogue": [
+          "If anyone picks up the copper piece, a magic mouth on the pedestal says “Congratulations!” in a sarcastic voice."
+        ],
+        "traps": [],
+        "treasure": [
+          "Sitting on the pillow is a single copper piece. Anyone examining the coin sees the following words around the edge: 'Minted in 1364 DR, golden anniversary of the reign of Lord Piergeiron the Paladinson.' This coin is the key that unlocks the golden door in area 6."
+        ]
+      },
+      {
+        "name": "19. Former Reception Room",
+        "description": {
+          "narrative": "This room was once a place of exquisite luxury, but has now fallen into a state of elegant decay. The overstuffed couches, though faded, still look invitingly comfortable. A thick, patterned carpet covers the floor, and you can see it has been well-cared for, though an obvious path is worn into it from frequent footfalls. To the east, a heavy door is stuck fast in its frame.",
+          "dimensions_and_terrain": "At one time this room was exquisitely luxurious, but it has now fallen into disrepair. Even so, the overstuffed couches appear very comfortable and the carpet has obviously been cared for (even if there is an obvious travel path worn into it). There is a door to the east that is stuck shut and requires a successful DC 14 Strength (Athletics) check to open."
+        },
+        "npcs": [],
+        "dialogue": [],
+        "traps": [
+          "If the adventurers spend more than two rounds in this chamber, they hear a faint voice from behind the eastern door. Any character with a passive Perception of 14 or higher identifies that the voice exclaims 'Entertain me!' This message does not repeat itself."
+        ],
+        "treasure": []
+      },
+      {
+        "name": "20. Statue of Keilier",
+        "description": {
+          "narrative": "In the center of this room, a life-sized bronze statue of a severe-looking wizard stands encased within a shimmering sphere of force. A plaque on its base identifies the figure as 'Keilier'. The statue is unnervingly lifelike, its enchanted eyes seeming to follow your every move. The floor around the sphere is littered with shattered glass vials, and a frustrated message is scrawled in Common on the wall: 'Utter madness. PURE RUBBISH!'",
+          "dimensions_and_terrain": "A solid bronze statue of the wizard Keilier (so it says on the statue’s base) is placed within a sphere of force. The statue has been enchanted to make it appear as if the eyes follow you around the space, and several broken vials lie on the floor. On the wall is a phrase, scrawled in Common: 'Utter madness. PURE RUBBISH!'"
+        },
+        "npcs": [
+          "The boggles of Blue Alley."
+        ],
+        "dialogue": [
+          "If a character speaks the wizard’s name, the statue responds. It has but a sliver of Keilier’s personality, but it responds to questions with haughty quips and terrible puns if possible. After a few moments of conversation, the statue says, 'Well, do you have a riddle for me?' If someone says, 'What might and strength cannot get through, this tool with a soft touch can do.' The statue then says, 'The answer, of course, is a ‘key’'."
+        ],
+        "traps": [
+          "The eyes of the statue have a secondary enchantment: they alert the boggles of intruders in Blue Alley. If the boggles have not been killed or otherwise ejected from the premises, they arrive in 1d4 rounds."
+        ],
+        "treasure": [
+          "A wand of secrets then appears at the adventurer’s feet. The wand is constructed from many low-quality emeralds that have been fused together. Inscribed along the edge, in a mix of abyssal and draconic, is the phrase: 'All that is yours is mine, and what is mine cannot be hidden.'"
+        ]
+      },
+      {
+        "name": "21. Incinerator",
+        "description": {
+          "narrative": "The air in this chamber is hot, humid, and thick with the smell of ash. The walls are lined with red clay bricks, blackened with soot. At the far end of the room is an 8-foot wide, 40-foot deep circular pit that glows with a malevolent, fiery red light from its depths, radiating intense heat. This is clearly the alley's garbage disposal.",
+          "dimensions_and_terrain": "The walls of this chamber are lined with red clay bricks. At the far end is a 40-foot deep circular pit with a diameter of 8 feet. The room is hot, humid, and smells of ash. The pit glows a fiery red."
+        },
+        "npcs": [
+          "At the bottom of the pit are two magmins, standing in a deep pile of ashes."
+        ],
+        "dialogue": [
+          "If someone speaks Ignan and calls down from the top of the pit, one of the creatures, named Fusilis, is willing to talk. It says they were summoned into the pit by a 'great wizard', who occasionally visits to retrieve any metal or gems that have been cast in."
+        ],
+        "traps": [],
+        "treasure": [
+          "At the bottom of the pit, covered by ashes, is an easily located mound of gold, silver, and copper slag, worth 34 gp in total. A successful DC 12 Wisdom (Perception) check locates a moonstone worth 27 gp."
+        ]
+      },
+      {
+        "name": "22. The Gates of Paradise",
+        "description": {
+          "narrative": "This rectangular room is built of stark, featureless stone. The only object of interest is a set of black iron gates set into the southern wall. They lead nowhere, simply standing flush against the stone. If you touch them, a disembodied voice materializes from the ceiling, intoning: 'Beyond these gates lies paradise. Enter them as you entered life, and you may yet find it; grasp the jewel and grasp the iron, then be whisked away to the truest of rewards.'",
+          "dimensions_and_terrain": "This rectangular room is built of stone and is featureless save for the black iron gates set into the southern wall."
+        },
+        "npcs": [],
+        "dialogue": [
+          "If a creature touches the gates and is not holding the gemstone from area 7 in one hand, a magic mouth materializes in the ceiling and intones 'Beyond these gates lies paradise. Enter them as you entered life, and you may yet find it; grasp the jewel and grasp the iron, then be whisked away to the truest of rewards.'"
+        ],
+        "traps": [
+          "If a character holds the gem from area 7 and takes hold of the iron bars, they are immediately teleported out of Blue Alley and into the common room of the Yawning Portal. The gem remains in Blue Alley, clattering to the floor after the character disappears. If no creatures remain in the room, the gem instead teleports back to the pedestal in area 7.",
+          "Alternately, a character may remove all their clothing and equipment and grasp the bars. If they do, they must make a successful DC 18 Wisdom saving throw or be subjected to Tasha’s hideous laughter as another magic mouth spouts: 'Comedy is the true paradise—entertain me!'. Whether they make the saving throw or not, the character is then teleported (sans equipment) to area 28."
+        ],
+        "treasure": []
+      },
+      {
+        "name": "23. Vault Room",
+        "description": {
+          "narrative": "A phrase hangs in the air above the unlocked doorway to this room, reading: 'TAKE ONLY WHAT YOU CAN TRULY AFFORD.' The room beyond is a breathtaking sight, filled to the brim with glittering coins of every type—gold, silver, and platinum—piled in massive drifts across the floor. It is a king's ransom, thousands upon thousands of gold pieces just waiting to be taken. However, a careful eye might notice the coins are arranged in odd stacks that spell out the words 'ALL FAKE.'",
+          "dimensions_and_terrain": "While in the hallway, the characters read this phrase above the unlocked doorway to this room: 'TAKE ONLY WHAT YOU CAN TRULY AFFORD.' The room is filled to the brim with coins of all types. Any character that succeeds on a DC 14 Intelligence (Investigation) or Wisdom (Perception) check identifies that the coins are arranged in such a way that the stacks spell out the words 'ALL FAKE'."
+        },
+        "npcs": [],
+        "dialogue": [
+          "A magic mouth forms in the hallway and tells the characters of their curse or blessing, and the details thereof. The voice is snide and inserts as many puns as possible."
+        ],
+        "traps": [
+          "Upon leaving the room, each coin taken weighs one pound and any character that took more than 100 coins finds that they are cursed (no saving throw): they have disadvantage on skill and ability checks until they spend five days performing community service or receive a remove curse spell. Conversely, any character that took nothing is affected by a bless spell that lasts for one hour."
+        ],
+        "treasure": [
+          "The coins have no gp value and crumble to dust upon leaving Blue Alley."
+        ]
+      },
+      {
+        "name": "24. Twisty & Narrow",
+        "description": {
+          "narrative": "You enter a strange room with a single, winding path of bright yellow tiles leading from the western door to the northern one. The walls are covered in intensely detailed murals depicting solemn Helmite funerary rituals. Hidden in the background of these scenes, you can spot a dozen mages, all clutching the holy symbol of Mystra, as if observing the rites in secret. On the west wall is the final piece of the riddle: 'GET THROUGH'.",
+          "dimensions_and_terrain": "This room has a winding path of bright yellow tiles that lead from the western door to the northern one. The walls have all been decorated with intensely detailed murals depicting Helmite funerary rituals as well as a dozen mages, all holding the holy symbol of Mystra, hiding in the background. Inscribed on the west wall are the words, 'GET THROUGH'."
+        },
+        "npcs": ["2 Specters"],
+        "dialogue": [
+          "A magic mouth jovially bellows 'Mystra can what Helm cannot!'"
+        ],
+        "traps": [
+          "If a creature steps off the yellow tiles, the holy symbols carried by the mages in the paintings all flare as the creature is subjected to a fear spell (DC 14). Succeeding on the saving throw causes two of the mages to step free of the wall as specters."
+        ],
+        "treasure": []
+      },
+      {
+        "name": "25. The Celestite Unicorn",
+        "description": {
+          "narrative": "You push open the door and gasp. You are standing in a room made entirely of mirrors. The walls, the floor, and the ceiling are all fashioned from a single, magically hardened mirror, creating an infinite, dazzling reflection of you and the room's sole occupant. Standing in the very center of this chamber of reflections is a magnificent, 3-foot-tall statue of a rearing unicorn, carved from a single piece of shimmering, celestial-blue stone. As the door swings shut, glowing words magically trace themselves across its mirrored surface: 'Everything you see is mine'.",
+          "dimensions_and_terrain": "All the surfaces in this chamber are made of a single magic mirror that has been shaped to become walls, floor, and ceiling. Standing in the middle of the room is a 3-foot tall statue of a rearing unicorn. When the door to area 24 is closed, the words 'Everything you see is mine' are magically written across it. The mirror has been magically hardened and is immune to all damage, though a single shatter spell breaks it."
+        },
+        "npcs": [],
+        "dialogue": [],
+        "traps": [
+          "The statue cannot be removed from the room unless the characters can devise some way to take it without their reflections seeing it. Keilier has enchanted the room to claim 'ownership' of anything that a visitor can see, so once a visitor leaves the room, anything that they are wearing or carrying is teleported to the center of the room as the wizard’s boisterous laughter rolls through the chamber."
+        ],
+        "treasure": [
+          "The statue is the very one that Mirt has tasked the characters with finding."
+        ]
+      },
+      {
+        "name": "26. Swinging Peril",
+        "description": {
+          "narrative": "The walls of this chamber are lined with the same red clay bricks as the incinerator room. Before you is a wide chasm. The floor is 20 feet below, but it's completely obscured by a thick, churning blanket of magical smoke that pours from several large, immovable pots. Spanning the chasm are seven circular metal platforms, each 6 feet in diameter, hanging from great iron chains attached to the high ceiling. In the far south-west corner, a window, heavily protected by iron bars, offers a glimpse of the alley outside.",
+          "dimensions_and_terrain": "The walls of this chamber are lined with red clay bricks. Seven circular metal platforms, each 6 feet in diameter, hang from great iron chains attached to the ceiling. The floor is 20 feet below but is hidden by a thick blanket of smoke that pours from several magic smoking pots (which are too large to move). A window in the south-west corner is protected by iron bars, which are too thick for the adventurers to bend."
+        },
+        "npcs": [
+          "8 smoke mephits in total."
+        ],
+        "dialogue": [],
+        "traps": [
+          "Jumping to a wooden disk requires a successful DC 12 Strength (Athletics) check. On a failure, the adventurer falls to the floor.",
+          "Every time an adventurer leaps to a new disk, there is a 25% chance that 1d6 smoke mephits emerge from the smoke and attack.",
+          "Anyone fighting from a disk has disadvantage on all attacks, due to the need to balance. Anyone taking damage must make a successful DC 6 Dexterity saving throw or fall off."
+        ],
+        "treasure": [
+          "Dangling from the westmost disk by a short copper chain is a moon-touched sword*. It is visible from the barred window."
+        ]
+      },
+      {
+        "name": "27. Spare Parts",
+        "description": {
+          "narrative": "This room is a chaotic wizard's workshop, a disaster zone of failed experiments. Rows of workbenches are covered in arcane detritus: scorched beakers, shattered vials, and buckets of unidentifiable, bubbling goo. The air is a harsh assault on the senses, thick with the stench of fire, acid, and ozone. Scorch marks dot nearly every surface, a clear warning of the volatile nature of the work done here.",
+          "dimensions_and_terrain": "Rows of workbenches line the room, each covered in the detritus of experiments long-finished. Scorch marks dot the scene and the stench of fire and acid assail the senses. Beakers, vials, and buckets of unidentifiable arcane goo can be seen around this area."
+        },
+        "npcs": [],
+        "dialogue": [],
+        "traps": [
+          "This room is packed with volatile alchemical reagents and moving between the workbenches is treated as difficult terrain. Any activity that would disturb the reagents (such as knocking a bench over, using an area of effect spell, or so on) is a dangerous prospect: each square of an affected workbench explodes in a 5-foot radius, causing each creature in the affected space to make a DC 14 Dexterity saving throw or take 6 (1d10) fire damage and 6 (1d10) acid damage; success on the saving throw reduces the damage by half."
+        ],
+        "treasure": [
+          "A DC 16 Intelligence (Investigation) check is required in order to find anything of actual use. If successful, the characters can recover one potion that is actually two potions of healing that have been mixed together. Failing the Investigation check by 5 or more results in an explosion as noted in the Traps & Puzzles section."
+        ]
+      },
+      {
+        "name": "28. The Bums Rush",
+        "description": {
+          "narrative": "You find yourself in a filthy, dead-end alley. The stone walls are covered in crude graffiti and stained with unidentifiable filth. The overpowering stench of dried vomit, human waste, and rotting garbage assaults your nostrils. The ground is a treacherous landscape of refuse—piles of rags, old broken crates, empty bottles, and worse. It is a truly miserable and disgusting place. Adventurers teleported here from area 22 find themselves unceremoniously half-buried in a mound of this trash.",
+          "dimensions_and_terrain": "This dead end is laden with piles of refuse such as rags, old crates, empty bottles, rotting food, and worse. The stone walls are covered in graffiti and stained with filth. The smell of dried vomit and human waste is overpowering. Any adventurers are transported here from area 22 find themselves half-buried in a mound of trash."
+        },
+        "npcs": [],
+        "dialogue": [],
+        "traps": [],
+        "treasure": []
+      }
+    ]
+  }
 ]
