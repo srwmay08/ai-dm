@@ -1,21 +1,7 @@
 [
   {
-    "name": "The Sunken Tavern",
-    "description": "A dimly lit tavern in the city's underbelly, built into the foundation of a collapsed temple. The air smells of cheap ale and regret.",
-    "rooms": [
-      {
-        "name": "Main Hall",
-        "description": "The main drinking hall of the tavern. It is filled with rickety tables and chairs. A large, cracked mirror hangs behind the bar.",
-        "npcs": ["Brak the Orc","Elara Nightwind","Volothamp Geddarm","Renaer Neverember"],
-        "dialogue": [],
-        "traps": [],
-        "treasure": []
-      }
-    ]
-  },
-  {
     "name": "Trollskull Manor",
-    "description": "A grand manor house that stands silhouetted against the fading light, its gables and chimneys reaching like skeletal fingers toward the sky. It sags with the weight of time and neglect, its facade a patchwork of faded paint and peeling plaster. Many of its windows are dark, shattered panes like vacant eyes staring out into the alley. The heavy oak front door is scarred and weathered, and the very stones seem to hum with a subtle, disquieting energy.",
+    "description": "A grand but neglected four-story manor house with balconies, a turret, and five chimneys. It is haunted by the poltergeist of its former barkeeper, Lif. The layout has been altered from the book's original rendering to be more architecturally sound[cite: 31]. An alternative cellar map includes a secret meeting room and an exit to the tunnels of Waterdeep",
     "rooms": [
       {
         "name": "Outside",
@@ -28,7 +14,7 @@
       {
         "name": "Barroom",
         "description": "To the left of the grand entry hall, a decaying common room stretches out, dominated by a large stone hearth that yawns like a silent mouth, its cold and soot-stained. Ahead of you stands a long, mahogany bar, its surface dull and scarred. The air here feels heavier, a lingering phantom scent of stale ale and distant merriment. Empty, overturned stools lie scattered like fallen soldiers, and shattered tankards litter the floor, glittering like broken jewels in the gloom. A chill, colder than the rest of the house, seems to emanate from the collapsed remains of a support beam near the bar, which pins the splintered remains of several ale casks.",
-        "npcs": [],
+        "npcs": ["Lif"],
         "dialogue": [],
         "traps": [],
         "treasure": []
@@ -36,7 +22,7 @@
       {
         "name": "Private Room",
         "description": "Once a private dining area, this room is now a desolate shell. The ghosts of forgotten furniture and memories linger in the air, and the wind sighs through gaps in the roof, carrying echoes of past laughter and quiet despair.",
-        "npcs": ["Elara Nightwind"],
+        "npcs": ["Lif"],
         "dialogue": [],
         "traps": [],
         "treasure": []
@@ -44,7 +30,7 @@
       {
         "name": "Basement",
         "description": "The basement is damp and smells of earth and mildew. Crates and barrels are stacked against the walls, covered in cobwebs. A single, bare bulb hangs from the ceiling, casting long shadows.",
-        "npcs": [],
+        "npcs": ["Lif"],
         "dialogue": [],
         "traps": [
           "A tripwire connected to a set of falling barrels."
@@ -56,7 +42,7 @@
       {
         "name": "Kitchen",
         "description": "The kitchen is a mess. Pots and pans are scattered on the floor, and a thick layer of dust covers every surface. A large, cast-iron stove stands against one wall, its door hanging open.",
-        "npcs": [],
+        "npcs": ["Lif"],
         "dialogue": [],
         "traps": [],
         "treasure": []
@@ -64,7 +50,7 @@
       {
         "name": "Office",
         "description": "The office is small and cluttered. A large, wooden desk dominates the room, covered in papers and books. A large, leather-bound chair sits behind the desk, and a bookshelf filled with books lines one wall.",
-        "npcs": [],
+        "npcs": ["Lif"],
         "dialogue": [],
         "traps": [],
         "treasure": []
@@ -132,7 +118,7 @@
             "narrative": "You enter a space that defies logic. Though the chamber is only ten feet tall, it appears to be a 20-foot square pasture, complete with the illusion of lush grasses, a water trough, and a clear sky overhead. Bordering this impossible field are two small, silo-like rooms. Inside each, mounted like a hunting trophy, is a single silver-plated ox skull with arcane runes covering its horns. The walls of these small rooms are painted ivory and covered in a dizzying, repeating geometric pattern that, upon closer inspection, reveals itself to be the shape of a key, over and over again.",
             "dimensions_and_terrain": "There are three chambers that comprise this area. The 20 foot by 20 foot square space is filled with illusions that make it appear to be a pasture area of the same size, complete with lush grasses, a water trough, and a clear sky overhead (despite the fact that the chamber is only ten feet tall). Two 'silos' border the pasture, and inside each of them is a single silver-plated ox skull; runes cover the skull’s horns. The interior of both silos has been covered in ivory paint and a crazy geometric pattern; a successful DC 12 Intelligence (Investigation) check reveals that the pattern is simply that of a key, repeated over and over again."
         },
-        "npcs": ["Minotaur"],
+        "npcs": ["Phasing Minotaur"],
         "dialogue": [],
         "traps": [
             "When the first character grasps the horns of one of the skulls, the southern door shuts, and a faintly echoing moo can be heard. If someone is touching the horns on the other skull while the first is still being touched, the sky over the pasture darkens and a very angry minotaur phases into existence at a random location in the pasture. It is unsettled by the phasing effect and all melee attack rolls against it have advantage. If at any point the characters stop touching either skull, the minotaur fades away with a look of great relief. Should it be phased back in, it returns with full hit points as if it had not been previously summoned."
@@ -199,7 +185,8 @@
           "With a successful DC 12 Intelligence (Investigation) check, the characters can discern that the silver bolt is actually holding down a very tiny pressure switch. Removing the bolt causes the room to fill with toxic fumes; any living creature that is exposed must succeed on a DC 12 Constitution saving throw or take 3 (1d6) acid damage and be poisoned for 1 minute. The fumes dissipate after 1 minute."
         ],
         "treasure": [
-          "The silver bolt is worth 2 gp."
+          "The silver bolt is worth 2 gp.",
+          "Tucked into a small leather pouch tied to the tripod is a Potion of Climbing."
         ]
       },
       {
@@ -208,14 +195,16 @@
           "narrative": "This 20-foot-square room is a strange oasis of comfort. A fire crackles merrily in the hearth, casting a warm, inviting glow. The couch still feels warm to the touch, as if recently vacated. On a nearby table sits a bowl containing nine plump, red berries and a small, plain-looking wooden box. The walls are reinforced with steel, and a decorative lattice of iron beams crosses the ceiling, giving the room a feeling of security. It feels like the perfect place to catch your breath. The inscription on the west wall reads, 'WHAT MIGHT AND'.",
           "dimensions_and_terrain": "This room measures 20 foot by 20 foot and was at one time a comfortable study or library. A fire blazes in the hearth, the couch still feels warm, and perched on top of the table are a bowl of 9 goodberries and a small, plain-looking wooden box. The walls are reinforced with steel and there is a lattice of iron beams across the ceiling that is both decorative and sturdy. Inscribed on the west wall are the words, 'WHAT MIGHT AND'."
         },
-        "npcs": ["Will-o'-wisp"],
+        "npcs": ["Will-o'-Wisp"],
         "dialogue": [],
         "traps": [
           "Any character with a passive Perception of 14 immediately notices faint runes carved into the perimeter of the table. An identify spell reveals that they reverse the magic of anything contained inside their space.",
           "Should a character eat a goodberry from the bowl, they immediately lose 1 hp and must succeed on a DC 10 Constitution saving throw or gain one level of exhaustion as they feel the effects of starvation setting in.",
           "Should a character remove the plain wooden box from the runed area, it immediately reveals that it was containing something else: a will ‘o wisp. The runes dampened the creature’s electric powers, but once moved from that space it regains full power and attacks immediately, bursting forth from the box with haste."
         ],
-        "treasure": []
+        "treasure": [
+          "Wedged between the cushions of the warm couch is a fire-resistant pouch containing 50 gp and a Hat of Wizardry."
+        ]
       },
       {
         "name": "10. A Quiet Place",
@@ -228,18 +217,20 @@
         "traps": [
           "The door automatically attempts to close after being open for 1 minute, and it can only be held open by a successful DC 16 Strength (Athletics) check. Once it closes and so long as the door remains sealed, the trap becomes apparent: it’s supernaturally quiet in here. Every minute that they remain here they must succeed on a DC 10 Wisdom saving throw or else gain one short-term madness. After ten minutes, the door pops back open."
         ],
-        "treasure": []
+        "treasure": [
+          "A successful DC 16 Wisdom (Perception) check reveals a nearly invisible seam in the stone. Pushing it reveals a small compartment containing a Driftglobe."
+        ]
       },
       {
         "name": "11. Skeletal Secret",
         "description": {
-          "narrative": "Set into the west wall of the alley is a disturbing relief sculpture. It depicts a life-sized humanoid skeleton, its arms outstretched and its mouth open in a silent, eternal scream. The detail is exquisite and unsettling, its empty eyes seeming to stare into your very soul.",
-          "dimensions_and_terrain": "On the west wall of the alley is a relief sculpture of a humanoid skeleton, with outstretched arms and a mouth open as if screaming."
+          "narrative": "Set into the North wall of the alley is a disturbing relief sculpture. It depicts a life-sized humanoid skeleton, its arms outstretched and its mouth open in a silent, eternal scream. The detail is exquisite and unsettling, its empty eyes seeming to stare into your very soul.",
+          "dimensions_and_terrain": "On the North wall of the alley is a relief sculpture of a humanoid skeleton, with outstretched arms and a mouth open as if screaming."
         },
         "npcs": [],
         "dialogue": [],
         "traps": [
-          "Anyone examining the skeleton and making a successful DC 15 Wisdom (Perception) check notices a small iron button in the skull. Pressing the button causes the secret door in the west wall to swing inwards."
+          "Anyone examining the skeleton and making a successful DC 15 Wisdom (Perception) check notices a small iron button in the skull. Pressing the button causes the secret door in the west North to swing inwards."
         ],
         "treasure": []
       },
@@ -255,7 +246,9 @@
           "Exactly halfway down the corridor is a 5-foot wide pressure plate. Applying 30 pounds or more of pressure to this plate causes everything in the corridor to levitate for three rounds, at the rate of 1 foot per second.",
           "Any creature touching the lightning must make a DC 10 Dexterity saving throw, taking 5 (1d10) lightning damage on a failed save, or half as much damage on a successful one."
         ],
-        "treasure": []
+        "treasure": [
+          "A character who carefully inspects the fresco and succeeds on a DC 15 Intelligence (Investigation) check notices one of the painted rocs is carrying a satchel that seems three-dimensional. Reaching into the painting allows them to pull out a real Bag of Holding."
+        ]
       },
       {
         "name": "13. The Low Way",
@@ -268,7 +261,9 @@
         "traps": [
           "There is a 5-foot wide pressure plate along the eastern side of the pit. Applying 30 pounds or more of pressure to this plate causes the pit spikes to shoot upward explosively. Anyone in the pit must make a DC 13 Dexterity saving throw, taking 5 (1d10) piercing damage on a failed save, or half as much damage on a successful one."
         ],
-        "treasure": []
+        "treasure": [
+          "A careful search of the pit's bottom among the debris uncovers a skeletal hand clutching a Wand of Magic Detection."
+        ]
       },
       {
         "name": "14. Silver Door",
@@ -281,7 +276,9 @@
         "traps": [
           "The small chamber behind the door is completely filled with polished steel spheres, ranging in diameter from 6 inches up to 2 feet. If the door is opened the spheres come tumbling out, and everyone in the room must make a successful DC 12 Dexterity saving throw or be knocked prone and take 5 (1d10) bludgeoning damage."
         ],
-        "treasure": []
+        "treasure": [
+          "Tumbled among the steel spheres is a small but heavy adamantine lockbox (DC 17 Thieves' Tools to open) containing two 100 gp gems and a Spell Scroll of Knock."
+        ]
       },
       {
         "name": "15. Bear Traps and Bones",
@@ -290,14 +287,13 @@
           "dimensions_and_terrain": "The walls of this chamber are lined with rough and dirty tan-colored bricks. Rubbish litters the floor, including trinkets, coins, equipment, and weapons, alongside bones and dried up gore.",
           "secret_entrance": "The secret door in the east wall may be found with a successful DC 15 Wisdom (Perception) check."
         },
-        "npcs": [
-          "Six skeletons."
-        ],
+        "npcs": ["Guardian Skeletons"],
         "dialogue": [],
         "traps": [
           "The whole area is thickly littered with invisible bear traps which are firmly bolted to the floor. For every 10 feet of movement, an adventurer must make a DC 12 Dexterity saving throw. On a failure, the adventurer triggers the trap, taking 5 (1d10) piercing damage and becoming restrained. The first time a bear trap is triggered, the secret door opens and six skeletons emerge and attack."
         ],
         "treasure": [
+          "One of the skeletons that emerges is wearing a battered but functional Sentinel Shield.",
           "If someone spends a few rounds searching the room, roll on the Bear Trap Treasures table. No more than eight items may be found in this way."
         ]
       },
@@ -317,12 +313,8 @@
           "If a gemstone is pried from the altar, a shadow squeezes out of the empty eye socket and attacks."
         ],
         "treasure": [
-          "Moonstone (35 gp)",
-          "Jasper (30 gp)",
-          "Carnelian (27 gp)",
-          "Malachite (15 gp)",
-          "Blue quartz (8 gp)",
-          "Azurite (13 gp)"
+          "The following gemstones are in the altar: Moonstone (75 gp), Jasper (60 gp), Carnelian (50 gp), Malachite (40 gp), Blue quartz (25 gp), Azurite (20 gp).",
+          "If the skull altar is destroyed, a hidden compartment within it reveals a Periapt of Health."
         ]
       },
       {
@@ -336,7 +328,9 @@
         "traps": [
           "As soon as the south door is opened, dozens of whirling blades emerge from deep grooves in the floor, while scything blades swing back and forth up the entire corridor. An adventurer moving through the corridor must make a successful DC 15 Dexterity saving throw every round or take 6 (1d10) slashing damage. If an adventurer takes the dash action, this saving throw is made with disadvantage. If an adventurer moves half their speed or less, the saving throw is made with advantage."
         ],
-        "treasure": []
+        "treasure": [
+          "At the far end of the hall is the mangled body of a halfling adventurer. On their hands are a pair of Gloves of Thievery, and their belt pouch contains 15 pp."
+        ]
       },
       {
         "name": "18. Hidden Gold",
@@ -351,7 +345,8 @@
         ],
         "traps": [],
         "treasure": [
-          "Sitting on the pillow is a single copper piece. Anyone examining the coin sees the following words around the edge: 'Minted in 1364 DR, golden anniversary of the reign of Lord Piergeiron the Paladinson.' This coin is the key that unlocks the golden door in area 6."
+          "Sitting on the pillow is a single copper piece. Anyone examining the coin sees the following words around the edge: 'Minted in 1364 DR, golden anniversary of the reign of Lord Piergeiron the Paladinson.' This coin is the key that unlocks the golden door in area 6.",
+          "Underneath the pillow are 25 gp, placed there to mislead the greedy."
         ]
       },
       {
@@ -365,7 +360,9 @@
         "traps": [
           "If the adventurers spend more than two rounds in this chamber, they hear a faint voice from behind the eastern door. Any character with a passive Perception of 14 or higher identifies that the voice exclaims 'Entertain me!' This message does not repeat itself."
         ],
-        "treasure": []
+        "treasure": [
+          "Behind a dusty painting of a nobleman is a small, hidden wall safe (DC 15 Thieves' Tools to open). Inside is an Immovable Rod and a note that says, 'Try again. -K'."
+        ]
       },
       {
         "name": "20. Statue of Keilier",
@@ -373,9 +370,7 @@
           "narrative": "In the center of this room, a life-sized bronze statue of a severe-looking wizard stands encased within a shimmering sphere of force. A plaque on its base identifies the figure as 'Keilier'. The statue is unnervingly lifelike, its enchanted eyes seeming to follow your every move. The floor around the sphere is littered with shattered glass vials, and a frustrated message is scrawled in Common on the wall: 'Utter madness. PURE RUBBISH!'",
           "dimensions_and_terrain": "A solid bronze statue of the wizard Keilier (so it says on the statue’s base) is placed within a sphere of force. The statue has been enchanted to make it appear as if the eyes follow you around the space, and several broken vials lie on the floor. On the wall is a phrase, scrawled in Common: 'Utter madness. PURE RUBBISH!'"
         },
-        "npcs": [
-          "The boggles of Blue Alley."
-        ],
+        "npcs": ["Boggle"],
         "dialogue": [
           "If a character speaks the wizard’s name, the statue responds. It has but a sliver of Keilier’s personality, but it responds to questions with haughty quips and terrible puns if possible. After a few moments of conversation, the statue says, 'Well, do you have a riddle for me?' If someone says, 'What might and strength cannot get through, this tool with a soft touch can do.' The statue then says, 'The answer, of course, is a ‘key’'."
         ],
@@ -383,7 +378,8 @@
           "The eyes of the statue have a secondary enchantment: they alert the boggles of intruders in Blue Alley. If the boggles have not been killed or otherwise ejected from the premises, they arrive in 1d4 rounds."
         ],
         "treasure": [
-          "A wand of secrets then appears at the adventurer’s feet. The wand is constructed from many low-quality emeralds that have been fused together. Inscribed along the edge, in a mix of abyssal and draconic, is the phrase: 'All that is yours is mine, and what is mine cannot be hidden.'"
+          "A Wand of Secrets appears at the adventurer’s feet upon solving the riddle. The wand is constructed from many low-quality emeralds that have been fused together.",
+          "Carefully sifting through the broken vials on the floor (DC 14 Investigation) yields enough residual liquid to create one Potion of Invisibility."
         ]
       },
       {
@@ -392,15 +388,15 @@
           "narrative": "The air in this chamber is hot, humid, and thick with the smell of ash. The walls are lined with red clay bricks, blackened with soot. At the far end of the room is an 8-foot wide, 40-foot deep circular pit that glows with a malevolent, fiery red light from its depths, radiating intense heat. This is clearly the alley's garbage disposal.",
           "dimensions_and_terrain": "The walls of this chamber are lined with red clay bricks. At the far end is a 40-foot deep circular pit with a diameter of 8 feet. The room is hot, humid, and smells of ash. The pit glows a fiery red."
         },
-        "npcs": [
-          "At the bottom of the pit are two magmins, standing in a deep pile of ashes."
-        ],
+        "npcs": ["Fusilis the Magmin","Magmin"],
         "dialogue": [
           "If someone speaks Ignan and calls down from the top of the pit, one of the creatures, named Fusilis, is willing to talk. It says they were summoned into the pit by a 'great wizard', who occasionally visits to retrieve any metal or gems that have been cast in."
         ],
         "traps": [],
         "treasure": [
-          "At the bottom of the pit, covered by ashes, is an easily located mound of gold, silver, and copper slag, worth 34 gp in total. A successful DC 12 Wisdom (Perception) check locates a moonstone worth 27 gp."
+          "At the bottom of the pit, covered by ashes, is a mound of gold, silver, and copper slag, worth 100 gp in total.",
+          "A successful DC 12 Wisdom (Perception) check locates a moonstone worth 50 gp.",
+          "A further DC 15 check uncovers a Ring of Warmth, pleasantly cool to the touch amidst the cinders."
         ]
       },
       {
@@ -433,7 +429,8 @@
           "Upon leaving the room, each coin taken weighs one pound and any character that took more than 100 coins finds that they are cursed (no saving throw): they have disadvantage on skill and ability checks until they spend five days performing community service or receive a remove curse spell. Conversely, any character that took nothing is affected by a bless spell that lasts for one hour."
         ],
         "treasure": [
-          "The coins have no gp value and crumble to dust upon leaving Blue Alley."
+          "The coins have no gp value and crumble to dust upon leaving Blue Alley.",
+          "A small, unassuming wooden chest sits in a corner, overlooked by the mountain of fake coins. It is unlocked and contains a Cloak of Protection."
         ]
       },
       {
@@ -442,14 +439,16 @@
           "narrative": "You enter a strange room with a single, winding path of bright yellow tiles leading from the western door to the northern one. The walls are covered in intensely detailed murals depicting solemn Helmite funerary rituals. Hidden in the background of these scenes, you can spot a dozen mages, all clutching the holy symbol of Mystra, as if observing the rites in secret. On the west wall is the final piece of the riddle: 'GET THROUGH'.",
           "dimensions_and_terrain": "This room has a winding path of bright yellow tiles that lead from the western door to the northern one. The walls have all been decorated with intensely detailed murals depicting Helmite funerary rituals as well as a dozen mages, all holding the holy symbol of Mystra, hiding in the background. Inscribed on the west wall are the words, 'GET THROUGH'."
         },
-        "npcs": ["2 Specters"],
+        "npcs": ["Mural Specter"],
         "dialogue": [
           "A magic mouth jovially bellows 'Mystra can what Helm cannot!'"
         ],
         "traps": [
           "If a creature steps off the yellow tiles, the holy symbols carried by the mages in the paintings all flare as the creature is subjected to a fear spell (DC 14). Succeeding on the saving throw causes two of the mages to step free of the wall as specters."
         ],
-        "treasure": []
+        "treasure": [
+          "When one of the specters is defeated, it leaves behind the corporeal Ring of Mind Shielding it was wearing, which clatters to the floor."
+        ]
       },
       {
         "name": "25. The Celestite Unicorn",
@@ -457,13 +456,13 @@
           "narrative": "You push open the door and gasp. You are standing in a room made entirely of mirrors. The walls, the floor, and the ceiling are all fashioned from a single, magically hardened mirror, creating an infinite, dazzling reflection of you and the room's sole occupant. Standing in the very center of this chamber of reflections is a magnificent, 3-foot-tall statue of a rearing unicorn, carved from a single piece of shimmering, celestial-blue stone. As the door swings shut, glowing words magically trace themselves across its mirrored surface: 'Everything you see is mine'.",
           "dimensions_and_terrain": "All the surfaces in this chamber are made of a single magic mirror that has been shaped to become walls, floor, and ceiling. Standing in the middle of the room is a 3-foot tall statue of a rearing unicorn. When the door to area 24 is closed, the words 'Everything you see is mine' are magically written across it. The mirror has been magically hardened and is immune to all damage, though a single shatter spell breaks it."
         },
-        "npcs": [],
+        "npcs": ["Primara"],
         "dialogue": [],
         "traps": [
           "The statue cannot be removed from the room unless the characters can devise some way to take it without their reflections seeing it. Keilier has enchanted the room to claim 'ownership' of anything that a visitor can see, so once a visitor leaves the room, anything that they are wearing or carrying is teleported to the center of the room as the wizard’s boisterous laughter rolls through the chamber."
         ],
         "treasure": [
-          "The statue is the very one that Mirt has tasked the characters with finding."
+          "The statue is the Celestite Unicorn, the object Mirt hired you to retrieve."
         ]
       },
       {
@@ -482,7 +481,8 @@
           "Anyone fighting from a disk has disadvantage on all attacks, due to the need to balance. Anyone taking damage must make a successful DC 6 Dexterity saving throw or fall off."
         ],
         "treasure": [
-          "Dangling from the westmost disk by a short copper chain is a moon-touched sword*. It is visible from the barred window."
+          "Dangling from the westmost disk by a short copper chain is a moon-touched sword*. It is visible from the barred window.",
+          "At the bottom of the chasm, hidden by the smoke, lies the skeleton of a previous adventurer. They clutch a waterproof satchel containing a Potion of Greater Healing and a Spell Scroll of Levitate."
         ]
       },
       {
@@ -497,7 +497,8 @@
           "This room is packed with volatile alchemical reagents and moving between the workbenches is treated as difficult terrain. Any activity that would disturb the reagents (such as knocking a bench over, using an area of effect spell, or so on) is a dangerous prospect: each square of an affected workbench explodes in a 5-foot radius, causing each creature in the affected space to make a DC 14 Dexterity saving throw or take 6 (1d10) fire damage and 6 (1d10) acid damage; success on the saving throw reduces the damage by half."
         ],
         "treasure": [
-          "A DC 16 Intelligence (Investigation) check is required in order to find anything of actual use. If successful, the characters can recover one potion that is actually two potions of healing that have been mixed together. Failing the Investigation check by 5 or more results in an explosion as noted in the Traps & Puzzles section."
+          "A successful DC 16 Intelligence (Investigation) check is required in order to find anything of actual use. If successful, the characters can recover one potion that is actually two potions of healing that have been mixed together.",
+          "A further successful check allows the discovery of a pair of Goggles of Night on a cluttered shelf."
         ]
       },
       {
@@ -510,6 +511,287 @@
         "dialogue": [],
         "traps": [],
         "treasure": []
+      }
+    ]
+  },
+  {
+    "name": "Trollskull Alley",
+    "description": "A grand but neglected four-story manor house with balconies, a turret, and five chimneys. It is haunted by the poltergeist of its former barkeeper, Lif. The layout has been altered from the book's original rendering to be more architecturally sound[cite: 31]. An alternative cellar map includes a secret meeting room and an exit to the tunnels of Waterdeep[cite: 41].",
+    "rooms": [
+      {
+        "name": "The Bent Nail",
+        "description": "A woodworking shop with a simple sign of a bent nail. The shop displays ornate wooden furniture, bows, crossbows, canes, quarterstaffs, and shields.",
+        "npcs": ["Talisolvanar 'Tally' Fellbranch"],
+        "services": "Sells wooden weapons, shields, furniture, and sculptures at normal cost. Tally may extend credit of up to 100 gp for tavern furniture on a successful DC 20 Persuasion check[cite: 219]."
+      },
+      {
+        "name": "Steam and Steel",
+        "building_code": "T3 / E15",
+        "description": "An indoor forge where smoke and steam billow from the windows during the day. The ground level is solid stone[cite: 333].",
+        "npcs": ["Embric", "Avi"],
+        "services": "Sells all metal weapons, armor, and shields listed in the Player's Handbook at normal cost."
+      },
+      {
+        "name": "Corellon's Crown",
+        "building_code": "T4 / E19",
+        "description": "A stately, three-story townhouse that serves as an apothecary and herbalist shop. The third floor is a greenhouse with translucent glass walls, showing a rainbow of flowers within.",
+        "npcs": ["Fala Lefaliir", "Ziraj the Hunter (visitor)"],
+        "services": "Sells nonmagical herbal remedies and a variety of potions, keeping 1d6 vials of each type in stock. Fala can also provide training with alchemist's, healer's, and herbalist kits[cite: 1029]."
+      },
+      {
+        "name": "Tiger's Eye",
+        "building_code": "T5 / W6",
+        "description": "A private detective's office marked by an orange-and-black sign with a cat's eyes. The interior is a regal apartment lit by flickering oil lamps. This is the home of a Rakshasa, a servant of Asmodeus on the material plane[cite: 498].",
+        "npcs": ["Vincent Trench"],
+        "services": "Vincent Trench can discover any secret in Waterdeep for a fee, typically 50 gp, but may require a service for more significant secrets."
+      },
+      {
+        "name": "Book Wyrm's Treasure",
+        "building_code": "T6 / W10",
+        "description": "A bookstore with a sign of a gold dragon curled around books. The interior is decorated with beautiful hardwood and fills two floors of the three-story building, seeming to contain more shelves than should be possible.",
+        "npcs": ["Rishaal the Page-Turner"],
+        "services": "Sells books of all sorts. Wizards can copy spells from Rishaal's personal collection for a fee. He can also scribe spell scrolls for twice the listed cost of copying. Rishaal can provide training with a calligrapher's or cartographer's kit[cite: 1029]."
+      },
+      {
+        "name": "Sewer Access",
+        "building_code": "T7",
+        "description": "A removable metal grate at the east end of Trollskull Alley. Beneath it, a ladder descends 20 feet into the Waterdeep sewer system.",
+        "npcs": [],
+        "services": null
+      },
+      {
+        "name": "Havershamble's Jewelry and Fine Mechanicals",
+        
+        "building_code": "E1",
+        "description": "An ornate shop with an elaborate stone façade located next door to Trollskull Manor[cite: 72]. Inside is a glittering maze of fine jewelry and mysterious clockwork machines[cite: 82].",
+        "npcs": ["Socally Havershamble", "Bumble Havershamble", "Muffle Havershamble", "Nifflin Havershamble", "Wembly"],
+        "services": "Sells fabulous clocks, mechanical oddities, and intricate jewelry[cite: 75]. Can provide training with jeweler's and tinker's tools[cite: 1029]."
+      },
+      {
+        "name": "Trollskull Tailor",
+        
+        "building_code": "E2",
+        "description": "A three-story townhome with large glass display windows. The shop is known for its excellent workmanship and is frequented by the gentlemen of Waterdeep[cite: 105, 111]. The shop has long been a drop point and meeting place for the Harpers[cite: 115].",
+        "npcs": ["Murgo Bumblestout", "Giselle Kruger", "Frederick Kruger"],
+        "services": "Provides the finest tailoring in town[cite: 111]. Murgo can provide training with a climber's kit and thieves' tools[cite: 1029]."
+      },
+      {
+        "name": "Barksdale Residence",
+        
+        "building_code": "E3",
+        "description": "A small, somewhat shabby two-story townhome on Saerdoun Street, just east of Trollskull Manor[cite: 129]. The building has fallen into disrepair[cite: 130].",
+        "npcs": ["Erwin Barksdale", "Hans Barksdale", "Frans Barksdale"],
+        "notes": "Erwin is a distant cousin of House Phylund and has been contracted by the Zhentarim (or Xanathar's Guild) to spy on the residents of Trollskull Manor[cite: 131, 137, 138]."
+      },
+      {
+        "name": "Krinklenose Residence",
+        
+        "building_code": "E4",
+        "description": "An impressive, freshly painted townhome two doors east of Trollskull Manor. The front door is carved with vines and grape clusters, and the knocker resembles an inverted goblet[cite: 153, 154, 155].",
+        "npcs": ["Jael Krinklenose", "Tria Krinklenose"],
+        "notes": "This is the residence of the owners of KN Wine Distributors (W7)[cite: 156, 158]."
+      },
+      {
+        "name": "Vacant Townhome",
+        
+        "building_code": "E5",
+        "description": "A large, impressive, and vacant townhome three doors east of Trollskull Manor[cite: 180]. It is in pristine condition and rumored to be owned by House Cassalanter[cite: 182, 186].",
+        "npcs": [],
+        "notes": "The property will fetch a price of 5,000 gp on the open market[cite: 187]."
+      },
+      {
+        "name": "Appleton's Fine Comestibles",
+        
+        "building_code": "E6",
+        "description": "A grocer with a dizzying array of fruits and vegetables lining the entrance[cite: 190]. Stocks local produce and occasional shipments from faraway places[cite: 194].",
+        "npcs": ["Artis Appleton", "Joshua Appleton", "Bertie Appleton", "Hughie Appleton", "Arno Appleton", "Mal Appleton", "Artimus Appleton", "Reggie (visitor)"],
+        "services": "Sells produce[cite: 194]. Artis can provide training with navigator's tools[cite: 1029].",
+        "notes": "Artis's six sons call themselves the North Ward Irregulars and are eager for adventure, surveillance, or carrying messages[cite: 195, 197]."
+      },
+      {
+        "name": "Murkledorn's Academy",
+        
+        "building_code": "E9",
+        "description": "A massive four-story building of stone and wood that towers over surrounding structures. Its main entrance on Saerdoun Street has a courtyard and double doors flanked by marble lions[cite: 232, 233]. It is a private school for children ages 8-14[cite: 235].",
+        "npcs": ["Salazar Murkledorn", "Romero Multari", "Baltasar Englehart", "Lucas Mendelson", "Glaara Ironfist"],
+        "notes": "Senior staff teach etiquette, self-defense, languages, math, science, herbalism, potions, and business[cite: 242, 243, 244]."
+      },
+      {
+        "name": "Frewn's Brews",
+        
+        "building_code": "E10",
+        "description": "A three-story building at the east end of the alley with a large beer stein on its sign. The main floor is below street level, with stairs leading down to the entrance[cite: 261, 262].",
+        "npcs": ["Emmek Frewn"],
+        "services": "Functions as a business rival to Trollskull Tavern[cite: 263]. Emmek can provide training with a brewer's kit[cite: 1029]."
+      },
+      {
+        "name": "Stickee and Sweet",
+        
+        "building_code": "E11",
+        "description": "A lovely three-story townhome whose ground floor windows glow with candies of every shape, size, and flavor[cite: 265, 266].",
+        "npcs": ["Tina Toffel", "Tansy Nylif"],
+        "notes": "The proprietors are retired paladins. Their shop is a protected sanctuary[cite: 269, 270]. Tina's caramels can ward off undead, and Tansy's taffy has a debilitating effect on fiends[cite: 271]."
+      },
+      {
+        "name": "Cassalanter Bank",
+        
+        "building_code": "E12",
+        "description": "A magnificent stone building on Delzorin Street. This is the North Ward branch of the Cassalanter Bank[cite: 281, 282].",
+        "npcs": ["Edvaldo Baristan"],
+        "services": "Will happily loan up to 1,000 gp to restore Trollskull Manor, using the building as collateral[cite: 288]. The contract's default clause includes indentured servitude[cite: 290]."
+      },
+      {
+        "name": "Baristan Residence",
+        
+        "building_code": "E13",
+        "description": "A lovely three-story townhome next to the bank, with colorful flower boxes in every window[cite: 309].",
+        "npcs": ["Edvaldo Baristan", "Christina Baristan"],
+        "notes": "Both Edvaldo and Christina are members of the Cassalanter's cult[cite: 314, 284]. They often host traveling performers from the Teatro ZanZinni[cite: 315]."
+      },
+      {
+        "name": "Tamori Residence",
+        
+        "building_code": "E14",
+        "description": "A townhome with unique external décor. The front doors are red with elaborate golden designs depicting an unfamiliar type of dragon and lettering in an unrecognized language[cite: 326, 327, 328].",
+        "npcs": ["The Tamori Family"],
+        "notes": "The residents are Shou trade envoys from Kara-Tur, recently stationed in Waterdeep[cite: 329, 330]."
+      },
+      {
+        "name": "Burnblast Glassblowers",
+        
+        "building_code": "E16",
+        "description": "A two-story structure with a stone lower level and wooden upper level. The shop is filled with a sea of glass art, from cheap trinkets to expensive commissions[cite: 348, 350, 352].",
+        "npcs": ["Anbera Burnblast", "Dain Burnblast"],
+        "services": "Sells and commissions glass art[cite: 352]. The owners can provide training with glassblower's tools[cite: 1029]."
+      },
+      {
+        "name": "Daisy's",
+        
+        "building_code": "E17",
+        "description": "A flower shop brimming with flowers of every description. There is no shopkeeper; patrons use an honor system, dropping coins into a collection box[cite: 371, 374].",
+        "npcs": ["Daisy (deceased)"],
+        "notes": "The shop is maintained by the Ashforth brothers from next door[cite: 378]. A ward placed by Baltasar Englehart compels honesty in the shop[cite: 379]."
+      },
+      {
+        "name": "Ashforth",
+        
+        "building_code": "E18",
+        "description": "A funeral home with a somber exterior and an entrance set back in a small cobblestone courtyard[cite: 382, 383].",
+        "npcs": ["Zem Ashforth", "Zebulon Ashforth", "Cassie"],
+        "notes": "The proprietors, Zem and Zebulon, are third-generation funeral directors[cite: 384]. Their new assistant, Cassie, is secretly a budding necromancer[cite: 390]."
+      },
+      {
+        "name": "Du Pain Pierre",
+        
+        "building_code": "W1",
+        "description": "A bakery on the corner of Saerdoun Street and Trollskull Alley, opposite the manor. The smell of fresh bread wafts from the building from pre-dawn to midafternoon[cite: 449, 450].",
+        "npcs": ["Pierre Silvermoon", "Rafael"],
+        "services": "Sells heavenly bread and supplies many of the finer restaurants in the North Ward[cite: 455, 456]."
+      },
+      {
+        "name": "Salon Lemieux",
+        
+        "building_code": "W2 / W3",
+        "description": "Two competing salons, directly across from Trollskull Manor, run by feuding twin sisters. Both buildings are screaming for attention with glowing signage proclaiming the latest treatments for skin, hair, and nails[cite: 459, 460, 466].",
+        "npcs": ["Gloriana Lemieux", "Floriana Lemieux"],
+        "services": "Provides a wide range of dermatology, hair, and nail services[cite: 464].",
+        "notes": "The twin sisters are in a constant verbal war with each other over a common love interest, with arguments that are loud, personal, and not restricted to daylight hours[cite: 470, 471]."
+      },
+      {
+        "name": "Multari Residence",
+        
+        "building_code": "W5",
+        "description": "The home of Romero Multari and his family[cite: 491].",
+        "npcs": ["Romero Multari"],
+        "notes": "Romero teaches languages at Murkledorn's Academy (E9)[cite: 493]."
+      },
+      {
+        "name": "KN Wine Distribution Warehouse",
+        
+        "building_code": "W7",
+        "description": "A warehouse that houses the inventory for KN Wine Distribution. It is guarded day and night by four veterans[cite: 507, 508].",
+        "npcs": ["Jael Krinklenose", "Tria Krinklenose"],
+        "notes": "This is the business warehouse for the Krinklenose family, who live at E4[cite: 507]."
+      },
+      {
+        "name": "Englehart Residence",
+        
+        "building_code": "W9",
+        "description": "The home of Baltasar Englehart, a retired mage. It contains an eclectic collection of trophies from his adventuring days[cite: 523, 525].",
+        "npcs": ["Baltasar Englehart"],
+        "notes": "Baltasar teaches at Murkledorn's Academy and often stops at Trollskull Tavern after work[cite: 526]."
+      },
+      {
+        "name": "City Watch Station",
+        
+        "building_code": "W11",
+        "description": "A squat two-story building at the corner of Saerdoun Street and Windbourne Way. A sign above the entrances reads 'City Watch'[cite: 544, 545].",
+        "npcs": ["City Watch Veterans"],
+        "notes": "At any given time, at least 6 veterans are stationed here, with the number climbing to 30 during shift changes[cite: 546, 547]."
+      },
+      {
+        "name": "Zoltara Residence",
+        
+        "building_code": "W12",
+        "description": "The home of Madame Zoltara, a rather mysterious figure who is rarely seen[cite: 549].",
+        "npcs": ["Madame Zoltara"],
+        "notes": "She is a powerful Vistani fortune teller who can be used as a hook to begin the Curse of Strahd campaign[cite: 553]."
+      },
+      {
+        "name": "Carlowe Residence",
+        
+        "building_code": "W13",
+        "description": "A large townhome that houses Mistofer Carlowe. He often hosts cast parties and other revelries in his home[cite: 558, 560].",
+        "npcs": ["Mistofer Carlowe"],
+        "notes": "This is the residence of the owner of Teatro ZanZinni[cite: 559]."
+      },
+      {
+        "name": "Teatro ZanZinni",
+        
+        "building_code": "W14",
+        "description": "A grand three-story building at the corner of Delzorin Street and Windbourne Way. It hosts plays, operettas, concerts, and variety acts year-round[cite: 576, 579].",
+        "npcs": ["Mistofer Carlowe (as Madame ZanZinni)"],
+        "services": "Entertainment. The theater has a rotating cast of traveling performers[cite: 580, 582]."
+      },
+      {
+        "name": "Teatro ZanZinni Annex",
+        
+        "building_code": "W15",
+        "description": "A smaller two-story building next to the theater. The ground floor is a ticket office with a small printing press. The cellar and upper floor are filled with props and costumes[cite: 588, 590, 591].",
+        "npcs": [],
+        "services": "The printing press can be used to print handbills and posters for a small fee[cite: 592, 594]."
+      },
+      {
+        "name": "Beluska's Boarding House",
+        
+        "building_code": "W16",
+        "description": "A large wooden house with impressive porches and balconies. It is home to many of the traveling acts that perform at the nearby theater[cite: 598, 603].",
+        "npcs": ["Beluska"],
+        "notes": "The proprietor, Beluska, is a large half-orc woman with a rough disposition who runs a tight ship[cite: 600, 601]."
+      },
+      {
+        "name": "Mezro",
+        
+        "building_code": "W17",
+        "description": "A restaurant with mesmerizing scents of well-spiced foods drifting down the alley. It serves recipes from Chult and is named for the Lost City[cite: 618, 621].",
+        "npcs": ["Maccus Murphy", "Aaliyah"],
+        "notes": "The chef, Aaliyah, is secretly a Yuan-Ti Pureblood who is slowly poisoning noble guests to gain influence over them[cite: 629]."
+      },
+      {
+        "name": "Bakken's Shoes",
+        
+        "building_code": "W19",
+        "description": "A small two-story building with a large, faded 'Going Out of Business' sign in the window. The shop is packed to the gills with shoes and boots of all varieties[cite: 642, 647].",
+        "npcs": ["Bertram Bakken"],
+        "services": "Sells finely made and sturdy shoes and boots for all folk[cite: 648]. Bertram can provide training with cobbler's tools[cite: 1029]."
+      },
+      {
+        "name": "Rolling Stone",
+        
+        "building_code": "W21",
+        "description": "A shop for the musically inclined, located next to Corellon's Crown. Beautiful music wafts from it throughout the day[cite: 664]. The shop is cluttered but everything is neatly kept[cite: 671, 672].",
+        "npcs": ["Rolling Stone", "Sly Stone"],
+        "services": "Sells musical instruments and offers music lessons[cite: 666, 669]. Rolls's son, Sly, can provide training with musical instruments[cite: 1029]."
       }
     ]
   }

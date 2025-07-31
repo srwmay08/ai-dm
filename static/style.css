@@ -101,7 +101,8 @@ button:hover {
     background-color: #98c379;
 }
 
-#description-result p, #generation-result p {
+/* MODIFICATION: Added #description-result li for consistent font size */
+#description-result p, #generation-result p, #description-result li {
     font-size: 0.9em; /* Reduced font size for main text areas */
     line-height: 1.5;
     margin-top: 0;
@@ -116,45 +117,89 @@ button:hover {
     margin-top: 8px; /* Reduced margin */
 }
 
-#description-result {
-    line-height: 1.5;
+/* --- NEW: Description Area Layout --- */
+.description-layout-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 15px; /* Space between the narrative and the card column */
 }
 
+.description-narrative {
+    flex: 2; /* Takes up more space */
+    min-width: 0;
+}
+
+.description-cards-column {
+    flex: 1; /* Takes up less space */
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 220px; /* Prevent it from getting too squished */
+}
+
+
+/* --- Card Styles --- */
 #npc-card-container {
     margin-top: 10px;
     display: flex;
     flex-direction: row;
-    flex-wrap: nowrap; /* Prevents cards from wrapping */
-    gap: 10px; /* Reduced space between cards */
-    overflow-x: auto; /* Allows horizontal scrolling if needed */
-    padding-bottom: 10px; /* Space for the scrollbar */
+    flex-wrap: nowrap;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+
+.npc-card, .location-card {
+    background-color: #282c34;
+    border-radius: 8px;
+    padding: 8px;
+    box-sizing: border-box;
+    width: 100%; /* Makes cards fill their column */
 }
 
 .npc-card {
-    background-color: #282c34;
     border: 1px solid #61afef;
-    border-radius: 8px;
-    padding: 8px; /* Reduced padding */
-    flex: 0 1 240px; /* Cards will shrink but not grow, with a base width */
-    min-width: 200px; /* Prevents cards from becoming too small */
+    flex: 0 1 240px; /* Allow NPC cards to shrink/have a basis */
+    min-width: 200px;
 }
 
-.npc-card h3 {
-    margin: 0 0 5px 0; /* Reduced margin */
-    color: #98c379;
-    font-size: 1em; /* Reduced font size */
+.location-card {
+    border: 1px solid #98c379; /* Green border for location features */
 }
+
+.npc-card h3, .location-card h3 {
+    margin: 0 0 5px 0;
+    font-size: 1em;
+}
+
+.npc-card h3 { color: #98c379; }
+.location-card h3 { color: #98c379; }
 
 .npc-card h4 {
-    margin: 8px 0 4px 0; /* Reduced margin */
-    font-size: 0.8em; /* Reduced font size */
+    margin: 8px 0 4px 0;
+    font-size: 0.8em;
     font-weight: normal;
     color: #abb2bf;
 }
 
-.npc-card p {
-    font-size: 0.8em; /* Reduced font size */
-    margin: 0 0 5px 0; /* Reduced margin */
+.npc-card p, .location-card p {
+    font-size: 0.8em;
+    margin: 0 0 5px 0;
+    line-height: 1.4;
+}
+
+.location-card ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Make location card list items consistent */
+.location-card li {
+    margin: 0;
+    padding: 0;
+    font-size: 0.85em;
     line-height: 1.4;
 }
 
@@ -163,8 +208,8 @@ button:hover {
     color: #61afef;
     text-decoration: underline;
     cursor: pointer;
-    margin-bottom: 4px; /* Reduced margin */
-    font-size: 0.8em; /* Reduced font size */
+    margin-bottom: 4px;
+    font-size: 0.8em;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

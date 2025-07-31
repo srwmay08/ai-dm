@@ -143,33 +143,55 @@ def generate_scene():
             logging.info(f"Fetched Room: {selected_room.get('name') if selected_room else 'None'}")
         
         location_name = location.get('name', 'Unknown Location')
-        room_desc = selected_room.get('description', 'No description available.') if selected_room else 'No room description.'
+        # Ensure room_desc is a string for the prompt, even if it's an object in the DB
+        room_desc_obj = selected_room.get('description', {}) if selected_room else {}
+        if isinstance(room_desc_obj, dict):
+            room_desc = json.dumps(room_desc_obj)
+        else:
+            room_desc = str(room_desc_obj)
+
+        # --- MODIFICATION START: Create more detailed NPC profiles ---
+        profile_details = []
+        for n in npcs:
+            details = [f"- **{n['name']}**: {n.get('description', 'No description.')}"]
+            if n.get('motivation'):
+                details.append(f"  - **Motivation**: {n.get('motivation')}")
+            if n.get('behavior'):
+                details.append(f"  - **Behavior**: {n.get('behavior')}")
+            if n.get('languages'):
+                details.append(f"  - **Languages**: {', '.join(n.get('languages'))}")
+            profile_details.append('\n'.join(details))
         
-        npc_profiles = [f"- {n['name']}: {n['description']} (Motivation: {n['motivation']})" for n in npcs]
-        
+        npc_profiles_text = "\n\n".join(profile_details)
+        # --- MODIFICATION END ---
+
         prompt = f"""
         You are a Dungeon Master AI. Your task is to generate narrative content based on the provided context.
-        Your response must be a valid JSON object with two keys: "dialogue" and "scene_changes".
-        The "dialogue" key should contain an array of objects, where each object has a "speaker" and "line".
-        The "scene_changes" key should contain a descriptive string.
+        Your response MUST be a valid JSON object with two keys: "dialogue" and "scene_changes".
 
-        **Context:**
-        The scene is in {location_name}, specifically in the {room_name}.
-        Description: {room_desc}
+        **CRITICAL INSTRUCTIONS ON HOW TO PORTRAY CHARACTERS:**
+        1.  **Non-Verbal Characters**: If a character's **Behavior** profile explicitly says it does not speak, **DO NOT** give it a line in the "dialogue" array. Instead, describe its actions in the "scene_changes" string.
+        2.  **Specific Languages**: If a character's **Languages** profile lists languages other than Common (like Ignan or Auran), its dialogue lines should reflect that. You can write the dialogue in that language or describe the sounds it makes (e.g., "A series of sharp, crackling pops").
+        3.  **Standard NPCs**: Characters without specific behavior or language restrictions can speak normally.
+        4.  The "dialogue" array should contain an array of objects, where each object has a "speaker" and a "line".
+        5.  The "scene_changes" key should contain a descriptive string of actions and environmental changes.
+
+        **CONTEXT:**
+        The scene is in **{location_name}**, specifically in the room **{room_name}**.
+        **Room Description**: {room_desc}
         
-        The following characters are present:
-        {chr(10).join(npc_profiles)}
+        **CHARACTERS PRESENT:**
+        {npc_profiles_text}
 
-        **Player's Action/Prompt:** "{data.get('user_prompt')}"
+        **PLAYER'S ACTION/PROMPT:** "{data.get('user_prompt')}"
 
-        Generate the response now.
+        Generate the JSON response now.
         """
 
         if log_config.getboolean('log_ai_prompt'):
             logging.info(f"--- PROMPT SENT TO AI ---\n{prompt}\n-------------------------")
         
         response = ai_model.generate_content(prompt)
-        # Clean the response to ensure it's valid JSON
         clean_response = response.text.strip().lstrip('```json').rstrip('```')
         
         if log_config.getboolean('log_ai_response'):
@@ -180,7 +202,7 @@ def generate_scene():
     except Exception as e:
         logging.error(f"!!! An error occurred in /generate: {e}", exc_info=True)
         return jsonify({"error": f"An unexpected error occurred on the server: {e}"}), 500
-
+    
 # --- Data Management Routes ---
 @app.route('/npcs', methods=['GET'])
 def get_npcs():
