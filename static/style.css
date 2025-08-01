@@ -7,90 +7,107 @@ body {
     height: 100vh;
     background-color: #f4f4f4;
     overflow: hidden;
-    font-size: 14px; /* Reduced base font size */
+    font-size: 14px;
 }
 
 .column {
     height: 100vh;
-    overflow-y: auto;
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column; 
+    padding: 15px;
+    overflow-y: auto; 
 }
 
 #left-column {
-    width: 25%;
-    min-width: 250px; /* Reduced min-width */
-    max-width: 60%;
+    /* FIX: Set a default pixel width, which JS will override. Removed percentage. */
+    width: 400px; 
+    min-width: 280px; 
+    flex-shrink: 0; /* Prevent this column from shrinking on its own */
     background-color: #282c34;
     color: #abb2bf;
-    border-right: 1px solid #ccc;
-    padding: 15px; /* Reduced padding */
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
 }
 
 #resizer {
     width: 10px;
-    background-color: #d0d0d0;
+    background-color: #3b4048;
     cursor: col-resize;
     user-select: none;
     flex-shrink: 0;
+    padding: 0;
+    border-left: 1px solid #5c6370;
+    border-right: 1px solid #5c6370;
 }
 #resizer:hover {
     background-color: #61afef;
 }
 
 #right-column {
-    flex-grow: 1;
+    /* FIX: Use flex: 1 which is a robust way to say "take remaining space" */
+    flex: 1;
     background-color: #3b4048;
     color: #abb2bf;
-    padding: 15px; /* Reduced padding */
-    min-width: 0;
+    min-width: 350px; 
 }
 
 .container {
     background-color: #21252b;
-    padding: 10px; /* Reduced padding */
+    padding: 10px;
     border-radius: 8px;
-    margin-bottom: 10px; /* Reduced margin */
+    margin-bottom: 15px;
+    display: flex; 
+    flex-direction: column;
+    flex-shrink: 0;
 }
 
-h1 {
-    font-size: 1.5em;
+/* FIX: Allow this specific container to grow and fill vertical space */
+#left-column .container:first-of-type {
+    flex-grow: 1;
+    min-height: 0; /* Allows the container to shrink properly */
+}
+
+.container.generated-scene-container {
+    flex-grow: 1; 
+    min-height: 150px;
+}
+
+h1, h2, label {
+    flex-shrink: 0; 
 }
 
 h2 {
     color: #61afef;
     border-bottom: 1px solid #61afef;
-    padding-bottom: 5px; /* Reduced padding */
+    padding-bottom: 5px;
     margin-top: 0;
-    margin-bottom: 8px; /* Reduced margin */
-    font-size: 1.2em; /* Reduced font size */
-}
-
-label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    font-size: 0.9em;
+    margin-bottom: 8px;
+    font-size: 1.2em;
 }
 
 textarea, select {
     width: 100%;
-    padding: 8px; /* Reduced padding */
+    padding: 8px;
     background-color: #282c34;
     color: #abb2bf;
     border: 1px solid #61afef;
     border-radius: 4px;
-    margin-bottom: 10px; /* Reduced margin */
+    margin-bottom: 10px;
     box-sizing: border-box;
+    resize: none; 
+}
+
+/* FIX: Ensure the NPC select box doesn't get squished and uses its size attribute */
+#npc-select {
+    /* The size="8" attribute in the HTML will now work correctly */
+    /* because its parent container can grow. */
+    min-height: 120px; /* Optional: ensures a minimum visible area */
 }
 
 button {
     background-color: #61afef;
     color: #282c34;
     border: none;
-    padding: 8px 12px; /* Reduced padding */
+    padding: 8px 12px;
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
@@ -101,27 +118,16 @@ button:hover {
     background-color: #98c379;
 }
 
-.action-btn {
-    margin-bottom: 4px;
-    font-size: 0.9em;
-    text-align: left;
-}
-
-
-#generation-result p, #description-result p, #description-result li {
-    font-size: 0.9em; /* Reduced font size for main text areas */
-    line-height: 1.5;
-    margin-top: 0;
-    margin-bottom: 8px;
-}
-
 #generation-result {
     white-space: pre-wrap;
     background-color: #282c34;
-    padding: 10px; /* Reduced padding */
+    padding: 10px;
     border-radius: 4px;
-    margin-top: 8px; /* Reduced margin */
-    min-height: 100px;
+    margin-top: 8px;
+    overflow-y: auto; 
+    flex-grow: 1; 
+    min-height: 100px; 
+    resize: vertical; 
 }
 
 #npc-card-container {
@@ -132,6 +138,7 @@ button:hover {
     gap: 10px;
     overflow-x: auto;
     padding-bottom: 10px;
+    flex-shrink: 0; 
 }
 
 .npc-card {
@@ -140,8 +147,8 @@ button:hover {
     padding: 12px;
     box-sizing: border-box;
     border: 1px solid #61afef;
-    flex: 0 0 450px; /* Give cards a fixed base width */
-    min-width: 400px;
+    flex: 0 0 380px; 
+    min-width: 350px;
     display: flex;
     flex-direction: column;
 }
@@ -156,37 +163,44 @@ button:hover {
     font-size: 0.85em;
     margin: 0 0 10px 0;
     line-height: 1.4;
+    flex-shrink: 0;
 }
 
-/* --- NEW: Card Action Layout --- */
 .actions-container {
     display: flex;
     flex-direction: row;
-    gap: 15px; /* Space between the two columns */
-    margin-top: auto; /* Pushes the actions to the bottom of the card */
+    gap: 15px;
+    margin-top: auto;
 }
 
 .dialogue-column, .skills-column {
-    flex: 1; /* Each column takes up half the space */
+    flex: 1;
     display: flex;
     flex-direction: column;
 }
 
 .actions-container h4 {
-    margin: 8px 0 4px 0;
+    margin: 0 0 4px 0; 
     font-size: 0.9em;
     font-weight: bold;
     color: #abb2bf;
 }
-/* ----------------------------- */
+
+.action-btn {
+    padding: 4px 8px; 
+    font-size: 0.85em; 
+    margin-bottom: 3px; 
+    text-align: left;
+}
 
 .party-controls {
-    display: flex;
-    gap: 10px;
+    display: flex; /* This is the key property to align children in a row */
+    flex-direction: row; /* This is the default, but we'll be explicit */
+    gap: 10px; /* This adds a small space between the two buttons */
     margin-top: 10px;
 }
 
 .party-controls button {
-    flex: 1;
+    flex: 1; /* This makes each button take up an equal amount of space */
     font-size: 0.9em;
 }

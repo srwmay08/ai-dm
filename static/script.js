@@ -12,19 +12,43 @@ document.addEventListener('DOMContentLoaded', () => {
     const npcCardContainer = document.getElementById('npc-card-container');
     const setPartyBtn = document.getElementById('set-party-btn');
     const clearPartyBtn = document.getElementById('clear-party-btn');
+    const resizer = document.getElementById('resizer');
+    const leftColumn = document.getElementById('left-column');
 
     let locationsData = [];
     let npcsData = [];
-    let partyNpcIds = new Set(); // This can still store _id for party tracking across sessions if needed
+    let partyNpcIds = new Set();
     const placeholderText = 'Your generated scene will appear here...';
+
+    // --- Robust Resizer Logic ---
+    function resize(e) {
+        // We are resizing the left column, so we just need to set its width
+        const newLeftWidth = e.clientX;
+        // Apply constraints to prevent columns from becoming too small
+        if (newLeftWidth > 280 && newLeftWidth < (window.innerWidth - 300)) {
+            leftColumn.style.width = `${newLeftWidth}px`;
+        }
+    }
+
+    resizer.addEventListener('mousedown', (e) => {
+        // Prevent default dragging behavior (like text selection)
+        e.preventDefault();
+        
+        // Add listeners to the window to capture mouse moves anywhere on the page
+        window.addEventListener('mousemove', resize);
+        window.addEventListener('mouseup', () => {
+            window.removeEventListener('mousemove', resize);
+        }, { once: true }); // Automatically remove listener after one click
+    });
+
 
     // --- Helper Function to Append to Scene ---
     const appendToGeneratedScene = (htmlContent) => {
         if (generationResult.innerHTML.includes(placeholderText)) {
-            generationResult.innerHTML = ''; // Clear placeholder on first addition
+            generationResult.innerHTML = '';
         }
         generationResult.innerHTML += htmlContent;
-        generationResult.scrollTop = generationResult.scrollHeight; // Auto-scroll to bottom
+        generationResult.scrollTop = generationResult.scrollHeight;
     };
 
     // --- Data Loading ---
@@ -49,7 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
         locationSelect.innerHTML = '<option value="">-- Select a Location --</option>';
         locationsData.forEach(location => {
             const option = document.createElement('option');
-            // --- FIX: Use name as the value ---
             option.value = location.name;
             option.textContent = location.name;
             locationSelect.appendChild(option);
@@ -81,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const room = location.rooms.find(r => r.name === roomName);
         if(!room) return;
 
-        descriptionResult.innerHTML = `<h2>${location.name} - ${room.name}</h2><p>${room.description}</p>`;
+        descriptionResult.innerHTML = `<h2>${location.name} - ${room.name}</h2><p>${room.description || ''}</p>`;
         
         const partyNpcs = npcsData.filter(n => partyNpcIds.has(n._id));
         const roomNpcNames = new Set(room.npcs || []);
@@ -98,7 +121,6 @@ document.addEventListener('DOMContentLoaded', () => {
         npcCardContainer.innerHTML = '';
         allNpcsInScene.forEach(npc => {
             const option = document.createElement('option');
-            // --- FIX: Use name as the value ---
             option.value = npc.name;
             const isPartyMember = partyNpcIds.has(npc._id);
             option.textContent = npc.name + (isPartyMember ? ' (Party)' : '');
@@ -111,8 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const renderNpcCard = (npc) => {
         const card = document.createElement('div');
         card.className = 'npc-card';
-        // --- FIX: Use name as the identifier in the DOM ---
-        card.dataset.npcName = npc.name; 
+        card.dataset.npcName = npc.name;
         
         let dialogueHTML = '';
         if (npc.dialogue_options) {
@@ -150,8 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Main Action Handler ---
     const handleAction = async (type, npcName, promptText) => {
         const locationName = locationSelect.value;
-        const currentNpc = npcsData.find(n=>n.name === npcName);
-
+        
         let playerActionHtml = `<hr><p><strong>Player -> ${npcName}:</strong> ${promptText}</p>`;
         appendToGeneratedScene(playerActionHtml);
 
@@ -160,7 +180,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    // --- FIX: Send names instead of IDs ---
                     location_name: locationName,
                     room: roomSelect.value,
                     npc_names: [npcName],
@@ -192,13 +211,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const npcToUpdate = npcsData.find(n => n.name === npc_name);
                 if (npcToUpdate) {
                     npcToUpdate.dialogue_options = options;
-                    const cardElement = document.querySelector(`.npc-card[data-npc-name="${npcToUpdate.name}"]`);
-                    if(cardElement) {
-                        // Re-render the specific card that needs updating
-                        const parent = cardElement.parentNode;
-                        parent.removeChild(cardElement);
-                        renderNpcCard(npcToUpdate);
-                    }
+                    updateCurrentNpcs();
                 }
             }
 
@@ -217,7 +230,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const button = e.target;
             const type = button.dataset.type;
             const prompt = button.dataset.prompt;
-            // --- FIX: Get name from dataset ---
             const npcName = button.closest('.npc-card').dataset.npcName;
             handleAction(type, npcName, prompt);
         }

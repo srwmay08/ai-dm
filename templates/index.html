@@ -9,8 +9,8 @@
 <body>
 
     <div id="left-column" class="column">
-        <h1>Controls ⚙️</h1>
         <div class="container">
+            <h1>Controls ⚙️</h1>
             <h2>Locations & NPCs</h2>
             
             <label for="location-select">Select Location:</label>
@@ -21,6 +21,7 @@
             
             <label for="npc-select">NPCs in Scene:</label>
             <select id="npc-select" multiple size="8"></select>
+
             <div class="party-controls">
                 <button id="set-party-btn">Set Persistent Party</button>
                 <button id="clear-party-btn">Clear Persistent Party</button>
@@ -31,28 +32,27 @@
     <div id="resizer"></div>
 
     <div id="right-column" class="column">
-        <h1>AI Dungeon Master 🧙‍♂️</h1>
-
         <div class="container">
+            <h1>AI Dungeon Master 🧙‍♂️</h1>
             <div id="description-result">
                 Select a location and room to see a description.
             </div>
         </div>
         
-        <div class="container">
+        <div class="container generated-scene-container">
              <h2>Generated Scene</h2>
              <div id="generation-result">
                 Your generated scene will appear here...
              </div>
         </div>
 
-        <div class="container" id="npc-card-container">
-            </div>
+        <div id="npc-card-container">
+        </div>
 
         <div class="container">
             <h2>Prompt</h2>
             <label for="user-prompt">What do the players do or say?</label>
-            <textarea id="user-prompt" rows="4" placeholder="e.g., The players ask the blacksmith about the goblin raids..."></textarea>
+            <textarea id="user-prompt" rows="2" placeholder="e.g., The players ask the blacksmith about the goblin raids..."></textarea>
             <button id="generate-btn">Generate Response</button>
         </div>
     </div>
