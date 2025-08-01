@@ -115,48 +115,32 @@ def serve_index():
 
 @app.route('/generate', methods=['POST'])
 def generate_scene():
-    """
-    This is the most critical route. It receives player actions from the frontend,
-    constructs a detailed prompt, sends it to the Google AI, and returns the
-    AI-generated response.
-    """
-    # Log the incoming request if enabled in the config.
     if log_config.getboolean('log_requests'): logging.info(f"Request: {request.json}")
 
     try:
-        # Get the JSON data sent from the frontend.
         data = request.json
+        # This list now contains ALL npcs present in the scene, sent from the frontend.
         npc_names = data.get('npc_names', [])
         location_name_from_req = data.get('location_name')
 
-        # Fetch the full profiles for all NPCs currently in the scene from the database.
         npcs_in_scene = [serialize_doc(npc) for npc in npc_collection.find({'name': {'$in': npc_names}})]
-        primary_npc = npcs_in_scene[0] if npcs_in_scene else None
         
-        # Fetch the location data from the database.
         location = serialize_doc(location_collection.find_one({'name': location_name_from_req}))
-        
-        # Ensure the location was actually found in the database.
         if not location:
             return jsonify({"error": f"Location '{location_name_from_req}' not found."}), 404
 
-        # Find the specific room within the location's data.
         selected_room = next((r for r in location.get('rooms', []) if r['name'] == data.get('room')), None)
 
-        # --- CONSTRUCT THE AI PROMPT ---
-        # This section gathers all necessary context to send to the AI.
-        
-        # Collect all lore IDs associated with the NPCs in the scene.
+        # --- CONSTRUCT THE AI PROMPT (MODIFIED) ---
         all_lore_ids = []
         npc_profiles_list = []
         for n in npcs_in_scene:
-            # Build a detailed profile for each NPC.
             details = [f"- **{n['name']}**: {n.get('description', '')}"]
             if n.get('motivation'): details.append(f"  - **Motivation**: {', '.join(n.get('motivation',[]))}")
+            if n.get('personality_traits'): details.append(f"  - **Personality**: {', '.join(n.get('personality_traits',[]))}")
             npc_profiles_list.append('\n'.join(details))
             if n.get('lore_id'): all_lore_ids.extend(n.get('lore_id', []))
 
-        # Fetch the relevant lore documents from the database based on the collected IDs.
         lore_text = "No specific lore known."
         if all_lore_ids:
             lore_details = []
@@ -165,60 +149,52 @@ def generate_scene():
                 lore_details.append(f"- {lore.get('title', '')}: {lore.get('content', '')}")
             if lore_details: lore_text = "\n\n".join(lore_details)
         
-        # Combine the NPC profiles and names into strings.
         npc_profiles_text = "\n\n".join(npc_profiles_list)
-        npc_names_present = ", ".join([n['name'] for n in npcs_in_scene])
+        # This string now correctly represents all characters in the scene.
+        npc_names_present = ", ".join([n['name'] for n in npcs_in_scene]) if npcs_in_scene else "None"
 
-        # Create a description of the player's action based on the prompt type.
-        prompt_type = data.get('prompt_type', 'dialogue')
-        if prompt_type == 'skill_check':
-            action_description = f"The player prompts **{primary_npc['name']}** to use their **{data.get('user_prompt')}** skill to interact with the room or its contents."
-        else: # Default to dialogue
-            action_description = f"The player says to {primary_npc['name']}: \"{data.get('user_prompt')}\""
+        # The action description is now simpler and more direct.
+        action_description = f"The player's input is: \"{data.get('user_prompt')}\""
 
-        # This is the final prompt template sent to the AI. It provides all the context
-        # and strict instructions on how the AI should format its JSON response.
+        # This is the updated prompt with new rules for the AI.
         prompt = f"""
-        You are a Dungeon Master AI. Your task is to generate a narrative response and predict the player's next actions.
+        You are a Dungeon Master AI. Your task is to generate a narrative response based on the player's action.
         Your response MUST be a valid JSON object.
-
-        **CRITICAL RULE:** Only characters listed as 'CHARACTERS PRESENT' can speak or take actions. Do NOT invent dialogue or actions for characters not in the scene, even if they are mentioned in the lore.
-
-        **JSON Structure Requirements:**
-        1.  `dialogue`: An array of objects, each with "speaker" and "line". Speakers MUST be from the 'CHARACTERS PRESENT' list.
-        2.  `scene_changes`: A string describing actions and environmental changes.
-        3.  `new_dialogue_options`: An object with two keys:
-            - `npc_name`: The name of the NPC who is the focus of the action (e.g., "{primary_npc['name']}").
-            - `options`: A list of 3-5 short, plausible dialogue prompts that a player might say next.
 
         **CONTEXT:**
         - Location: {location.get('name', 'Unknown')} - {selected_room.get('name', 'Unknown Room')}
         - Room Description: {selected_room.get('description')}
         - CHARACTERS PRESENT: {npc_names_present}
-        - Character Profiles: {npc_profiles_text}
+        - Character Profiles:
+{npc_profiles_text}
         - Relevant Lore: {lore_text}
 
         **PLAYER'S ACTION:** {action_description}
 
+        **AI RESPONSE RULES:**
+        1.  **Generate Dialogue for All:** If the player's action addresses one or more characters, create a dialogue response for each of them. The conversation should flow logically.
+        2.  **Generate Reactions:** Other characters who are present but not directly addressed should react realistically to the conversation if appropriate (e.g., with a look, a gesture, or a brief comment).
+        3.  **Update Scene:** Describe any actions the characters take or changes to the environment in the `scene_changes` field.
+        4.  **Suggest Next Steps:** Provide a new set of `dialogue_options` for the player. These options should be for the last NPC who spoke in the `dialogue` array. If no one spoke, provide options for the first NPC in the "CHARACTERS PRESENT" list.
+
+        **JSON Structure Requirements:**
+        1.  `dialogue`: An array of objects, each with "speaker" and "line". Speakers MUST be from the 'CHARACTERS PRESENT' list.
+        2.  `scene_changes`: A string describing actions and environmental changes.
+        3.  `new_dialogue_options`: An object with "npc_name" and a list of "options".
+
         Generate the JSON response now.
         """
 
-        # Log the full prompt if enabled.
         if log_config.getboolean('log_ai_prompt'): logging.info(f"--- PROMPT ---\n{prompt}\n----------")
         
-        # Send the prompt to the generative AI model.
         response = ai_model.generate_content(prompt)
-        # Clean up the response text, removing potential markdown formatting.
         clean_response = response.text.strip().lstrip('```json').rstrip('```')
         
-        # Log the AI's response if enabled.
         if log_config.getboolean('log_ai_response'): logging.info(f"--- RESPONSE ---\n{clean_response}\n----------")
             
-        # Return the cleaned, valid JSON response to the frontend.
         return jsonify(json.loads(clean_response)), 200
 
     except Exception as e:
-        # Generic error handling to catch any unexpected issues.
         logging.error(f"!!! An error occurred in /generate: {e}", exc_info=True)
         return jsonify({"error": f"An unexpected error occurred: {e}"}), 500
     

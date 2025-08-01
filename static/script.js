@@ -1,10 +1,9 @@
-// This event listener ensures that the script runs only after the entire HTML document has been loaded and parsed.
+// static/script.js
+
 document.addEventListener('DOMContentLoaded', () => {
-    // The base URL for your Python Flask backend.
     const apiBaseUrl = 'http://127.0.0.1:5000';
 
     // --- Element Selectors ---
-    // Get references to all the important HTML elements to interact with them later.
     const locationSelect = document.getElementById('location-select');
     const roomSelect = document.getElementById('room-select');
     const npcSelect = document.getElementById('npc-select');
@@ -19,65 +18,45 @@ document.addEventListener('DOMContentLoaded', () => {
     const leftColumn = document.getElementById('left-column');
 
     // --- State Variables ---
-    // These variables will store data fetched from the server and user selections.
-    let locationsData = []; // To store all location data.
-    let npcsData = [];      // To store all NPC data.
-    let partyNpcIds = new Set(); // A Set to store the unique IDs of persistent party members.
-    const placeholderText = 'Your generated scene will appear here...'; // Default text for the scene display.
+    let locationsData = [];
+    let npcsData = [];
+    let partyNpcIds = new Set();
+    const placeholderText = 'Your generated scene will appear here...';
 
-    // --- Column Resizer Logic ---
-    // This function handles the resizing of the left column.
+    // --- Robust Resizer Logic ---
     function resize(e) {
-        // Calculate the new width of the left column based on the mouse's horizontal position.
         const newLeftWidth = e.clientX;
-        // Apply constraints to prevent the columns from becoming too narrow or too wide.
         if (newLeftWidth > 280 && newLeftWidth < (window.innerWidth - 300)) {
             leftColumn.style.width = `${newLeftWidth}px`;
         }
     }
-
-    // Add an event listener for when the user clicks down on the resizer handle.
     resizer.addEventListener('mousedown', (e) => {
-        e.preventDefault(); // Prevent default browser actions like text selection.
-        
-        // Add listeners to the entire window to track mouse movement, allowing resizing from anywhere on the screen.
+        e.preventDefault();
         window.addEventListener('mousemove', resize);
-        // Add a 'mouseup' listener that removes the 'mousemove' listener, stopping the resize action.
         window.addEventListener('mouseup', () => {
             window.removeEventListener('mousemove', resize);
-        }, { once: true }); // 'once: true' automatically removes this listener after it fires once.
+        }, { once: true });
     });
-
 
     // --- Helper Function to Append to Scene ---
     const appendToGeneratedScene = (htmlContent) => {
-        // If the placeholder text is visible, clear it before adding new content.
         if (generationResult.innerHTML.includes(placeholderText)) {
             generationResult.innerHTML = '';
         }
-        // Add the new HTML content to the scene display.
         generationResult.innerHTML += htmlContent;
-        // Automatically scroll to the bottom to show the latest content.
         generationResult.scrollTop = generationResult.scrollHeight;
     };
 
     // --- Data Loading ---
     const fetchInitialData = async () => {
-        /**
-         * Fetches all necessary data (locations and NPCs) from the backend when the page first loads.
-         * It uses Promise.all to fetch both sets of data concurrently for better performance.
-         */
         try {
             const [locationsResponse, npcsResponse] = await Promise.all([
-                fetch(`${apiBaseUrl}/locations`), // Fetch location data.
-                fetch(`${apiBaseUrl}/npcs`)      // Fetch NPC data.
+                fetch(`${apiBaseUrl}/locations`),
+                fetch(`${apiBaseUrl}/npcs`)
             ]);
-            // Check if both requests were successful.
             if (!locationsResponse.ok || !npcsResponse.ok) throw new Error('Failed to fetch initial data.');
-            // Parse the JSON responses and store the data in our state variables.
             locationsData = await locationsResponse.json();
             npcsData = await npcsResponse.json();
-            // Once data is loaded, populate the location dropdown.
             populateLocations();
         } catch (error) {
             console.error("Initialization Error:", error);
@@ -85,12 +64,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // --- UI Population Functions ---
+    // --- UI Population ---
     const populateLocations = () => {
-        /**
-         * Fills the location dropdown menu with the locations fetched from the server.
-         */
-        locationSelect.innerHTML = '<option value="">-- Select a Location --</option>'; // Add a default option.
+        locationSelect.innerHTML = '<option value="">-- Select a Location --</option>';
         locationsData.forEach(location => {
             const option = document.createElement('option');
             option.value = location.name;
@@ -100,14 +76,9 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const populateRooms = (locationName) => {
-        /**
-         * Fills the room dropdown based on the selected location.
-         */
-        // Find the full data for the selected location.
         const location = locationsData.find(loc => loc.name === locationName);
-        roomSelect.innerHTML = '<option value="">-- Select a Room --</option>'; // Add default option.
+        roomSelect.innerHTML = '<option value="">-- Select a Room --</option>';
         if (location && location.rooms) {
-            // Populate the dropdown with rooms from the location data.
             location.rooms.forEach(room => {
                 const option = document.createElement('option');
                 option.value = room.name;
@@ -115,7 +86,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 roomSelect.appendChild(option);
             });
         }
-        // Clear subsequent selections and displays.
         npcSelect.innerHTML = '';
         descriptionResult.innerHTML = '<h2>Description</h2><p>Select a room to see a description.</p>';
         generationResult.innerHTML = placeholderText;
@@ -123,11 +93,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const updateCurrentNpcs = () => {
-        /**
-         * This function is called whenever the room changes or the party is updated.
-         * It determines which NPCs should be in the scene (room NPCs + party NPCs)
-         * and updates the NPC selection list and renders their info cards.
-         */
         const locationName = locationSelect.value;
         const roomName = roomSelect.value;
         const location = locationsData.find(loc => loc.name === locationName);
@@ -135,18 +100,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const room = location.rooms.find(r => r.name === roomName);
         if(!room) return;
 
-        // Display the description of the selected room.
         descriptionResult.innerHTML = `<h2>${location.name} - ${room.name}</h2><p>${room.description || ''}</p>`;
         
-        // --- Determine which NPCs are in the scene ---
-        // Get the full data for any persistent party members.
         const partyNpcs = npcsData.filter(n => partyNpcIds.has(n._id));
-        // Get the names of NPCs native to the selected room.
         const roomNpcNames = new Set(room.npcs || []);
-        // Get the full data for those room NPCs.
         const roomNpcs = npcsData.filter(n => roomNpcNames.has(n.name));
         
-        // Combine party and room NPCs, ensuring no duplicates.
         const allNpcsInScene = [...partyNpcs];
         roomNpcs.forEach(npc => {
             if (!allNpcsInScene.some(p => p._id === npc._id)) {
@@ -154,95 +113,72 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         
-        // --- Update the UI ---
         npcSelect.innerHTML = '';
         npcCardContainer.innerHTML = '';
-        // For each NPC in the scene, add them to the selection list and render their card.
         allNpcsInScene.forEach(npc => {
             const option = document.createElement('option');
             option.value = npc.name;
             const isPartyMember = partyNpcIds.has(npc._id);
-            option.textContent = npc.name + (isPartyMember ? ' (Party)' : ''); // Label party members.
-            option.selected = true; // Pre-select all NPCs in the scene.
+            option.textContent = npc.name + (isPartyMember ? ' (Party)' : '');
+            option.selected = true;
             npcSelect.appendChild(option);
-            renderNpcCard(npc); // Create the info card for the NPC.
+            renderNpcCard(npc);
         });
     }
 
     const renderNpcCard = (npc) => {
-        /**
-         * Creates an HTML card for a single NPC, displaying their description
-         * and pre-defined action buttons (dialogue and skills).
-         */
         const card = document.createElement('div');
         card.className = 'npc-card';
-        card.dataset.npcName = npc.name; // Store the name in a data attribute for easy access.
+        card.dataset.npcName = npc.name;
         
-        // Create buttons for each dialogue option.
         let dialogueHTML = '';
         if (npc.dialogue_options) {
-            npc.dialogue_options.forEach(promptText => {
-                dialogueHTML += `<button class="action-btn" data-type="dialogue" data-prompt="${promptText}">${promptText}</button>`;
-            });
+            dialogueHTML = npc.dialogue_options.map(promptText => 
+                `<button class="action-btn" data-type="dialogue" data-prompt="${promptText}">${promptText}</button>`
+            ).join('');
         }
 
-        // Create buttons for each skill check.
         let skillsHTML = '';
         if (npc.skill_checks) {
             for (const ability in npc.skill_checks) {
-                npc.skill_checks[ability].forEach(skill => {
-                    skillsHTML += `<button class="action-btn" data-type="skill_check" data-prompt="${skill}">${skill}</button>`;
-                });
+                skillsHTML += npc.skill_checks[ability].map(skill => 
+                    `<button class="action-btn" data-type="skill_check" data-prompt="${skill}">${skill}</button>`
+                ).join('');
             }
         }
 
-        // The HTML structure for the card.
-        card.innerHTML = `
-            <h3>${npc.name}</h3>
-            <p>${npc.description}</p>
-            <div class="actions-container">
-                <div class="dialogue-column">
-                    <h4>Dialogue Options</h4>
-                    ${dialogueHTML}
-                </div>
-                <div class="skills-column">
-                    <h4>Skill Checks</h4>
-                    ${skillsHTML}
-                </div>
-            </div>
-        `;
-        // Add the newly created card to the container.
+        card.innerHTML = `<div class="npc-card-content"><h3>${npc.name}</h3><p>${npc.description}</p></div><div class="actions-container"><div class="dialogue-column"><h4>Dialogue Options</h4>${dialogueHTML}</div><div class="skills-column"><h4>Skill Checks</h4>${skillsHTML}</div></div>`;
         npcCardContainer.appendChild(card);
     };
     
     // --- Main Action Handler ---
-    const handleAction = async (type, npcName, promptText) => {
+    const handleAction = async (type, promptText, primaryTargets = []) => {
         const locationName = locationSelect.value;
         const roomName = roomSelect.value;
+        const allNpcsInScene = Array.from(npcSelect.options).map(opt => opt.value.replace(' (Party)', ''));
 
-        // --- MODIFICATION START ---
-        // This block now checks the action type and generates a different message for skill checks.
+        if (allNpcsInScene.length === 0) {
+            alert("There are no NPCs in the scene to interact with.");
+            return;
+        }
+
         let playerActionHtml = '';
         if (type === 'skill_check') {
-            // Construct the descriptive message for a skill check.
-            playerActionHtml = `<div class="player-action"><p><strong>The party has asked ${npcName} to make a ${promptText.toUpperCase()} skill check in ${locationName} - ${roomName}:</strong></p></div>`;
+            const targetName = primaryTargets[0] || 'an NPC';
+            playerActionHtml = `<div class="player-action"><p><strong>The party has asked ${targetName} to make a ${promptText.toUpperCase()} skill check in ${locationName} - ${roomName}:</strong></p></div>`;
         } else {
-            // Use the original format for dialogue.
-            playerActionHtml = `<div class="player-action"><p><strong>Player ➔ ${npcName}:</strong> ${promptText}</p></div>`;
+            playerActionHtml = `<div class="player-action"><p><strong>Player:</strong> ${promptText}</p></div>`;
         }
-        // --- MODIFICATION END ---
-
         appendToGeneratedScene(playerActionHtml);
 
         try {
-            // Send the request to the Flask backend.
             const response = await fetch(`${apiBaseUrl}/generate`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     location_name: locationName,
                     room: roomName,
-                    npc_names: [npcName],
+                    npc_names: allNpcsInScene,
                     user_prompt: promptText,
                     prompt_type: type
                 })
@@ -252,23 +188,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 const err = await response.json();
                 throw new Error(err.error || 'Server error');
             }
-
             const data = await response.json();
             
             if (data.scene_changes) {
-                const sceneChangeHtml = `<div class="scene-description">${data.scene_changes}</div>`;
-                appendToGeneratedScene(sceneChangeHtml);
+                appendToGeneratedScene(`<div class="scene-description">${data.scene_changes}</div>`);
             }
 
             if (data.dialogue && data.dialogue.length > 0) {
                 data.dialogue.forEach(d => {
                     const speakerInitial = d.speaker.charAt(0).toUpperCase();
-                    const dialogueHtml = `<div class="dialogue-line"><span class="speaker-token">${speakerInitial}</span><p><strong>${d.speaker}:</strong> "${d.line}"</p></div>`;
-                    appendToGeneratedScene(dialogueHtml);
+                    appendToGeneratedScene(`<div class="dialogue-line"><span class="speaker-token">${speakerInitial}</span><p><strong>${d.speaker}:</strong> "${d.line}"</p></div>`);
                 });
             }
 
-            if(data.new_dialogue_options) {
+            if (data.new_dialogue_options) {
                 const { npc_name, options } = data.new_dialogue_options;
                 const npcToUpdate = npcsData.find(n => n.name === npc_name);
                 if (npcToUpdate) {
@@ -276,61 +209,54 @@ document.addEventListener('DOMContentLoaded', () => {
                     updateCurrentNpcs();
                 }
             }
-
         } catch (error) {
             console.error('Generation Error:', error);
             appendToGeneratedScene(`<p style="color:red;"><em>Error generating scene: ${error.message}</em></p>`);
         }
     };
     
-    // --- Event Listeners ---
-    // These listeners connect user actions (like clicks and changes) to the appropriate functions.
-    
+    // --- Event Listeners (Defined only ONCE) ---
     locationSelect.addEventListener('change', (e) => populateRooms(e.target.value));
     roomSelect.addEventListener('change', updateCurrentNpcs);
     
-    // This uses event delegation. The listener is on the container, but it checks if the click was on an action button.
-    // This is more efficient than adding a listener to every single button.
+    generateBtn.addEventListener('click', () => {
+        const promptText = userPrompt.value;
+        const targets = Array.from(npcSelect.selectedOptions).map(opt => opt.value.replace(' (Party)', ''));
+        if (!promptText) {
+            alert("Please enter a prompt.");
+            return;
+        }
+        if (targets.length === 0) {
+            alert("Please select at least one target NPC from the list for your custom prompt.");
+            return;
+        }
+        handleAction('dialogue', promptText, targets);
+        userPrompt.value = '';
+    });
+
     npcCardContainer.addEventListener('click', (e) => {
         if (e.target.matches('.action-btn')) {
             const button = e.target;
-            const type = button.dataset.type; // "dialogue" or "skill_check"
-            const prompt = button.dataset.prompt; // The text on the button
-            const npcName = button.closest('.npc-card').dataset.npcName; // Find the parent card to get the NPC's name
-            handleAction(type, npcName, prompt);
+            const type = button.dataset.type;
+            const prompt = button.dataset.prompt;
+            const npcName = button.closest('.npc-card').dataset.npcName;
+            handleAction(type, prompt, [npcName]);
         }
-    });
-
-    // Handles the custom text prompt submission.
-    generateBtn.addEventListener('click', () => {
-        const promptText = userPrompt.value;
-        const selectedNpcNames = Array.from(npcSelect.selectedOptions).map(opt => opt.value);
-        if (!promptText || selectedNpcNames.length === 0) {
-            alert("Please enter a prompt and select an NPC.");
-            return;
-        }
-        // It sends the action to the first selected NPC.
-        handleAction('dialogue', selectedNpcNames[0], promptText);
-        userPrompt.value = ''; // Clear the input field.
     });
     
-    // Sets the currently selected NPCs as a persistent party.
     setPartyBtn.addEventListener('click', () => {
-        const selectedNpcNames = Array.from(npcSelect.selectedOptions).map(opt => opt.value);
-        // It stores their unique MongoDB IDs in the `partyNpcIds` Set.
+        const selectedNpcNames = Array.from(npcSelect.selectedOptions).map(opt => opt.value.replace(' (Party)', ''));
         partyNpcIds = new Set(npcsData.filter(n => selectedNpcNames.includes(n.name)).map(n => n._id));
         alert('Persistent party set!');
-        updateCurrentNpcs(); // Update the UI to reflect the party status.
+        updateCurrentNpcs();
     });
 
-    // Clears the persistent party.
     clearPartyBtn.addEventListener('click', () => {
         partyNpcIds.clear();
         alert('Persistent party cleared!');
-        updateCurrentNpcs(); // Update the UI.
+        updateCurrentNpcs();
     });
 
     // --- Initial Load ---
-    // This kicks everything off when the page loads.
     fetchInitialData();
 });
