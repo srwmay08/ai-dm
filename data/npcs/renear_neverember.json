@@ -6,6 +6,13 @@
     "race": "Human",
     "alignment": "Chaotic Good",
     "age": "Late 20s",
+    "language": ["Common", "Beholder", "Undercommon"],
+    "behavior": [
+        "Defaults to using its disintegration ray on anything it perceives as a major, immediate threat.",
+        "Frequently interrogates its own minions, seeking validation and rooting out imaginary spies.",
+        "Talks to its goldfish, Sylgar, revealing its plans and insecurities when it believes it's alone.",
+        "Uses its telekinetic ray for simple, mundane tasks, such as moving its fishbowl or fetching an item."
+    ],
     "personality_traits": [
       "Suave and charismatic",
       "Witty and enjoys banter",
@@ -45,6 +52,6 @@
         "Wisdom": ["Animal Handling", "Insight", "Medicine", "Perception", "Survival"],
         "Charisma": ["Deception", "Intimidation", "Performance", "Persuasion"]
     },
-    "lore_id": ["FLOON_RESCUE_01"]
+    "lore_id": ["FLOON_RESCUE_01", "WATERDEEP_HISTORY_COMMON_01"]
   }
 ]

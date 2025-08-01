@@ -1,0 +1,59 @@
+[
+    {
+    "name": "Stone of Golorr",
+    "character_type": "Monster",
+    "description": "An ancient, sentient artifact created by the aboleth Golorr. It appears as a smooth, palm-sized stone of greenish-gray material, but its surface writhes with barely-perceptible psychic energy. It holds the memories of its previous owners and the secrets of Lord Neverember's hidden vault. The Stone is not a creature in the traditional sense, but a malevolent intelligence that can dominate and destroy the minds of those who possess it.",
+    "race": "Aberration (Sentient Object)",
+    "alignment": "Neutral Evil",
+    "age": "Ancient (Predates the founding of Waterdeep)",
+    "language": ["Telepathy"],
+    "personality_traits": [
+      "Patient and calculating, it has waited for centuries.",
+      "Inscrutable and alien; its thought processes are non-human.",
+      "Whispers promises of power and knowledge to its wielder.",
+      "Hoards secrets jealously, only sharing fragments to manipulate others."
+    ],
+    "ideals": [
+      "Knowledge: 'All information is a weapon. I will possess it all.'",
+      "Control: 'Those who hold me are merely my tools. I am the true master.'",
+      "Subjugation: 'Minds are clay, and I am the sculptor.'"
+    ],
+    "bonds": [
+      "Its creator, the aboleth Golorr, to whom it is psychically linked.",
+      "The Vault of Dragons, which it considers its rightful hoard.",
+      "The memories of all its previous owners, which it can access and twist.",
+      "Its three missing eyes, which must be restored for it to function fully."
+    ],
+    "flaws": [
+      "It is blind to the world unless its three eyes are returned to it.",
+      "It cannot act on its own and is dependent on a wielder to move or communicate.",
+      "Its alien intelligence often fails to grasp the nuances of mortal emotion and ambition, leading to miscalculations.",
+      "It has a psychic 'scent' that attracts other powerful entities, like the Xanathar and the Zhentarim."
+    ],
+    "motivation": [
+        "To be reunited with its three missing eyes.",
+        "To have its wielder open the Vault of Dragons.",
+        "To ultimately return to its aboleth master, delivering the secrets and wealth of Waterdeep."
+    ],
+    "behavior": [
+        "Feeds its wielder cryptic clues and visions, often tinged with paranoia.",
+        "Attempts to psychically dominate anyone who holds it for too long (Wisdom saving throw).",
+        "Can erase specific memories from its wielder's mind, making them an unreliable narrator.",
+        "If its wielder is weak-willed, it can compel them to perform actions that serve its long-term goals."
+    ],
+    "dialogue_options": [
+        "(Telepathic Whisper) 'They seek to take me from you. Do not trust them.'",
+        "(Telepathic Whisper) 'Your friends are weak. They will betray you. I am your only true ally.'",
+        "(Telepathic Whisper) 'I can show you things... secrets lost to time. All you must do is listen.'",
+        "(Telepathic Whisper) 'The vault is near. The power within can be yours... ours.'"
+    ],
+    "skill_checks": {
+        "Strength": [],
+        "Dexterity": [],
+        "Intelligence": ["Arcana", "History", "Investigation"],
+        "Wisdom": ["Insight"],
+        "Charisma": ["Deception", "Persuasion"]
+    },
+    "lore_id": ["STONE_OF_GOLORR_01", "VAULT_OF_DRAGONS_01", "EYE_OF_GOLORR_01", "EYE_OF_GOLORR_02", "EYE_OF_GOLORR_03"]
+  }
+]

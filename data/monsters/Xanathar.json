@@ -1,0 +1,59 @@
+[
+    {
+    "name": "Xanathar",
+    "character_type": "Monster",
+    "description": "A paranoid and powerful beholder who operates as one of Waterdeep's most influential crime lords. It rules its vast network, the Xanathar Guild, from a sprawling lair hidden beneath the city. Xanathar is obsessed with its pet goldfish, Sylgar, and its extreme paranoia makes it a dangerously unpredictable foe.",
+    "race": "Beholder",
+    "alignment": "Lawful Evil",
+    "age": "Unknown (Ancient)",
+    "language": ["Common", "Beholder", "Undercommon"],
+    "behavior": [
+        "Defaults to using its disintegration ray on anything it perceives as a major, immediate threat.",
+        "Frequently interrogates its own minions, seeking validation and rooting out imaginary spies.",
+        "Talks to its goldfish, Sylgar, revealing its plans and insecurities when it believes it's alone.",
+        "Uses its telekinetic ray for simple, mundane tasks, such as moving its fishbowl or fetching an item."
+    ],
+    "personality_traits": [
+      "Extremely paranoid, constantly suspecting betrayal.",
+      "Megalomanical and narcissistic; views itself as a supreme intellect.",
+      "Prone to sudden, violent fits of rage over perceived failures.",
+      "Obsessively dotes on its pet fish, Sylgar, treating it with more care than any sentient creature."
+    ],
+    "ideals": [
+      "Power: 'I will control everything in Waterdeep's shadows. Nothing will happen without my knowledge.'",
+      "Perfection: 'My organization is flawless. Any failure is the result of betrayal, not a flaw in my design.'",
+      "Security: 'Trust no one. Eliminate any potential threat before it can act.'"
+    ],
+    "bonds": [
+      "Its pet goldfish, Sylgar, is its most prized possession and only 'friend.'",
+      "The Xanathar Guild, which it views as a direct extension of its own will.",
+      "The Stone of Golorr, which it believes is the key to ultimate power and knowledge.",
+      "Its lair, which is its sanctuary and the center of its power."
+    ],
+    "flaws": [
+      "Its all-consuming paranoia causes it to turn on its own minions, sowing chaos within its own organization.",
+      "Its obsession with its goldfish can be easily exploited by clever enemies.",
+      "It is utterly incapable of admitting personal fault or error, always blaming others.",
+      "Its rage can make it act rashly and without foresight, creating opportunities for its rivals."
+    ],
+    "motivation": [
+        "To find and secure the Stone of Golorr and the treasure of Lord Neverember.",
+        "To utterly destroy its primary rival, the Zhentarim network.",
+        "To expand its spy network until it knows every secret within Waterdeep."
+    ],
+    "dialogue_options": [
+        "Demand to know why they have failed.",
+        "Accuse them of being a Zhentarim spy.",
+        "Ask if they have seen the beautiful, perfect Sylgar.",
+        "Issue a new, contradictory order."
+        ],
+    "skill_checks": {
+        "Strength": ["Athletics"],
+        "Dexterity": ["Acrobatics", "Sleight of Hand", "Stealth"],
+        "Intelligence": ["Arcana", "History", "Investigation", "Nature", "Religion"],
+        "Wisdom": ["Animal Handling", "Insight", "Medicine", "Perception", "Survival"],
+        "Charisma": ["Deception", "Intimidation", "Performance", "Persuasion"]
+    },
+    "lore_id": ["XANATHAR_LAIR_01", "XANATHAR_GUILD_01", "STONE_OF_GOLORR_01"]
+  }
+]

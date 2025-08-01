@@ -191,13 +191,16 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await response.json();
             
             if (data.scene_changes) {
-                appendToGeneratedScene(`<div class="scene-description">${data.scene_changes}</div>`);
+                // By trimming the response, we remove extraneous leading/trailing whitespace (like newlines)
+                // that the AI model might add, which were being rendered due to the 'white-space: pre-wrap' CSS rule.
+                appendToGeneratedScene(`<div class="scene-description">${data.scene_changes.trim()}</div>`);
             }
 
             if (data.dialogue && data.dialogue.length > 0) {
                 data.dialogue.forEach(d => {
                     const speakerInitial = d.speaker.charAt(0).toUpperCase();
-                    appendToGeneratedScene(`<div class="dialogue-line"><span class="speaker-token">${speakerInitial}</span><p><strong>${d.speaker}:</strong> "${d.line}"</p></div>`);
+                    // Trimming the dialogue line as well for robustness.
+                    appendToGeneratedScene(`<div class="dialogue-line"><span class="speaker-token">${speakerInitial}</span><p><strong>${d.speaker}:</strong> "${d.line.trim()}"</p></div>`);
                 });
             }
 

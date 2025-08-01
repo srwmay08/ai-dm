@@ -7,6 +7,7 @@
         "name": "Outside",
         "description": "The crisp air of Waterdeep seems to grow still as you step into Trollskull Alley. The clamor of the main thoroughfares fades, replaced by a peculiar quiet. Before you, the manor stands, undeniably impressive in scale but sagging with the weight of time and neglect. Its once proud facade is now a patchwork of faded paint and peeling plaster. Shattered window panes are like vacant eyes staring out, and the heavy oak front door is scarred and weathered, its polished brass knocker tarnished green with age.",
         "npcs": ["Volothamp Geddarm", "Renaer Neverember"],
+        "monsters": ["Xanathar", "Stone of Golorr"],
         "dialogue": [],
         "traps": [],
         "treasure": []

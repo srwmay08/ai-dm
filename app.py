@@ -3,6 +3,7 @@ import os  # Used to access environment variables.
 import json  # Used for working with JSON data.
 import logging  # Used for logging application events.
 import configparser  # Used to read configuration files.
+import re  # Used for regular expressions.
 from bson import ObjectId  # Used to work with MongoDB's unique IDs.
 from flask import Flask, jsonify, request, render_template  # Core Flask components.
 from flask_cors import CORS  # Handles Cross-Origin Resource Sharing to allow the frontend to communicate with this backend.
@@ -36,6 +37,7 @@ client = MongoClient('mongodb://localhost:27017/')
 db = client['ai_dm_database']
 # Get references to the collections that will store the data.
 npc_collection = db['npcs']
+monster_collection = db['monsters'] # New collection for monsters
 location_collection = db['locations']
 lore_collection = db['lore']
 
@@ -119,11 +121,12 @@ def generate_scene():
 
     try:
         data = request.json
-        # This list now contains ALL npcs present in the scene, sent from the frontend.
-        npc_names = data.get('npc_names', [])
+        character_names = data.get('npc_names', [])
         location_name_from_req = data.get('location_name')
 
-        npcs_in_scene = [serialize_doc(npc) for npc in npc_collection.find({'name': {'$in': npc_names}})]
+        npcs_in_scene = [serialize_doc(npc) for npc in npc_collection.find({'name': {'$in': character_names}})]
+        monsters_in_scene = [serialize_doc(monster) for monster in monster_collection.find({'name': {'$in': character_names}})]
+        all_characters_in_scene = npcs_in_scene + monsters_in_scene
         
         location = serialize_doc(location_collection.find_one({'name': location_name_from_req}))
         if not location:
@@ -131,79 +134,101 @@ def generate_scene():
 
         selected_room = next((r for r in location.get('rooms', []) if r['name'] == data.get('room')), None)
 
-        # --- CONSTRUCT THE AI PROMPT (MODIFIED) ---
-        all_lore_ids = []
-        npc_profiles_list = []
-        for n in npcs_in_scene:
-            details = [f"- **{n['name']}**: {n.get('description', '')}"]
-            if n.get('motivation'): details.append(f"  - **Motivation**: {', '.join(n.get('motivation',[]))}")
-            if n.get('personality_traits'): details.append(f"  - **Personality**: {', '.join(n.get('personality_traits',[]))}")
-            npc_profiles_list.append('\n'.join(details))
-            if n.get('lore_id'): all_lore_ids.extend(n.get('lore_id', []))
-
-        lore_text = "No specific lore known."
-        if all_lore_ids:
-            lore_details = []
-            lore_entries = lore_collection.find({'lore_id': {'$in': all_lore_ids}})
-            for lore in lore_entries:
-                lore_details.append(f"- {lore.get('title', '')}: {lore.get('content', '')}")
-            if lore_details: lore_text = "\n\n".join(lore_details)
+        # --- MODIFIED PROMPT CONSTRUCTION ---
         
-        npc_profiles_text = "\n\n".join(npc_profiles_list)
-        # This string now correctly represents all characters in the scene.
-        npc_names_present = ", ".join([n['name'] for n in npcs_in_scene]) if npcs_in_scene else "None"
+        # 1. PUBLIC KNOWLEDGE (Everyone knows this)
+        public_knowledge_text = f"""
+        - **Location**: {location.get('name', 'Unknown')} - {selected_room.get('name', 'Unknown Room')}
+        - **Room Description**: {selected_room.get('description')}
+        - **Characters Physically Present**: {", ".join([c['name'] for c in all_characters_in_scene])}
+        - **Player's Action**: The player's input is: \"{data.get('user_prompt')}\" targeting {data.get('primary_target', 'everyone')}.
+        """
 
-        # The action description is now simpler and more direct.
-        action_description = f"The player's input is: \"{data.get('user_prompt')}\""
+        # 2. PRIVATE KNOWLEDGE (Character-specific dossiers)
+        private_knowledge_dossiers = []
+        for char in all_characters_in_scene:
+            # Fetch lore SPECIFIC to this character
+            lore_ids = char.get('lore_id', [])
+            character_specific_lore = ""
+            if lore_ids:
+                lore_entries = lore_collection.find({'lore_id': {'$in': lore_ids}})
+                lore_details = [f"- {lore.get('title', '')}: {lore.get('content', '')}" for lore in lore_entries]
+                if lore_details:
+                    character_specific_lore = "\\n\\n".join(lore_details)
 
-        # This is the updated prompt with new rules for the AI.
+            dossier = f"""
+            <Dossier for="{char['name']}">
+            - **Name**: {char['name']}
+            - **Character Type**: {char.get('character_type', 'Character')}
+            - **Profile**: {char.get('description', '')}
+            - **Motivations**: {', '.join(char.get('motivation', []))}
+            - **Personality**: {', '.join(char.get('personality_traits', []))}
+            - **Private Knowledge & Lore**: {character_specific_lore if character_specific_lore else "This character has no special knowledge of the current topic."}
+            </Dossier>
+            """
+            private_knowledge_dossiers.append(dossier)
+
+        private_knowledge_text = "\\n".join(private_knowledge_dossiers)
+
+        # 3. FINAL PROMPT (With strict new rules)
         prompt = f"""
-        You are a Dungeon Master AI. Your task is to generate a narrative response based on the player's action.
+        You are a Dungeon Master AI. Your task is to generate a narrative response.
         Your response MUST be a valid JSON object.
 
-        **CONTEXT:**
-        - Location: {location.get('name', 'Unknown')} - {selected_room.get('name', 'Unknown Room')}
-        - Room Description: {selected_room.get('description')}
-        - CHARACTERS PRESENT: {npc_names_present}
-        - Character Profiles:
-{npc_profiles_text}
-        - Relevant Lore: {lore_text}
+        **CRITICAL RULE**: When generating a response for a character, you may ONLY use information from the 'Public Knowledge' section and that character's specific `<Dossier>`. DO NOT use knowledge from one character's dossier to inform another character's dialogue or actions.
 
-        **PLAYER'S ACTION:** {action_description}
+        ---
+        ## Public Knowledge (Visible to all)
+        {public_knowledge_text}
+        ---
+        ## Private Knowledge Dossiers
+        {private_knowledge_text}
+        ---
 
-        **AI RESPONSE RULES:**
-        1.  **Generate Dialogue for All:** If the player's action addresses one or more characters, create a dialogue response for each of them. The conversation should flow logically.
-        2.  **Generate Reactions:** Other characters who are present but not directly addressed should react realistically to the conversation if appropriate (e.g., with a look, a gesture, or a brief comment).
-        3.  **Update Scene:** Describe any actions the characters take or changes to the environment in the `scene_changes` field.
-        4.  **Suggest Next Steps:** Provide a new set of `dialogue_options` for the player. These options should be for the last NPC who spoke in the `dialogue` array. If no one spoke, provide options for the first NPC in the "CHARACTERS PRESENT" list.
+        ## AI Response Instructions
+        Based on the player's action, generate a response following these rules:
+        1.  **Dialogue**: Any character who would plausibly speak should be included in the `dialogue` array. Their speech must only reflect their own knowledge from their dossier.
+        2.  **Reactions**: Other characters can react non-verbally in the `scene_changes` based on the public knowledge.
+        3.  **New Options**: Provide new `dialogue_options` for the player, focusing on the character most likely to be addressed next.
 
-        **JSON Structure Requirements:**
-        1.  `dialogue`: An array of objects, each with "speaker" and "line". Speakers MUST be from the 'CHARACTERS PRESENT' list.
-        2.  `scene_changes`: A string describing actions and environmental changes.
-        3.  `new_dialogue_options`: An object with "npc_name" and a list of "options".
+        ## JSON Structure
+        - `dialogue`: Array of objects with "speaker" and "line".
+        - `scene_changes`: String describing actions and environmental changes.
+        - `new_dialogue_options`: Object with "npc_name" and a list of "options".
 
         Generate the JSON response now.
         """
 
-        if log_config.getboolean('log_ai_prompt'): logging.info(f"--- PROMPT ---\n{prompt}\n----------")
+        if log_config.getboolean('log_ai_prompt'): logging.info(f"--- PROMPT ---\\n{prompt}\\n----------")
         
         response = ai_model.generate_content(prompt)
-        clean_response = response.text.strip().lstrip('```json').rstrip('```')
+
+        # --- FIX FOR JSONDecodeError ---
+        # This regex removes unescaped control characters like newlines within the JSON strings.
+        clean_response = re.sub(r'[\x00-\x1F\x7F-\x9F]', '', response.text)
+        clean_response = clean_response.strip().lstrip('```json').rstrip('```')
         
-        if log_config.getboolean('log_ai_response'): logging.info(f"--- RESPONSE ---\n{clean_response}\n----------")
+        if log_config.getboolean('log_ai_response'): logging.info(f"--- RESPONSE ---\\n{clean_response}\\n----------")
             
         return jsonify(json.loads(clean_response)), 200
 
     except Exception as e:
         logging.error(f"!!! An error occurred in /generate: {e}", exc_info=True)
         return jsonify({"error": f"An unexpected error occurred: {e}"}), 500
-    
+
 # --- Data Management Routes ---
 # These routes are simple GET endpoints for the frontend to fetch initial data.
 @app.route('/npcs', methods=['GET'])
 def get_npcs():
     """Returns a list of all NPCs in the database."""
     return jsonify([serialize_doc(npc) for npc in npc_collection.find()])
+
+# --- MODIFICATION START ---
+@app.route('/monsters', methods=['GET'])
+def get_monsters():
+    """Returns a list of all monsters in the database."""
+    return jsonify([serialize_doc(monster) for monster in monster_collection.find()])
+# --- MODIFICATION END ---
 
 @app.route('/locations', methods=['GET'])
 def get_locations():
@@ -216,13 +241,14 @@ if __name__ == '__main__':
     
     # Load all the JSON data into the MongoDB database on startup.
     load_json_directory('data/npcs', npc_collection)
+    load_json_directory('data/monsters', monster_collection) # Load monster data
     load_json_directory('data/locations', location_collection)
     load_json_directory('data/lore', lore_collection)
     
     # Configure Flask's auto-reloader to watch for changes in data and template files.
     # This is very useful for development, as the server will restart automatically
     # when you change a file.
-    extra_dirs = ['data/npcs/', 'data/locations/', 'data/lore/', 'templates/', 'static/']
+    extra_dirs = ['data/npcs/', 'data/monsters/', 'data/locations/', 'data/lore/', 'templates/', 'static/']
     extra_files = extra_dirs[:]
     for extra_dir in extra_dirs:
         for dirname, _, filenames in os.walk(extra_dir):

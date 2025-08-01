@@ -125,7 +125,6 @@ button:hover {
 
 /* The main display area for the AI's output */
 #generation-result {
-    white-space: pre-wrap; /* Preserve whitespace and line breaks from the output */
     background-color: #282c34;
     padding: 10px;
     border-radius: 4px;
@@ -285,8 +284,7 @@ button:hover {
     font-weight: bold;
     font-size: 1.1em;
     flex-shrink: 0; /* Prevents the token from shrinking */
-    margin-top: 5px;
-}
+    margin-top: 5px;}
 
 #generation-result > * + * {
     margin-top: 5px;
@@ -300,7 +298,61 @@ button:hover {
     color: #dcdfe4; /* Make player text slightly brighter to stand out */
 }
 
-/* Remove default margins from paragraphs inside our custom divs */
-.player-action p {
+/* Style for custom input from the main prompt box */
+.player-input {
+    border-top: 1px solid #5c6370;
+    border-bottom: 1px solid #5c6370;
+    padding: 10px 0;
+    color: #dcdfe4;
+    font-style: italic;
+    text-align: center;
+}
+.player-input p {
     margin: 0;
+}
+
+/* Container for the combined prompt/response from a card click */
+.character-action {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+/* The "bubble" holding the prompt and dialogue */
+.thought-bubble {
+    background-color: #2c313a; /* A slightly lighter shade than the dialogue box */
+    border-radius: 8px;
+    padding: 10px 12px;
+    flex: 1;
+    border-left: 3px solid #61afef; /* Blue accent to link it to the character token */
+}
+
+/* The prompt text inside the bubble (your action) */
+.prompt-text {
+    margin: 0 0 0px 0;
+    color: #98c379; /* Green to indicate it's a user-initiated prompt */
+    font-size: 0.9em;
+    font-style: italic;
+    border-bottom: 1px solid #4a505c;
+    padding-bottom: 0px;
+}
+
+/* The dialogue text inside the bubble (the AI's response) */
+.dialogue-text {
+    margin: 0;
+}
+
+
+#npc-card-container:empty {
+    display: none;
+}
+
+/* Style for monster cards to give them a red border */
+.monster-card {
+    border: 2px solid #e06c75; /* A distinct red color */
+}
+
+/* Optional: change the monster name color to match */
+.monster-card h3 {
+    color: #e06c75;
 }
