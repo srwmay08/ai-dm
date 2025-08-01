@@ -1,82 +1,87 @@
 /* static/style.css */
+/* Basic body styling to set the overall font and layout */
 body {
-    font-family: sans-serif;
+    font-family: sans-serif; /* A common, readable font */
     margin: 0;
     padding: 0;
-    display: flex;
-    height: 100vh;
-    background-color: #f4f4f4;
-    overflow: hidden;
+    display: flex; /* Use flexbox for the main layout */
+    height: 100vh; /* Make the body fill the entire viewport height */
+    background-color: #f4f4f4; /* A light grey background color */
+    overflow: hidden; /* Prevent scrolling on the body itself */
     font-size: 14px;
 }
 
+/* Styling for the main columns */
 .column {
     height: 100vh;
-    box-sizing: border-box;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
     display: flex;
-    flex-direction: column; 
+    flex-direction: column; /* Stack children vertically */
     padding: 15px;
-    overflow-y: auto; 
+    overflow-y: auto; /* Allow vertical scrolling within columns if content overflows */
 }
 
+/* Left column containing controls */
 #left-column {
-    /* FIX: Set a default pixel width, which JS will override. Removed percentage. */
-    width: 400px; 
-    min-width: 280px; 
-    flex-shrink: 0; /* Prevent this column from shrinking on its own */
-    background-color: #282c34;
-    color: #abb2bf;
+    width: 400px; /* Set a default width */
+    min-width: 280px; /* Prevent the column from becoming too small */
+    flex-shrink: 0; /* Prevent this column from shrinking when the window resizes */
+    background-color: #282c34; /* A dark grey background */
+    color: #abb2bf; /* A light grey text color for contrast */
 }
 
+/* The resizer handle between the columns */
 #resizer {
     width: 10px;
-    background-color: #3b4048;
-    cursor: col-resize;
-    user-select: none;
+    background-color: #3b4048; /* A slightly lighter grey */
+    cursor: col-resize; /* Change the mouse cursor to indicate it's resizable */
+    user-select: none; /* Prevent text selection of the resizer */
     flex-shrink: 0;
     padding: 0;
     border-left: 1px solid #5c6370;
     border-right: 1px solid #5c6370;
 }
 #resizer:hover {
-    background-color: #61afef;
+    background-color: #61afef; /* Highlight the resizer on hover */
 }
 
+/* Right column for displaying generated content */
 #right-column {
-    /* FIX: Use flex: 1 which is a robust way to say "take remaining space" */
-    flex: 1;
+    flex: 1; /* This makes the column take up the remaining available space */
     background-color: #3b4048;
     color: #abb2bf;
-    min-width: 350px; 
+    min-width: 350px; /* Ensure it doesn't get too squished */
 }
 
+/* General styling for container elements */
 .container {
-    background-color: #21252b;
+    background-color: #21252b; /* A very dark grey for containers */
     padding: 10px;
-    border-radius: 8px;
+    border-radius: 8px; /* Rounded corners */
     margin-bottom: 15px;
-    display: flex; 
+    display: flex;
     flex-direction: column;
     flex-shrink: 0;
 }
 
-/* FIX: Allow this specific container to grow and fill vertical space */
+/* Make the main controls container in the left column grow to fill available space */
 #left-column .container:first-of-type {
     flex-grow: 1;
     min-height: 0; /* Allows the container to shrink properly */
 }
 
+/* Ensure the generated scene container can also grow and fill space */
 .container.generated-scene-container {
-    flex-grow: 1; 
+    flex-grow: 1;
     min-height: 150px;
 }
 
 h1, h2, label {
-    flex-shrink: 0; 
+    flex-shrink: 0;
 }
 
 h2 {
-    color: #61afef;
+    color: #61afef; /* A bright blue for headings */
     border-bottom: 1px solid #61afef;
     padding-bottom: 5px;
     margin-top: 0;
@@ -84,28 +89,28 @@ h2 {
     font-size: 1.2em;
 }
 
+/* Styling for input elements */
 textarea, select {
     width: 100%;
     padding: 8px;
     background-color: #282c34;
     color: #abb2bf;
-    border: 1px solid #61afef;
+    border: 1px solid #61afef; /* Blue border to match headings */
     border-radius: 4px;
     margin-bottom: 10px;
     box-sizing: border-box;
-    resize: none; 
+    resize: none; /* Disable resizing on textareas by default */
 }
 
-/* FIX: Ensure the NPC select box doesn't get squished and uses its size attribute */
+/* Ensure the multi-select NPC box has a minimum height */
 #npc-select {
-    /* The size="8" attribute in the HTML will now work correctly */
-    /* because its parent container can grow. */
-    min-height: 120px; /* Optional: ensures a minimum visible area */
+    min-height: 120px;
 }
 
+/* General button styling */
 button {
-    background-color: #61afef;
-    color: #282c34;
+    background-color: #61afef; /* Blue background */
+    color: #282c34; /* Dark text for contrast */
     border: none;
     padding: 8px 12px;
     border-radius: 4px;
@@ -115,39 +120,42 @@ button {
 }
 
 button:hover {
-    background-color: #98c379;
+    background-color: #98c379; /* A green color on hover */
 }
 
+/* The main display area for the AI's output */
 #generation-result {
-    white-space: pre-wrap;
+    white-space: pre-wrap; /* Preserve whitespace and line breaks from the output */
     background-color: #282c34;
     padding: 10px;
     border-radius: 4px;
     margin-top: 8px;
-    overflow-y: auto; 
-    flex-grow: 1; 
-    min-height: 100px; 
-    resize: vertical; 
+    overflow-y: auto; /* Allow scrolling */
+    flex-grow: 1; /* Allow it to grow to fill space */
+    min-height: 100px;
+    resize: vertical; /* Allow the user to resize it vertically */
 }
 
+/* Container for the NPC info cards */
 #npc-card-container {
     margin-top: 10px;
-    display: flex;
+    display: flex; /* Arrange cards in a row */
     flex-direction: row;
-    flex-wrap: nowrap;
-    gap: 10px;
-    overflow-x: auto;
+    flex-wrap: nowrap; /* Prevent cards from wrapping to the next line */
+    gap: 10px; /* Space between cards */
+    overflow-x: auto; /* Allow horizontal scrolling if cards overflow */
     padding-bottom: 10px;
-    flex-shrink: 0; 
+    flex-shrink: 0;
 }
 
+/* Styling for individual NPC cards */
 .npc-card {
     background-color: #21252b;
     border-radius: 8px;
     padding: 12px;
     box-sizing: border-box;
     border: 1px solid #61afef;
-    flex: 0 0 380px; 
+    flex: 0 0 380px; /* Prevent cards from growing or shrinking, with a fixed base width */
     min-width: 350px;
     display: flex;
     flex-direction: column;
@@ -156,7 +164,7 @@ button:hover {
 .npc-card h3 {
     margin: 0 0 8px 0;
     font-size: 1.1em;
-    color: #98c379;
+    color: #98c379; /* Green for NPC names */
 }
 
 .npc-card p {
@@ -166,41 +174,133 @@ button:hover {
     flex-shrink: 0;
 }
 
+/* Container for the action buttons within a card */
 .actions-container {
     display: flex;
     flex-direction: row;
     gap: 15px;
-    margin-top: auto;
+    margin-top: auto; /* Push the actions to the bottom of the card */
 }
 
-.dialogue-column, .skills-column {
+/* Keep the dialogue options in a single vertical column */
+.dialogue-column {
     flex: 1;
     display: flex;
     flex-direction: column;
 }
 
-.actions-container h4 {
-    margin: 0 0 4px 0; 
+
+/* Arrange the skill check buttons into a 2-column grid */
+.skills-column {
+    flex: 1; /* Allows the column to take up available space */
+    display: grid; /* Use CSS Grid for layout */
+    /* Create 2 columns of equal width (1fr means 1 fraction of the available space) */
+    grid-template-columns: repeat(2, 1fr); 
+    /* Set the gap between rows and columns (row-gap column-gap) */
+    gap: 1px 1px; 
+    /* Aligns the grid content to the start, preventing extra space at the bottom */
+    align-content: start;
+}
+
+/* Style for the "Dialogue Options" heading */
+.dialogue-column h4 {
+    margin: 0 0 0px 0; /* Example: 8px bottom margin */
     font-size: 0.9em;
     font-weight: bold;
     color: #abb2bf;
 }
 
+/* Style for the "Skill Checks" heading */
+.skills-column h4 {
+    grid-column: 1 / -1;
+    margin: 0 0 0px 0; /* Example: A smaller 2px bottom margin */
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #abb2bf;
+}
+
+.actions-container h4 {
+    margin: 0 0 0px 0;
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #abb2bf;
+}
+
+/* Smaller buttons for actions on NPC cards */
 .action-btn {
-    padding: 4px 8px; 
-    font-size: 0.85em; 
-    margin-bottom: 3px; 
+    padding: 4px 8px;
+    font-size: 0.85em;
+    margin-bottom: 3px;
     text-align: left;
 }
 
+/* Styling for the party control buttons container */
 .party-controls {
-    display: flex; /* This is the key property to align children in a row */
-    flex-direction: row; /* This is the default, but we'll be explicit */
-    gap: 10px; /* This adds a small space between the two buttons */
+    display: flex;
+    flex-direction: row;
+    gap: 10px; /* Space between the two buttons */
     margin-top: 10px;
 }
 
 .party-controls button {
-    flex: 1; /* This makes each button take up an equal amount of space */
+    flex: 1; /* Make each button take up equal space */
     font-size: 0.9em;
+}
+
+
+/* 1. Style for the indented narrative description box */
+.scene-description {
+    background-color: #21252b; /* Using a dark container color from the theme */
+    border-left: 3px solid #98c379; /* A green accent border */
+    padding: 12px;
+    font-style: italic;
+    color: #abb2bf;
+    border-radius: 0 4px 4px 0; /* Slightly rounded corners on the right side */
+}
+
+/* 2. Style for a single line of dialogue, aligning the token and text */
+.dialogue-line {
+    display: flex;
+    align-items: flex-start; /* Aligns token to the top of the text */
+    gap: 12px; /* Space between token and text */
+}
+
+/* Ensure the paragraph inside the dialogue line has no extra margin */
+.dialogue-line p {
+    margin: 0;
+    padding-top: 4px; /* A little padding to align with the center of the token */
+    flex: 1;
+}
+
+/* 3. Style for the circular speaker token */
+.speaker-token {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%; /* Creates a circle */
+    background-color: #61afef; /* Blue from the theme */
+    color: #282c34;
+    font-weight: bold;
+    font-size: 1.1em;
+    flex-shrink: 0; /* Prevents the token from shrinking */
+    margin-top: 5px;
+}
+
+#generation-result > * + * {
+    margin-top: 5px;
+}
+
+/* Style for the new player action container */
+.player-action {
+    /* Use a border instead of the old <hr> tag for more control */
+    border-top: 1px solid #5c6370; 
+    padding-top: 15px;
+    color: #dcdfe4; /* Make player text slightly brighter to stand out */
+}
+
+/* Remove default margins from paragraphs inside our custom divs */
+.player-action p {
+    margin: 0;
 }
