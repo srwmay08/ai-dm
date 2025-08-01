@@ -217,14 +217,21 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // --- Main Action Handler ---
     const handleAction = async (type, npcName, promptText) => {
-        /**
-         * This is the core function for interacting with the AI.
-         * It sends the user's action (dialogue or skill check) to the backend's /generate endpoint.
-         */
         const locationName = locationSelect.value;
-        
-        // Display the player's action in the scene immediately for a responsive feel.
-        let playerActionHtml = `<div class="player-action"><p><strong>Player ➔ ${npcName}:</strong> ${promptText}</p></div>`;
+        const roomName = roomSelect.value;
+
+        // --- MODIFICATION START ---
+        // This block now checks the action type and generates a different message for skill checks.
+        let playerActionHtml = '';
+        if (type === 'skill_check') {
+            // Construct the descriptive message for a skill check.
+            playerActionHtml = `<div class="player-action"><p><strong>The party has asked ${npcName} to make a ${promptText.toUpperCase()} skill check in ${locationName} - ${roomName}:</strong></p></div>`;
+        } else {
+            // Use the original format for dialogue.
+            playerActionHtml = `<div class="player-action"><p><strong>Player ➔ ${npcName}:</strong> ${promptText}</p></div>`;
+        }
+        // --- MODIFICATION END ---
+
         appendToGeneratedScene(playerActionHtml);
 
         try {
@@ -232,50 +239,41 @@ document.addEventListener('DOMContentLoaded', () => {
             const response = await fetch(`${apiBaseUrl}/generate`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                // The body contains all the context the backend needs to build the AI prompt.
                 body: JSON.stringify({
                     location_name: locationName,
-                    room: roomSelect.value,
+                    room: roomName,
                     npc_names: [npcName],
                     user_prompt: promptText,
                     prompt_type: type
                 })
             });
 
-            // Handle potential errors from the server.
             if (!response.ok) {
-                 const err = await response.json();
-                 throw new Error(err.error || 'Server error');
+                const err = await response.json();
+                throw new Error(err.error || 'Server error');
             }
-                       // Parse the JSON response from the AI.
+
             const data = await response.json();
             
-            // --- MODIFICATION START ---
-
-            // If there are scene changes, wrap them in a styled description box.
             if (data.scene_changes) {
-                 const sceneChangeHtml = `<div class="scene-description">${data.scene_changes}</div>`;
-                 appendToGeneratedScene(sceneChangeHtml);
+                const sceneChangeHtml = `<div class="scene-description">${data.scene_changes}</div>`;
+                appendToGeneratedScene(sceneChangeHtml);
             }
 
-            // If there is dialogue, format it with a speaker token.
             if (data.dialogue && data.dialogue.length > 0) {
                 data.dialogue.forEach(d => {
-                    // Get the first letter of the speaker's name for the token.
                     const speakerInitial = d.speaker.charAt(0).toUpperCase();
-                    // Create a new HTML structure for the dialogue line.
                     const dialogueHtml = `<div class="dialogue-line"><span class="speaker-token">${speakerInitial}</span><p><strong>${d.speaker}:</strong> "${d.line}"</p></div>`;
                     appendToGeneratedScene(dialogueHtml);
                 });
             }
 
-            // If the AI generated new dialogue options, update the NPC's data and re-render the cards.
             if(data.new_dialogue_options) {
                 const { npc_name, options } = data.new_dialogue_options;
                 const npcToUpdate = npcsData.find(n => n.name === npc_name);
                 if (npcToUpdate) {
                     npcToUpdate.dialogue_options = options;
-                    updateCurrentNpcs(); // This will redraw the cards with the new buttons.
+                    updateCurrentNpcs();
                 }
             }
 
