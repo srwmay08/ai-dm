@@ -1,0 +1,50 @@
+[
+    {
+    "name": "Renaer Neverember",
+    "character_type": "NPC",
+    "description": "A charismatic and fashionable human noble, often seen in the company of his friend Floon. He is the estranged son of Dagult Neverember, the former Open Lord of Waterdeep. He carries a rapier with a silver-and-red-leather hilt. Beneath his foppish exterior lies a brave and cunning agent of the Harpers.",
+    "race": "Human",
+    "alignment": "Chaotic Good",
+    "age": "Late 20s",
+    "personality_traits": [
+      "Suave and charismatic",
+      "Witty and enjoys banter",
+      "Acts frivolous, but is secretly very sharp and observant",
+      "Loyal to his friends and to the city of Waterdeep"
+    ],
+    "ideals": [
+      "Freedom: 'My father's legacy is his own. I will make my own name, and live by my own code.'",
+      "Justice: 'The powerful have a duty to protect the powerless, not exploit them.' (A Harper tenet)",
+      "Friendship: 'I won't abandon my friends, no matter the danger.'"
+    ],
+    "bonds": [
+      "His close friend Floon Blagmaar, for whom he feels responsible.",
+      "His membership in the Harpers, a secret he guards closely.",
+      "His complicated relationship with his father's name and the fortune he inherited.",
+      "The city of Waterdeep, which he works to protect from the shadows."
+    ],
+    "flaws": [
+      "His disdain for his father can sometimes cloud his judgment.",
+      "Can be quick to jump into a fight to defend his honor or a friend.",
+      "He sometimes underestimates the ruthlessness of his enemies."
+    ],
+    "motivation": [
+        "To thwart the Zhentarim and Xanathar Guild's plans within Waterdeep.",
+        "To live a life that is the antithesis of his father's corruption and greed."
+    ],
+    "dialogue_options": [
+        "Introduce yourself and ask about the situation.",
+        "Ask about his father, Dagult Neverember.",
+        "Inquire about the Stone of Golorr.",
+        "Suggest resting before taking further action."
+        ],
+    "skill_checks": {
+        "Strength": ["Athletics"],
+        "Dexterity": ["Acrobatics", "Sleight of Hand", "Stealth"],
+        "Intelligence": ["Arcana", "History", "Investigation", "Nature", "Religion"],
+        "Wisdom": ["Animal Handling", "Insight", "Medicine", "Perception", "Survival"],
+        "Charisma": ["Deception", "Intimidation", "Performance", "Persuasion"]
+    },
+    "lore_id": ["FLOON_RESCUE_01"]
+  }
+]

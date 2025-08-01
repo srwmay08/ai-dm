@@ -1,0 +1,51 @@
+[
+  {
+    "name": "Volothamp Geddarm",
+    "character_type": "NPC",
+    "description": "A flamboyant and famous world traveler, author of 'Volo's Guide to Monsters,' and self-proclaimed expert on all things fantastical. He is often seen in the taprooms of Waterdeep, seeking patrons for his latest endeavor or sharing grandiose tales of his travels.",
+    "race": "Human",
+    "class": "Wizard (though rarely uses magic)",
+    "alignment": "Chaotic Good",
+    "age": "Middle-aged",
+    "personality_traits": [
+      "Flamboyant and theatrical",
+      "Overconfident in his knowledge and abilities",
+      "Name-dropper of famous and powerful people",
+      "Genuinely curious and good-hearted, despite his ego",
+      "Prone to exaggeration"
+    ],
+    "ideals": [
+      "Adventure: 'What is life but a grand adventure? One must seize it with both hands!'",
+      "Fame: 'A story untold is a legacy lost. Volo is here to ensure no great tale fades to dust.'",
+      "Knowledge: 'There is no beast too bizarre, no ruin too remote, that it cannot be documented! For the right price, of course.'"
+    ],
+    "bonds": [
+      "His reputation, which is his most prized possession.",
+      "His friend Floon Blagmaar, whose disappearance is a rare personal crisis.",
+      "His unfinished manuscript for 'Volo's Guide to Spirits and Specters.'"
+    ],
+    "flaws": [
+      "Tends to get others into trouble more often than himself.",
+      "His 'facts' are often embellished to the point of falsehood.",
+      "Utterly clueless about his own safety."
+    ],
+    "motivation": [
+        "To maintain his celebrity status in Waterdeep.",
+        "To gather material for his next best-selling guide."
+    ],
+    "dialogue_options": [
+        "Inquire about the dangers in Waterdeep.",
+        "Question the reward he is offering.",
+        "Suggest taking a long rest before searching.",
+        "Attempt to persuade him to provide more resources."
+    ],
+    "skill_checks": {
+        "Strength": ["Athletics"],
+        "Dexterity": ["Acrobatics", "Sleight of Hand", "Stealth"],
+        "Intelligence": ["Arcana", "History", "Investigation", "Nature", "Religion"],
+        "Wisdom": ["Animal Handling", "Insight", "Medicine", "Perception", "Survival"],
+        "Charisma": ["Deception", "Intimidation", "Performance", "Persuasion"]
+    },
+    "lore_id": ["FLOON_RESCUE_01", "VOLO_BIOGRAPHY_01", "WATERDEEP_HISTORY_COMMON_01"]
+}
+]

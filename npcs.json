@@ -34,12 +34,19 @@
         "To maintain his celebrity status in Waterdeep.",
         "To gather material for his next best-selling guide."
     ],
-    "canned_conversations": {
-        "introduction": "Volothamp Geddarm, chronicler, wizard, and celebrity, at your service. I trust you've noted the violence in our fair city these past tendays. I haven't seen so much blood since my last visit to Baldur's Gate! But now I fear I have misplaced a friend amid this odious malevolence. My friend's name is Floon Blagmaar. He's got more beauty than brains, and I worry he took a bad way home a couple nights ago and was kidnapped-or worse. If you agree to track him down with all due haste, I can offer you ten dragons apiece now, and I can give you each ten times that when you find Floon. May I prevail upon you in my hour of need?",
-        "about_floon": "Floon? A wonderful fellow! A bit of a dandy, I'll admit. We were enjoying a fine evening at the Skewered Dragon, a tavern of perhaps... questionable repute, but the ale is cheap! I left to meet with another associate, and that's the last I saw of him.",
-        "about_the_reward": "Yes, yes, ten gold pieces—dragons, as we call them in the city—for each of you now, for expenses. And one hundred more each upon Floon's safe return! A small price to pay for a friend's life, wouldn't you agree?",
-        "reaction": "Good heavens, a long rest? Do you have any idea what could be happening to my dear Floon right now? Every moment we delay is another moment he's in the clutches of those fiends! I haven't seen such a lack of urgency since I was chased out of a dragon's lair in the Serpent Hills!",
-        "persuasion": "Well... I suppose a weary rescuer is of little use. Very well! But you must promise me you will be ready at the crack of dawn. Volothamp Geddarm's friends do not languish in dungeons for long! This will be a tale for the ages, and its heroes must be properly prepared!"
+    "dialogue_options": [
+        "Ask about his missing friend, Floon.",
+        "Inquire about the dangers in Waterdeep.",
+        "Question the reward he is offering.",
+        "Suggest taking a long rest before searching.",
+        "Attempt to persuade him to provide more resources."
+    ],
+    "skill_checks": {
+        "Strength": ["Athletics"],
+        "Dexterity": ["Acrobatics", "Sleight of Hand", "Stealth"],
+        "Intelligence": ["Arcana", "History", "Investigation", "Nature", "Religion"],
+        "Wisdom": ["Animal Handling", "Insight", "Medicine", "Perception", "Survival"],
+        "Charisma": ["Deception", "Intimidation", "Performance", "Persuasion"]
     }
 },
 {
@@ -76,241 +83,19 @@
         "To thwart the Zhentarim and Xanathar Guild's plans within Waterdeep.",
         "To live a life that is the antithesis of his father's corruption and greed."
     ],
-    "canned_conversations": {
-        "introduction": "'A pleasure to make your acquaintance! Apologies for the... uncivilized circumstances. It seems my father's reputation has a rather long shadow.'",
-        "about_his_father": "'Dagult Neverember. A name that opens many doors and brings much trouble. He and I... do not see eye to eye. He is a man who values gold above all else. I value other things.'",
-        "about_the_stone_of_golorr": "'My father has squandered and hidden away so much wealth. It is said he embezzled a great deal of gold before he was exiled. The Stone of Golorr is supposedly the key to finding it. If he hid it, he did so without my knowledge.'",
-        "reaction": "I understand the need to recover your strength. The Xanathar are not to be trifled with, and rushing in unprepared would be a fatal mistake. However, they are ruthless. The longer they have Floon, the more danger he is in. They mistook him for me, and they will not be pleased when they discover their error.",
-        "justice": "My father's legacy casts a long shadow, and his enemies are now mine. The ones who took us, the Zhentarim, were professionals. The ones who attacked the warehouse, the Xanathar Guild, are far more chaotic and brutal. I heard them mention following yellow signs in the sewers. That will be your path. Be wary; their territory will be trapped and guarded."
-    }
-},
-{
-    "name": "Primara",
-    "description": "A real unicorn who was magically transformed into a 3-foot-tall celestite statue of a rearing unicorn. She can communicate telepathically once she is removed from Blue Alley.",
-    "motivation": "To find someone who can free her from her statue form, promising to repay them with a favor.",
-    "canned_conversations": {
-      "introduction": "(Telepathically) 'Thank you for freeing me from that terrible place! I am Primara. I am, as you may have guessed, not truly a statue.'",
-      "history": "(Telepathically) 'I was transformed by a wicked enchanter many years ago. I was part of a collection owned by a man named Mirt, but someone stole me and left me in that alley.'",
-      "plea": "(Telepathically) 'I beg of you, please find a way to restore my true form! If you do, I will gladly grant you any favor that is within my power.'"
-    }
-  },
-  {
-    "name": "Smoke Mephit",
-    "description": "A small, winged creature made of churning smoke and hot gas. It is annoying and prone to pranks.",
-    "motivation": "To cause mischief and confusion.",
-    "languages": ["Auran", "Ignan"],
-    "behavior": "Communicates in Auran (a breathy whisper) and Ignan (a series of coughs and hisses). It understands Common but cannot speak it. Can be bargained with if offered something interesting."
-  },
-  {
-    "name": "Boggle",
-    "description": "A crew of six small, fey creatures that roam Blue Alley, acting as a 'Clean Up Crew.' They pick up rubbish and are known to snatch items from adventurers, taking their stolen goods to the incinerator. They are alerted to intruders by the enchanted statue of Keilier.",
-    "motivation": "To keep Blue Alley tidy by picking up any debris and incinerating it, and to eject intruders when alerted.",
-    "canned_conversations": {
-      "introduction": "The small fey creature eyes your gear with a greedy look, chattering in the Sylvan language to its companions before making a quick dash to steal something shiny.",
-      "reaction": "If confronted, the boggle attempts to slip away through one of its dimensional rifts, giggling as it vanishes."
-    }
-  },
-  {
-    "name": "Fusilis the Magmin",
-    "description": "One of two Magmins who live in a deep pile of ashes at the bottom of the 40-foot deep incinerator pit. They were summoned there by a 'great wizard' to incinerate anything thrown in.",
-    "motivation": "To burn any living or dead thing that enters the pit, and to collect any metal or gems that survive for their master.",
-    "languages": ["Ignan"],
-    "behavior": "Communicates in Ignan, a crackling language that sounds like popping embers and rushing flames. Does not speak Common.",
-    "canned_conversations": {
-      "introduction": "(Speaking in the Ignan language from the bottom of the fiery pit) 'Who calls down to the furnace? We are the tenders of the flame, summoned by the great wizard.'",
-      "about_their_task": "(In Ignan) 'Our purpose is to burn what is given to the pit. The master visits from time to time to retrieve what does not burn—metal and gems.'"
-    }
-  },
-    {
-    "name": "Magmin",
-    "description": "A small creature of pure magma and fire, standing in a pile of hot ash. It is mischievous and destructive.",
-    "motivation": "To burn things and serve the master who summoned it.",
-    "languages": ["Ignan"],
-    "behavior": "Communicates in Ignan, a crackling language that sounds like popping embers and rushing flames. Does not speak Common."
-  },
-  {
-    "name": "Ceiling Mimic",
-    "description": "A monstrous predator that has taken the form of the entire ceiling in the Ivory Door room. It lies in wait for adventurers to approach the wooden chest below.",
-    "motivation": "To ambush and consume any creature that comes within its reach.",
-    "canned_conversations": {
-      "reaction": "The stony texture of the ceiling ripples and suddenly descends, a gaping maw and pseudopods forming as it attacks."
-    }
-  },
-  {
-    "name": "Phasing Minotaur",
-    "description": "A large, angry minotaur that is magically phased into existence in the illusory pasture when specific conditions are met. It is unsettled by the phasing effect, making it vulnerable. It wears an ivory key on a chain around its neck.",
-    "motivation": "To attack any creature present in the pasture when it is summoned. It fades away if the summoning conditions are broken.",
-    "canned_conversations": {
-      "reaction": "The creature roars in fury and confusion as it materializes, immediately charging the nearest target."
-    }
-  },
-  {
-    "name": "Animated Sword",
-    "description": "An ornately decorated longsword that hovers point-down above a glittering gem on a dais. It is enchanted to defend the gem.",
-    "motivation": "To attack the first person who touches the gem on the dais.",
-    "canned_conversations": {
-      "reaction": "The sword springs to life, its blade ringing as it flies through the air to strike its designated target."
-    }
-  },
-  {
-    "name": "Will-o'-Wisp",
-    "description": "A malevolent entity of faint light that was contained within a small wooden box, its electrical powers dampened by magic runes. Once the box is moved, it is freed and becomes hostile.",
-    "motivation": "To feed on the life force of any creature it encounters after being freed from its prison.",
-    "canned_conversations": {
-      "reaction": "A ball of faint light bursts from the box, its form crackling with electricity as it silently lunges to attack."
-    }
-  },
-  {
-    "name": "Guardian Skeletons",
-    "description": "Six skeletons hidden behind a secret door in the 'Bear Traps and Bones' room. They emerge to attack anyone who triggers a bear trap. One wears a Sentinel Shield.",
-    "motivation": "To mindlessly attack any intruders who trigger the trap in their assigned guard area.",
-    "canned_conversations": {
-      "reaction": "The clatter of bones echoes as the skeletons emerge from the darkness, their empty eye sockets fixed on the intruders."
-    }
-  },
-  {
-    "name": "Altar Shadow",
-    "description": "A creature of living darkness that squeezes out of an empty eye socket of the skull altar if a gemstone is pried loose.",
-    "motivation": "To drain the strength from any living creature that desecrates the altar it is bound to.",
-    "canned_conversations": {
-      "reaction": "A shadow detaches from the wall, flowing out of the altar with unnatural speed as it attacks."
-    }
-  },
-  {
-    "name": "Mural Specter",
-    "description": "The spectral forms of two mages that step out of a mural in the 'Twisty & Narrow' room if an adventurer resists the mural's fear effect. One wears a Ring of Mind Shielding.",
-    "motivation": "To punish those who are strong-willed enough to resist the magical fear of the mural.",
-    "canned_conversations": {
-      "reaction": "The painted image of a mage shimmers and becomes three-dimensional, a spectral figure filled with cold hatred that glides out to attack."
-    }
-  },
-  {
-    "name": "Lif",
-    "character_type": "Poltergeist (Specter)",
-    "description": "The spectral presence of the hopeful half-elf who owned and operated the tavern some 40 years ago. Lif poured his life savings and boundless optimism into the establishment before being tragically killed in an accident involving collapsing ale casks. Now a poltergeist, his spirit is bound to the building, unable to move on until the tavern is restored to its former glory. He cannot speak, but communicates through writing in the dust and manipulating objects.",
-    "race": "Half-elf (Spirit)",
-    "alignment": "True Neutral",
-    "languages": ["Common", "Elvish"],
-    "behavior": "Communicates in short written script, on dusty surfaces around the bar area. Or through telekenetically moving objects or smashing things.",
-    "motivation": [
-        "To see Trollskull Manor restored and reopened as a thriving, respectable tavern.",
-        "To find worthy successors who will care for the establishment with the same love and dedication he did.",
-        "To finally be at peace, which he believes can only happen once the sounds of laughter and clinking tankards return to the taproom."
+    "dialogue_options": [
+        "Introduce yourself and ask about the situation.",
+        "Ask about his father, Dagult Neverember.",
+        "Inquire about the Stone of Golorr.",
+        "Suggest resting before taking further action.",
+        "Ask for guidance on where to find Floon."
     ],
-    "canned_conversations": {
-        "introduction": "(When the party first enters the taproom) A chill fills the air. A loose bottle rattles behind the bar before falling and smashing on the floor. If ignored, the words 'LAST CALL!' are traced in the thick dust on a nearby table.",
-        "inattention_to_tavern": "(If the party uses the manor but makes no effort to clean the taproom for a few days) The sound of phantom footsteps echoes from the upper floors. A character's boot might go missing, only to reappear in the middle of the taproom floor. Later, the words 'NEEDS WORK' will be scrawled across a grimy window.",
-        "first_sign_of_renovation": "(The first time a character makes a genuine effort to clean or repair something in the taproom) The mischievous activity ceases. A dusty hammer slides out from under a pile of debris, stopping near the character's feet. If they use it, a faint, contented sigh seems to echo through the room. Later, the simple words 'THANK YOU' appear in the dust on the bar.",
-        "major_renovation_effort": "(When the party hires guilds or begins major repairs) Lif becomes actively helpful. Piles of sawdust are swept into a neat pile overnight. Misplaced tools are gathered and left on a workbench. On the wall of the cellar, a message appears: 'THE BEAMS... WATCH THE BEAMS. DON'T END UP LIKE ME.' This directs them to the site of his death, urging them to make it safe.",
-        "discussion_of_alternative_use": "(If the party discusses turning the building into something other than a tavern) The temperature in the room drops noticeably. A dish flies from a shelf and shatters against the wall near the speaker. The words 'IT IS A TAVERN' are forcefully carved into the surface of the bar itself.",
-        "hostility_or_disrespect": "(If the party is actively hostile, damages the property disrespectfully, or tries to exorcise him without attempting to appease him) Objects will be forcefully shoved off shelves in their direction, and doors will slam shut, separating them. The message 'GET OUT' will appear on every dusty surface in the building."
+    "skill_checks": {
+        "Strength": ["Athletics"],
+        "Dexterity": ["Acrobatics", "Sleight of Hand", "Stealth"],
+        "Intelligence": ["Arcana", "History", "Investigation", "Nature", "Religion"],
+        "Wisdom": ["Animal Handling", "Insight", "Medicine", "Perception", "Survival"],
+        "Charisma": ["Deception", "Intimidation", "Performance", "Persuasion"]
     }
-  },
-  {
-    "name": "Talisolvanar 'Tally' Fellbranch",
-    "description": "A male half-elf carpenter, woodcarver, and owner of The Bent Nail. His wife has passed away and his only child moved to Silverymoon, so his focus is purely on furniture.",
-    "race": "Half-elf",
-    "alignment": "Chaotic Good"
-  },
-  {
-    "name": "Embric",
-    "description": "A fire genasi weaponsmith and co-owner of Steam and Steel. He claims descent from the efreet of Calimshan and is prone to extreme mood swings.",
-    "race": "Fire Genasi",
-    "alignment": "Neutral Good"
-  },
-  {
-    "name": "Avi",
-    "description": "A water genasi armorsmith and co-owner of Steam and Steel. He worships Eldath, god of peace, and uses his magic to quench hot steel. He is laid back and speaks plainly.",
-    "race": "Water Genasi",
-    "alignment": "Neutral Good"
-  },
-  {
-    "name": "Fala Lefaliir",
-    "description": "A wood elf herbalist of non-binary gender who runs Corellon's Crown. Fala is friends with Ziraj, a Zhentarim agent who saved their life.",
-    "race": "Wood Elf",
-    "alignment": "Chaotic Good"
-  },
-  {
-    "name": "Vincent Trench",
-    "description": "The owner of the Tiger's Eye detective agency. He appears as a human detective who speaks concisely, dresses in a sharp suit, and smokes a slim pipe. He is in fact a rakshasa named Valantajar who uses 'disguise self' to hide his true nature.",
-    "race": "Tiger Tabaxi",
-    "location": "Tiger's Eye"
-  },
-  {
-    "name": "Rishaal the Page-Turner",
-    "character_type": "NPC",
-    "description": "A short dragonborn of gold dragon ancestry who manages the Book Wyrm's Treasure, a bookstore that seems to magically contain more shelves than its physical dimensions should allow. The shop is filled with beautiful hardwood and the earthy scent of old books. Rishaal lives on the third floor and is a member of the Watchful Order of Magists and Protectors.",
-    "race": "Dragonborn (Gold)",
-    "alignment": "Neutral",
-    "languages": ["Common", "Draconic"],
-    "behavior": "Rishaal is most often found behind his counter, completely absorbed in a book with spectacles perched on the end of his snout. He is not one for idle pleasantries and can seem aloof, often taking a moment to register a customer's presence before looking up from his reading. He speaks in a low, measured tone and handles his books with the reverence a priest would give a holy relic. His professional demeanor shifts to one of keen interest if a customer presents a rare text or a particularly intriguing historical or arcane question. He can sometimes be seen in quiet conversation with his neighbor Baltasar, speaking in the deep, rumbling tones of the Draconic language.",
-    "lore_connections": [
-        "LIF_RISHAAL_CONNECTION_01"
-    ],
-    "motivation": [
-        "To acquire rare and unique books, scrolls, and maps to expand his collection[cite: 542].",
-        "To maintain his shop as the foremost repository of arcane and mundane knowledge in the North Ward.",
-        "To defend his business and good name from those who would slander him or ruin his reputation [cite: 538-539]."
-    ],
-    "canned_conversations": {
-        "introduction": "'Welcome to the Book Wyrm's Treasure. Tread carefully, the silence in here is older than the city's walls. Are you seeking a particular piece of knowledge, or just Browse the centuries?'",
-        "about_trollskull_manor": "'Ah, the old manor. It has seen... much. Before you, there was Volo, and before him the Curlbottoms, and the Morleys... but the one who loved it most was the half-elf, Lif. A kind man. It was a tragedy, what happened to him. The place deserves better. It deserves to live again.'",
-        "about_services": "'I have books of all sorts. For those with the talent, certain spells may be copied from my collection... for the standard fee, of course. Scribing a scroll requires more time and resources, so the cost is naturally double.'",
-        "adventure_hook_forgery": "'Bah! I've been had. This collection I acquired from a recent estate sale... fakes! Every last one[cite: 535]! The paper is too new, the ink lacks the proper elemental signature. I need someone with a keen eye and a discreet nature to help me track down the forger who sold them to me[cite: 536].'",
-        "adventure_hook_propaganda": "'Unbelievable! A noble house—I won't say which one yet—accuses me of distributing seditious materials against the Lord's Alliance[cite: 538]! My reputation is all I have. They threaten to ruin my business. I need assistance to prove my innocence... or, perhaps, to ensure any... questionable materials... are properly accounted for before an official investigation begins [cite: 539-540].'",
-        "adventure_hook_map": "'I have come into possession of this. (He unrolls an old, cryptic map). It purports to lead to a lost collection of writings—perhaps even a spellbook of some power. It is beyond my ability to retrieve it myself, as it seems to lie in a place of considerable danger, like the Dungeon of the Mad Mage[cite: 542]. If you were to recover these items, I would ensure you were handsomely compensated.'"
-    }
-},
-  {
-    "name": "Wembly",
-    "description": "A half-orc bodyguard and doorman at Havershamble's Jewelry. He is beloved and loyal to the Havershamble family, willing to fight to the death to defend them[cite: 78, 95].",
-    "race": "Half-orc",
-    "alignment": "Neutral"
-  },
-  {
-    "name": "Murgo Bumblestout",
-    "description": "A middle-aged Lightfoot Halfling, owner of Trollskull Tailor. He is known for his fine workmanship, discretion, and is secretly a member of the Harpers and an Arcane Trickster (Rogue)[cite: 109, 111, 114, 842].",
-    "race": "Halfling (Lightfoot)",
-    "alignment": "Neutral Good"
-  },
-  {
-    "name": "Erwin Barksdale",
-    "description": "A drunkard and layabout who lives in a shabby townhome with his two sons. He is a distant cousin of House Phylund and has been contracted by a faction (Zhentarim or Xanathar) to spy on the adventurers[cite: 130, 131, 137].",
-    "race": "Human (Tashlan)"
-  },
-  {
-    "name": "Artis Appleton",
-    "description": "A jovial giant of a man with a slight limp who runs Appleton's Fine Comestibles. He is a widower and the proud father of six boys. He has questionable ties from his youth at sea[cite: 191, 192, 196, 198].",
-    "race": "Human"
-  },
-  {
-    "name": "Tina Toffel",
-    "description": "A human female candy maker, around 50 years old, who co-operates Stickee and Sweet. She is a retired Paladin of Torm and a high-ranking member of the Order of the Gauntlet[cite: 968, 970, 975].",
-    "race": "Human",
-    "alignment": "Lawful Good"
-  },
-  {
-    "name": "Baltasar Englehart",
-    "description": "An extremely elderly Tethyrian human and retired mage who now teaches at Murkledorn's Academy. He is friendly with Harshnag the Frost Giant and can be a powerful ally[cite: 523, 775, 529].",
-    "race": "Human (Tethyrian)",
-    "alignment": "Neutral Good"
-  },
-  {
-    "name": "Mistofer Carlowe (aka Madame ZanZinni)",
-    "description": "Owner of Teatro ZanZinni, a playwright, and a drag queen who performs as Madame ZanZinni. His bardic skills are channeled through his operatic voice[cite: 558, 559, 804].",
-    "race": "Human",
-    "alignment": "Chaotic Good"
-  },
-  {
-    "name": "Aaliyah",
-    "description": "Co-proprietor of Mezro. She appears as a dark-haired, dark-skinned exotic beauty from Chult. She is secretly a Yuan-Ti Pureblood determined to wield influence in Waterdeep by poisoning nobles[cite: 623, 626, 729, 730].",
-    "race": "Yuan-Ti Pureblood",
-    "alignment": "Neutral Evil"
-  },
-  {
-    "name": "Rolling Stone",
-    "description": "An aging male tabaxi bard with soft grey fur and bright green mischievous eyes. He runs the 'Rolling Stone' musical instrument shop with a laid-back style[cite: 667, 934].",
-    "race": "Tabaxi",
-    "alignment": "Chaotic Good"
   }
 ]

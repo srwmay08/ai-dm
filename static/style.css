@@ -101,8 +101,14 @@ button:hover {
     background-color: #98c379;
 }
 
-/* MODIFICATION: Added #description-result li for consistent font size */
-#description-result p, #generation-result p, #description-result li {
+.action-btn {
+    margin-bottom: 4px;
+    font-size: 0.9em;
+    text-align: left;
+}
+
+
+#generation-result p, #description-result p, #description-result li {
     font-size: 0.9em; /* Reduced font size for main text areas */
     line-height: 1.5;
     margin-top: 0;
@@ -115,31 +121,9 @@ button:hover {
     padding: 10px; /* Reduced padding */
     border-radius: 4px;
     margin-top: 8px; /* Reduced margin */
+    min-height: 100px;
 }
 
-/* --- NEW: Description Area Layout --- */
-.description-layout-container {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 15px; /* Space between the narrative and the card column */
-}
-
-.description-narrative {
-    flex: 2; /* Takes up more space */
-    min-width: 0;
-}
-
-.description-cards-column {
-    flex: 1; /* Takes up less space */
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    min-width: 220px; /* Prevent it from getting too squished */
-}
-
-
-/* --- Card Styles --- */
 #npc-card-container {
     margin-top: 10px;
     display: flex;
@@ -150,74 +134,51 @@ button:hover {
     padding-bottom: 10px;
 }
 
-.npc-card, .location-card {
-    background-color: #282c34;
-    border-radius: 8px;
-    padding: 8px;
-    box-sizing: border-box;
-    width: 100%; /* Makes cards fill their column */
-}
-
 .npc-card {
+    background-color: #21252b;
+    border-radius: 8px;
+    padding: 12px;
+    box-sizing: border-box;
     border: 1px solid #61afef;
-    flex: 0 1 240px; /* Allow NPC cards to shrink/have a basis */
-    min-width: 200px;
+    flex: 0 0 450px; /* Give cards a fixed base width */
+    min-width: 400px;
+    display: flex;
+    flex-direction: column;
 }
 
-.location-card {
-    border: 1px solid #98c379; /* Green border for location features */
+.npc-card h3 {
+    margin: 0 0 8px 0;
+    font-size: 1.1em;
+    color: #98c379;
 }
 
-.npc-card h3, .location-card h3 {
-    margin: 0 0 5px 0;
-    font-size: 1em;
+.npc-card p {
+    font-size: 0.85em;
+    margin: 0 0 10px 0;
+    line-height: 1.4;
 }
 
-.npc-card h3 { color: #98c379; }
-.location-card h3 { color: #98c379; }
+/* --- NEW: Card Action Layout --- */
+.actions-container {
+    display: flex;
+    flex-direction: row;
+    gap: 15px; /* Space between the two columns */
+    margin-top: auto; /* Pushes the actions to the bottom of the card */
+}
 
-.npc-card h4 {
+.dialogue-column, .skills-column {
+    flex: 1; /* Each column takes up half the space */
+    display: flex;
+    flex-direction: column;
+}
+
+.actions-container h4 {
     margin: 8px 0 4px 0;
-    font-size: 0.8em;
-    font-weight: normal;
+    font-size: 0.9em;
+    font-weight: bold;
     color: #abb2bf;
 }
-
-.npc-card p, .location-card p {
-    font-size: 0.8em;
-    margin: 0 0 5px 0;
-    line-height: 1.4;
-}
-
-.location-card ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-}
-
-/* Make location card list items consistent */
-.location-card li {
-    margin: 0;
-    padding: 0;
-    font-size: 0.85em;
-    line-height: 1.4;
-}
-
-.canned-conversation-prompt {
-    display: block;
-    color: #61afef;
-    text-decoration: underline;
-    cursor: pointer;
-    margin-bottom: 4px;
-    font-size: 0.8em;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.canned-conversation-prompt:hover {
-    color: #c678dd;
-}
+/* ----------------------------- */
 
 .party-controls {
     display: flex;
