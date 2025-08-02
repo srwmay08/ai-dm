@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetName = primaryTargets[0] || 'an NPC';
             playerActionHtml = `<div class="player-action"><p><strong>The party has asked ${targetName} to make a ${promptText.toUpperCase()} skill check in ${locationName} - ${roomName}:</strong></p></div>`;
         } else {
-            playerActionHtml = `<div class="player-action"><p><strong>Player:</strong> ${promptText}</p></div>`;
+            playerActionHtml = `<div class="player-action"><p><strong>DM to NPCs:</strong> ${promptText}</p></div>`;
         }
         appendToGeneratedScene(playerActionHtml);
 

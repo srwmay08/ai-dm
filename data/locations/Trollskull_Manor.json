@@ -1,6 +1,7 @@
 [
   {
     "name": "Trollskull Manor",
+      "game": "Waterdeep",
     "description": "A grand but neglected four-story manor house with balconies, a turret, and five chimneys. It is haunted by the poltergeist of its former barkeeper, Lif. The layout has been altered from the book's original rendering to be more architecturally sound[cite: 31]. An alternative cellar map includes a secret meeting room and an exit to the tunnels of Waterdeep",
     "rooms": [
       {
